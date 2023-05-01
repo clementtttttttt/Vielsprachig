@@ -10,6 +10,7 @@
 #include "embf.h"
 #include <archive.h>
 #include <archive_entry.h>
+#include <sstream>
 
 #include "lexicon.h"
 #include "runner_callbacks.h"
@@ -34,6 +35,8 @@ ImFont *imconfont = 0;
 
 int hasconfont = 0;
 
+struct stat old_xml_stat;
+
 
 void handle_upload_file(std::string const &filename,  // the filename of the file the user selected
     std::string const &mime_type, // the MIME type of the file the user selected, for example "image/png"
@@ -42,6 +45,7 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
   ){
     struct archive *arr = archive_read_new();
     archive_read_support_format_zip(arr);
+
     int r =archive_read_open_memory(arr, buffer.data(), buffer.size());
     if (r != ARCHIVE_OK){
         popup=1;
@@ -72,6 +76,8 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
             dict.load_string(tmpstr);
 
             delete [] tmpstr;
+
+            memcpy(&old_xml_stat, archive_entry_stat(fileentry), sizeof(struct stat));
 
 
 
@@ -116,6 +122,49 @@ void maingui(){
 
             if (ImGui::MenuItem("Open", "Ctrl+O")) {
                   emscripten_browser_file::upload(".pgd", handle_upload_file);
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                    std::stringstream ss;
+
+                    dict.save(ss, PUGIXML_TEXT(""), pugi::format_raw);
+
+                    struct archive *arr = archive_write_new();
+                    archive_write_set_format_zip(arr);
+                    archive_write_set_options(arr, "zip:compression=deflate");
+
+
+
+                    std::vector <char> buffer(1000);
+                    size_t used;
+
+
+                    buffer.resize(ss.str().length() + 10000 + buffer.size());
+
+                    int r =archive_write_open_memory(arr, buffer.data(), buffer.size(), &used);
+
+                    archive_entry *fileentry = archive_entry_new();
+
+
+                    archive_entry_set_pathname(fileentry, "PGDictionary.xml");
+                    archive_entry_copy_stat(fileentry, &old_xml_stat);
+                    archive_entry_set_size(fileentry, (ss.str().length()));
+
+
+                    archive_write_header(arr, fileentry);
+
+
+                    archive_write_data(arr, ss.str().c_str(), strlen(ss.str().c_str())+1);
+
+
+                    archive_entry_free(fileentry);
+
+                archive_write_close(arr);
+                archive_write_free(arr); // Note 5
+
+                std::string_view sv(reinterpret_cast<char*>(buffer.data()), used);
+                emscripten_browser_file::download("lang", "application/pgd", sv);
+
+
             }
             ImGui::EndMenu();
         }
@@ -181,6 +230,7 @@ void pre_new_frame(){
 
         if(confont !=0 && imconfont == 0 && hasconfont){
                         ImGuiIO &io = ImGui::GetIO();
+                        ImGui::MemFree(imconfont);
 
                                 io.Fonts->Clear();
             load_noto_sans();
@@ -198,11 +248,6 @@ void pre_new_frame(){
 
 int main(int , char *[])
 {
-
-
-
-
-
     auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui, .callbacks.PreNewFrame = pre_new_frame,  .appWindowParams.windowTitle = "Vielsprachig", //.appWindowParams.windowGeometry.sizeAuto = true,
     .appWindowParams.windowGeometry.size = {300,200},  };
 

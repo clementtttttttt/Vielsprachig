@@ -20,6 +20,20 @@ std::string current_word_id;
 
 extern char *confont;
 
+std::string find_new_id(){
+    pugi::xml_node words = dict.child("dictionary").child("lexicon");
+
+    int maxid = 0;
+
+    for(auto it = words.first_child(); it; it = it.next_sibling()){
+        int comp = std::atoi(it.child("wordId").first_child().value());
+        if(comp > maxid){
+            maxid = comp;
+        }
+    }
+    return std::to_string(++maxid);
+}
+
 
 pugi::xml_node find_word_from_conword_id(std::string str){
     pugi::xml_node words = dict.child("dictionary").child("lexicon");
@@ -113,6 +127,26 @@ void fix_lexicon_word_prop(){
     update_lexicon_word_prop(lexlist[0]);
 }
 
+std::string create_entry(){
+    pugi::xml_node word =  dict.child("dictionary").child("lexicon").append_child("word");
+    word.append_child("wordId").text().set(find_new_id().c_str());
+    word.append_child("localWord").text().set("");
+    word.append_child("conWord").text().set("");
+    word.append_child("wordPosId").text().set("");
+    word.append_child("pronunciation").text().set("");
+    word.append_child("definition").text().set("");
+    word.append_child("wordProcOverride").text().set("");
+    word.append_child("autoDeclOverride").text().set("");
+    word.append_child("wordRuleOverride").text().set("");
+    word.append_child("wordClassCollection").text().set("");
+    word.append_child("wordClassTextValueCollection").text().set("");
+    word.append_child("wordEtymologyNotes").text().set("");
+
+
+
+    return word.child("wordId").text().as_string();
+}
+
 
 extern ImFont *imconfont;
 
@@ -131,12 +165,12 @@ void draw_lexicon_page(){
     if(imconfont != 0)
         ImGui::PushFont(imconfont);
 
-    ImGui::BeginListBox(" ", ImVec2(200*ratio.x,600*ratio.y));
+    ImGui::BeginListBox(" ", ImVec2(400*ratio.x,620*ratio.y));
 
     static bool selected = false;
 
     for(auto i = lexlist.begin();i!=lexlist.end();++i){
-        ImGui::Selectable(find_word_from_conword_id(*i).child("conWord").first_child().value(), &selected);
+        ImGui::Selectable((std::string(find_word_from_conword_id(*i).child("conWord").first_child().value()) + " ").c_str(), &selected);
         if(selected){
             update_lexicon_word_prop(*i);
 
@@ -147,9 +181,7 @@ void draw_lexicon_page(){
     }
     ImGui::EndListBox();
 
-
-
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+404*ratio.x, 22));
+    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22));
     ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Conword",&coninput, ImGuiInputTextFlags_CallbackEdit, contextin_callback)){
@@ -160,7 +192,19 @@ void draw_lexicon_page(){
         ImGui::PopFont();
 
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+404*ratio.x, 22 + 30*ratio.y));
+    ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22 + 620*ratio.y));
+
+    if(ImGui::Button("New word", ImVec2(ratio.x * 133,40*ratio.y))){;
+
+        std::string id = create_entry();
+
+        current_word_id = id;
+
+        update_lexicon_page();
+        update_lexicon_word_prop(id);
+    }
+
+    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 30*ratio.y));
     ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Natword",&natinput, ImGuiInputTextFlags_CallbackEdit, nattextin_callback)){
@@ -168,7 +212,7 @@ void draw_lexicon_page(){
 
     }
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+404*ratio.x, 22 + 60*ratio.y));
+    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60*ratio.y));
     ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Pronunciation",&proinput, ImGuiInputTextFlags_CallbackEdit, protextin_callback)){
@@ -178,7 +222,7 @@ void draw_lexicon_page(){
 
     pos = ImGui::GetCursorScreenPos();
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+404*ratio.x, pos.y + 30* ratio.y));
+    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, pos.y + 30* ratio.y));
     ImGui::PushItemWidth(ratio.x * 400);
 
 

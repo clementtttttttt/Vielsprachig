@@ -1279,10 +1279,13 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/sys/types.h \
   /home/clement/.emscripten_cache/sysroot/include/endian.h \
   /home/clement/.emscripten_cache/sysroot/include/sys/select.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream \
   /home/clement/Desktop/vielsprachig/lexicon.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_callbacks.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_params.h
 
+
+/home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream:
 
 /home/clement/.emscripten_cache/sysroot/include/bits/posix.h:
 

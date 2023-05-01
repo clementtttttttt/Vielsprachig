@@ -50,6 +50,7 @@ EM_JS_INLINE(void, upload, (char const *accept_types, upload_handler callback, v
 
   var file_selector = document.createElement('input');
   file_selector.setAttribute('type', 'file');
+  document.body.appendChild(file_selector);
   file_selector.setAttribute('onchange', 'globalThis["open_file"](event)');
   file_selector.setAttribute('accept', UTF8ToString(accept_types));
   file_selector.click();
