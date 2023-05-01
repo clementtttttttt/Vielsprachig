@@ -1,0 +1,34 @@
+_deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/browse_to_url.cpp.o: \
+  /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/immapp/immapp/browse_to_url.cpp \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/emscripten.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/em_asm.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/em_macros.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/em_types.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/em_js.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/promise.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__config \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__config_site \
+  /home/clement/.emscripten_cache/sysroot/include/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/features.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/alltypes.h \
+  /home/clement/.emscripten_cache/sysroot/include/alloca.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/wget.h \
+  /home/clement/.emscripten_cache/sysroot/include/emscripten/version.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdlib \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__assert \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__verbose_abort \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__availability \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdio \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdio.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdio.h \
+  /home/clement/.emscripten_cache/sysroot/include/wasi/api.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stddef.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stddef.h \
+  /opt/emscripten-llvm/lib/clang/17/include/__stddef_max_align_t.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdint.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/stdint.h

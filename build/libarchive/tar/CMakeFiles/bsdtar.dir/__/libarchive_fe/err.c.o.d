@@ -1,0 +1,22 @@
+libarchive/tar/CMakeFiles/bsdtar.dir/__/libarchive_fe/err.c.o: \
+  /home/clement/Desktop/vielsprachig/libarchive/libarchive_fe/err.c \
+  /home/clement/Desktop/vielsprachig/libarchive/tar/../libarchive_fe/lafe_platform.h \
+  /home/clement/Desktop/vielsprachig/build/libarchive/config.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdarg.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stdarg.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdio.h \
+  /home/clement/.emscripten_cache/sysroot/include/wasi/api.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stddef.h \
+  /opt/emscripten-llvm/lib/clang/17/include/__stddef_max_align_t.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/alltypes.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/features.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/alloca.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/string.h \
+  /home/clement/.emscripten_cache/sysroot/include/string.h \
+  /home/clement/.emscripten_cache/sysroot/include/strings.h \
+  /home/clement/Desktop/vielsprachig/libarchive/tar/../libarchive_fe/err.h

@@ -1,0 +1,34 @@
+libarchive/cpio/CMakeFiles/bsdcpio.dir/__/libarchive_fe/passphrase.c.o: \
+  /home/clement/Desktop/vielsprachig/libarchive/libarchive_fe/passphrase.c \
+  /home/clement/Desktop/vielsprachig/libarchive/cpio/../libarchive_fe/lafe_platform.h \
+  /home/clement/Desktop/vielsprachig/build/libarchive/config.h \
+  /home/clement/.emscripten_cache/sysroot/include/errno.h \
+  /home/clement/.emscripten_cache/sysroot/include/features.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/errno.h \
+  /home/clement/.emscripten_cache/sysroot/include/wasi/api.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stddef.h \
+  /opt/emscripten-llvm/lib/clang/17/include/__stddef_max_align_t.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/alltypes.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/alloca.h \
+  /home/clement/.emscripten_cache/sysroot/include/unistd.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/posix.h \
+  /home/clement/Desktop/vielsprachig/libarchive/cpio/../libarchive_fe/err.h \
+  /home/clement/Desktop/vielsprachig/libarchive/cpio/../libarchive_fe/passphrase.h \
+  /home/clement/.emscripten_cache/sysroot/include/assert.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/ctype.h \
+  /home/clement/.emscripten_cache/sysroot/include/ctype.h \
+  /home/clement/.emscripten_cache/sysroot/include/fcntl.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/fcntl.h \
+  /home/clement/.emscripten_cache/sysroot/include/paths.h \
+  /home/clement/.emscripten_cache/sysroot/include/signal.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/signal.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/string.h \
+  /home/clement/.emscripten_cache/sysroot/include/string.h \
+  /home/clement/.emscripten_cache/sysroot/include/strings.h \
+  /home/clement/.emscripten_cache/sysroot/include/termios.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/termios.h

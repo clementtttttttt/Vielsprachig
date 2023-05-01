@@ -1,0 +1,2 @@
+/usr/lib/emscripten/emar qc libimgui_bundle.a CMakeFiles/imgui_bundle.dir/src/imgui_bundle/imgui_bundle.cpp.o
+/usr/lib/emscripten/emranlib libimgui_bundle.a

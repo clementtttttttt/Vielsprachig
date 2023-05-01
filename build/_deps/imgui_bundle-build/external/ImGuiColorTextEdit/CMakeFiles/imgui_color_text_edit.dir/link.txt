@@ -1,0 +1,2 @@
+/usr/lib/emscripten/emar qc libimgui_color_text_edit.a CMakeFiles/imgui_color_text_edit.dir/ImGuiColorTextEdit/TextEditor.cpp.o
+/usr/lib/emscripten/emranlib libimgui_color_text_edit.a
