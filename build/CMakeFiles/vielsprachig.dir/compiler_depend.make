@@ -621,18 +621,24 @@ CMakeFiles/vielsprachig.dir/lexicon.cpp.o: /home/clement/Desktop/vielsprachig/le
   _deps/imgui_bundle-src/external/imgui/imgui/misc/cpp/imgui_stdlib.h
 
 CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.cpp \
-  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui.h \
-  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_assets.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/string \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/max.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/comp.h \
+  _deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h \
+  _deps/imgui_bundle-src/external/imgui/imgui/imgui.h \
+  _deps/imgui_bundle-src/cmake/imgui_bundle_config.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdexcept \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__assert \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__config \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__config_site \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/comp_ref_type.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__debug \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__assert \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__verbose_abort \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__availability \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdlib \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/stdlib.h \
+  /home/clement/.emscripten_cache/sysroot/include/features.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/alltypes.h \
+  /home/clement/.emscripten_cache/sysroot/include/alloca.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/exception \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/addressof.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstddef \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/enable_if.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/integral_constant.h \
@@ -756,8 +762,17 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdint.h \
   /opt/emscripten-llvm/lib/clang/17/include/stdint.h \
   /home/clement/.emscripten_cache/sysroot/include/stdint.h \
-  /home/clement/.emscripten_cache/sysroot/include/bits/alltypes.h \
   /home/clement/.emscripten_cache/sysroot/include/bits/stdint.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/iosfwd \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__mbstate_t.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/wchar.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/wchar.h \
+  /home/clement/.emscripten_cache/sysroot/include/wchar.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/string \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/max.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/comp.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/comp_ref_type.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__debug \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/max_element.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/iterator_traits.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/incrementable_traits.h \
@@ -816,20 +831,13 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/compat/string.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/string.h \
   /home/clement/.emscripten_cache/sysroot/include/string.h \
-  /home/clement/.emscripten_cache/sysroot/include/features.h \
   /home/clement/.emscripten_cache/sysroot/include/strings.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/limits \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ios/fpos.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/iosfwd \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__mbstate_t.h \
-  /home/clement/.emscripten_cache/sysroot/include/compat/wchar.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/wchar.h \
-  /home/clement/.emscripten_cache/sysroot/include/wchar.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/distance.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/concepts.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/iter_move.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/pointer_traits.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/addressof.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ranges/access.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ranges/enable_borrowed_range.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__utility/auto_cast.h \
@@ -842,11 +850,6 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__compare/compare_three_way_result.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/advance.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__utility/unreachable.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdlib \
-  /home/clement/.emscripten_cache/sysroot/include/compat/stdlib.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdlib.h \
-  /home/clement/.emscripten_cache/sysroot/include/stdlib.h \
-  /home/clement/.emscripten_cache/sysroot/include/alloca.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/iter_swap.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/iterator.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/next.h \
@@ -897,8 +900,6 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/allocation_guard.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/allocator.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/new \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/exception \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/stdexcept \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/allocator_arg_t.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/uses_allocator.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/assume_aligned.h \
@@ -1210,6 +1211,14 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__functional/pointer_to_binary_function.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__functional/pointer_to_unary_function.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__functional/unary_negate.h \
+  _deps/imgui_bundle-src/external/imgui/imgui/imconfig.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/float.h \
+  /opt/emscripten-llvm/lib/clang/17/include/float.h \
+  /home/clement/.emscripten_cache/sysroot/include/float.h \
+  /home/clement/.emscripten_cache/sysroot/include/compat/stdarg.h \
+  /opt/emscripten-llvm/lib/clang/17/include/stdarg.h \
+  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui.h \
+  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_assets.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_error.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/iostream \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/ios \
@@ -1227,16 +1236,8 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/bitset \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/locale \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdarg \
-  /home/clement/.emscripten_cache/sysroot/include/compat/stdarg.h \
-  /opt/emscripten-llvm/lib/clang/17/include/stdarg.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/streambuf \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
-  _deps/imgui_bundle-src/external/imgui/imgui/imgui.h \
-  _deps/imgui_bundle-src/cmake/imgui_bundle_config.h \
-  _deps/imgui_bundle-src/external/imgui/imgui/imconfig.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/float.h \
-  /opt/emscripten-llvm/lib/clang/17/include/float.h \
-  /home/clement/.emscripten_cache/sysroot/include/float.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/icons_font_awesome.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/image_gl.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/image_from_asset.h \
@@ -1326,6 +1327,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/image_fr
 _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_error.h:
 
 _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_assets.h:
+
+_deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h:
 
 /home/clement/Desktop/vielsprachig/main.cpp:
 

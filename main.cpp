@@ -1,3 +1,4 @@
+#include "backends/imgui_impl_opengl3.h"
 #include "hello_imgui/hello_imgui.h"
 #include "hello_imgui_assets.h"
 #include "imgui.h"
@@ -27,6 +28,11 @@ std::string errstr;
 
 pugi::xml_document dict;
 
+char * confont;
+
+ImFont *imconfont = 0;
+
+int hasconfont = 0;
 
 
 void handle_upload_file(std::string const &filename,  // the filename of the file the user selected
@@ -48,6 +54,11 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
     struct archive_entry *fileentry;
 
     int foundxml=0;
+    imconfont = 0;
+    delete [] confont;
+    confont = 0;
+
+    hasconfont = 0;
 
     while(archive_read_next_header(arr, &fileentry) == ARCHIVE_OK){
         if(!strcmp(archive_entry_pathname(fileentry),"PGDictionary.xml")){
@@ -65,6 +76,13 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 
 
         }
+        else if(!strcmp(archive_entry_pathname(fileentry), "conLangFont")){
+
+            delete [] confont;
+            confont = new char[archive_entry_size(fileentry)];
+            archive_read_data(arr, confont, archive_entry_size(fileentry));
+            hasconfont = 1;
+        }
         else {
             archive_read_data_skip(arr);
         }
@@ -76,10 +94,8 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
         return;
     }
 
-    update_lexicon_page(
-
-    );
-
+    update_lexicon_page();
+    fix_lexicon_word_prop();
 
 
 
@@ -156,7 +172,28 @@ void maingui(){
 }
 
 void load_noto_sans(){
-    HelloImGui::LoadFontTTF("notosans.ttf", 20, true);
+        HelloImGui::LoadFontTTF("notosans.ttf", 20, true);
+
+}
+
+void pre_new_frame(){
+
+
+        if(confont !=0 && imconfont == 0 && hasconfont){
+                        ImGuiIO &io = ImGui::GetIO();
+
+                                io.Fonts->Clear();
+            load_noto_sans();
+
+            static const ImWchar dummy_ranges[] = { 0x20, 0xFFFF, 0 } ; // Will not be copied by AddFont* so keep in scope.
+            imconfont = io.Fonts->AddFontFromMemoryTTF(confont, 20, 20, NULL, dummy_ranges);
+
+            io.Fonts->Build();
+            ImGui_ImplOpenGL3_CreateFontsTexture();
+
+
+        }
+        if(confont == 0) imconfont == 0;
 }
 
 int main(int , char *[])
@@ -166,7 +203,8 @@ int main(int , char *[])
 
 
 
-    auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui,  .appWindowParams.windowTitle = "Vielsprachig", .appWindowParams.windowGeometry.sizeAuto = true, .appWindowParams.windowGeometry.size = {300,200},  };
+    auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui, .callbacks.PreNewFrame = pre_new_frame,  .appWindowParams.windowTitle = "Vielsprachig", //.appWindowParams.windowGeometry.sizeAuto = true,
+    .appWindowParams.windowGeometry.size = {300,200},  };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
 
