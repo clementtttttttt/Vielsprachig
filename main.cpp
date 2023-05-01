@@ -22,7 +22,7 @@ enum modes{
 };
 
 
-int mode = M_PROP;
+int mode = M_LEX;
 
 int popup=0;
 std::string errstr;
@@ -176,11 +176,17 @@ void maingui(){
             if (ImGui::MenuItem("Cut", "CTRL+X")) {}
             if (ImGui::MenuItem("Copy", "CTRL+C")) {}
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+
+            if(mode == M_LEX){
+                    if (ImGui::MenuItem("Find Word", "CTRL+F")) {
+
+                    }
+            }
+
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
-   // ImGui::BeginGroup();
     ImVec2 pos = ImGui::GetCursorScreenPos();
     ImVec2 sz = ImGui::GetWindowSize();
     ImVec2 ratio = ImVec2(sz.x/1280, sz.y/720);
@@ -227,7 +233,6 @@ void load_noto_sans(){
 
 void pre_new_frame(){
 
-
         if(confont !=0 && imconfont == 0 && hasconfont){
                         ImGuiIO &io = ImGui::GetIO();
                         ImGui::MemFree(imconfont);
@@ -252,7 +257,6 @@ int main(int , char *[])
     .appWindowParams.windowGeometry.size = {300,200},  };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
-
     HelloImGui::Run(
         params
     );
