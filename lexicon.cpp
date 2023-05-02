@@ -26,7 +26,7 @@ std::string find_new_id(){
     int maxid = 0;
 
     for(auto it = words.first_child(); it; it = it.next_sibling()){
-        int comp = std::atoi(it.child("wordId").first_child().value());
+        int comp = it.child("wordId").text().as_int();
         if(comp > maxid){
             maxid = comp;
         }
@@ -63,7 +63,7 @@ pugi::xml_node find_pos_from_pos_id(std::string str){
 
 int contextin_callback(ImGuiInputTextCallbackData *in){
     pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("conWord").first_child().set_value(in -> Buf);
+    n.child("conWord").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -72,7 +72,7 @@ int contextin_callback(ImGuiInputTextCallbackData *in){
 
 int nattextin_callback(ImGuiInputTextCallbackData *in){
     pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("localWord").first_child().set_value(in -> Buf);
+    n.child("localWord").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -81,7 +81,16 @@ int nattextin_callback(ImGuiInputTextCallbackData *in){
 
 int protextin_callback(ImGuiInputTextCallbackData *in){
     pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("pronunciation").first_child().set_value(in -> Buf);
+    n.child("pronunciation").text().set(in -> Buf);
+
+    update_lexicon_page();
+
+    return 0;
+}
+
+int deftextin_callback(ImGuiInputTextCallbackData *in){
+    pugi::xml_node n = find_word_from_conword_id(current_word_id);
+    n.child("definition").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -105,6 +114,7 @@ void update_lexicon_page(){
     }
 
 }
+    std::string definput;
 
 
 void update_lexicon_word_prop(int id){
@@ -114,9 +124,10 @@ void update_lexicon_word_prop(int id){
 
     current_pos = std::atoi(result.child("wordPosId").first_child().value());
   //  coninput.resize(strlen(result.child("conWord").first_child().value())+1);
-    coninput = result.child("conWord").first_child().value();
-    natinput = result.child("localWord").first_child().value();
-    proinput = result.child("pronunciation").first_child().value();
+    coninput = result.child("conWord").text().as_string();
+    natinput = result.child("localWord").text().as_string();
+    proinput = result.child("pronunciation").text().as_string();
+    definput = result.child("definition").text().as_string();
 
 
 }
@@ -150,6 +161,8 @@ extern ImFont *imconfont;
 
 int scroll = 0;
 
+bool open_conjugator = false;
+
 void draw_lexicon_page(){
 
     ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -164,21 +177,26 @@ void draw_lexicon_page(){
     if(imconfont != 0)
         ImGui::PushFont(imconfont);
 
+    ImGui::BeginGroup();
+
     ImGui::BeginListBox(" ", ImVec2(400*ratio.x,620*ratio.y));
 
-    static bool selected = false;
+    static bool selected;
 
     for(auto i = lexlist.begin();i!=lexlist.end();++i){
-        ImGui::Selectable((std::string(find_word_from_conword_id(*i).child("conWord").first_child().value()) + " ").c_str(), &selected);
-        if(selected){
-            update_lexicon_word_prop(*i);
 
+        selected = (*i == current_word_id);
+
+        if(ImGui::Selectable((std::string(find_word_from_conword_id(*i).child("conWord").first_child().value()) + " ").c_str(), &selected)){
+           // if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
+                update_lexicon_word_prop(*i);
+            //}
         }
+
         if(scroll && (scroll-1) == (i - lexlist.begin())){
             ImGui::SetScrollHereY(0);
         }
 
-        selected = false;
 
     }
 
@@ -186,18 +204,6 @@ void draw_lexicon_page(){
 
     ImGui::EndListBox();
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22));
-    ImGui::PushItemWidth(ratio.x * 400);
-
-    if(ImGui::InputText("##Conword",&coninput, ImGuiInputTextFlags_CallbackEdit, contextin_callback)){
-
-
-    }
-    if(imconfont)
-        ImGui::PopFont();
-
-
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22 + 620*ratio.y));
 
     if(ImGui::Button("New word", ImVec2(ratio.x * 133,40*ratio.y))){;
 
@@ -209,7 +215,24 @@ void draw_lexicon_page(){
         update_lexicon_word_prop(id);
     }
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 30*ratio.y));
+    ImGui::EndGroup();
+
+        ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22));
+    ImGui::BeginGroup();
+
+    ImGui::PushItemWidth(ratio.x * 400);
+
+    if(ImGui::InputText("##Conword",&coninput, ImGuiInputTextFlags_CallbackEdit, contextin_callback)){
+
+
+    }
+    if(imconfont)
+        ImGui::PopFont();
+
+
+   // ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22 + 620*ratio.y));
+
+
     ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Natword",&natinput, ImGuiInputTextFlags_CallbackEdit, nattextin_callback)){
@@ -217,7 +240,7 @@ void draw_lexicon_page(){
 
     }
 
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60*ratio.y));
+  //  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
     ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Pronunciation",&proinput, ImGuiInputTextFlags_CallbackEdit, protextin_callback)){
@@ -225,14 +248,10 @@ void draw_lexicon_page(){
 
     }
 
-    pos = ImGui::GetCursorScreenPos();
-
-    ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, pos.y + 30* ratio.y));
+   // ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
     ImGui::PushItemWidth(ratio.x * 400);
 
-
-
-    if(ImGui::BeginCombo("Part of Speech", find_pos_from_pos_id(std::to_string(current_pos)).child("partOfSpeechName").first_child().value())){
+    if(ImGui::BeginCombo("##Part of Speech", find_pos_from_pos_id(std::to_string(current_pos)).child("partOfSpeechName").first_child().value())){
 
         static bool pos_selected = false;
 
@@ -253,5 +272,23 @@ void draw_lexicon_page(){
 
         ImGui::EndCombo();
     }
+
+
+
+    ImGui::Separator();
+
+    ImGui::InputTextMultiline("##Definition", &definput, ImVec2(0,0), ImGuiInputTextFlags_CallbackEdit, deftextin_callback);
+
+    ImGui::Separator();
+
+    if(ImGui::Button("Conjugations")){
+        open_conjugator = true;
+    }
+
+    if(open_conjugator){
+        lexi_conjugator_dialogue(&open_conjugator);
+    }
+
+    ImGui::EndGroup();
 
 }

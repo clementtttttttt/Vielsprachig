@@ -113,7 +113,7 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 
 
 int find_win = 0;
-int openfind = 0;
+bool openfind = false;
 
 
 void maingui(){
@@ -168,7 +168,7 @@ void maingui(){
                 archive_write_free(arr); // Note 5
 
                 std::string_view sv(reinterpret_cast<char*>(buffer.data()), used);
-                emscripten_browser_file::download("lang", "application/pgd", sv);
+                emscripten_browser_file::download("lang", ".pgd", sv);
 
 
             }
@@ -186,7 +186,7 @@ void maingui(){
             if(mode == M_LEX){
                     if (ImGui::MenuItem("Find Word", "CTRL+F")) {
 
-                        openfind = 1;
+                        openfind = true;
 
                     }
             }
@@ -194,10 +194,6 @@ void maingui(){
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
-    }
-
-    if(openfind){
-        ImGui::OpenPopup("FindWord");
     }
 
 
@@ -223,6 +219,9 @@ void maingui(){
 
     }
 
+
+
+
     if(popup){
         ImGui::OpenPopup("Error opening file");
     }
@@ -236,17 +235,18 @@ void maingui(){
         ImGui::EndPopup();
     }
     //ImGui::EndGroup();
+    if(openfind){
+        if(ImGui::Begin("Find Word",&openfind , ImGuiWindowFlags_AlwaysAutoResize)){
+            if(lexi_find_dialogue()){
+                openfind = false;
 
 
+            }
 
-    if(ImGui::BeginPopup("FindWord", 0)){
-
-        if(lexi_find_dialogue()){
-            openfind = 0;
         }
-
-        ImGui::EndPopup();
+    ImGui::End();
     }
+
 
 }
 

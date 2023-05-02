@@ -967,6 +967,30 @@ imgui_color_text_edit/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/build.make _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/build
 .PHONY : imgui_color_text_edit/fast
 
+lexi_conjugator.o: lexi_conjugator.cpp.o
+.PHONY : lexi_conjugator.o
+
+# target to build an object file
+lexi_conjugator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/lexi_conjugator.cpp.o
+.PHONY : lexi_conjugator.cpp.o
+
+lexi_conjugator.i: lexi_conjugator.cpp.i
+.PHONY : lexi_conjugator.i
+
+# target to preprocess a source file
+lexi_conjugator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/lexi_conjugator.cpp.i
+.PHONY : lexi_conjugator.cpp.i
+
+lexi_conjugator.s: lexi_conjugator.cpp.s
+.PHONY : lexi_conjugator.s
+
+# target to generate assembly for a file
+lexi_conjugator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/lexi_conjugator.cpp.s
+.PHONY : lexi_conjugator.cpp.s
+
 lexi_find.o: lexi_find.cpp.o
 .PHONY : lexi_find.o
 
@@ -1137,6 +1161,9 @@ help:
 	@echo "... libarchive_test"
 	@echo "... pugixml"
 	@echo "... vielsprachig"
+	@echo "... lexi_conjugator.o"
+	@echo "... lexi_conjugator.i"
+	@echo "... lexi_conjugator.s"
 	@echo "... lexi_find.o"
 	@echo "... lexi_find.i"
 	@echo "... lexi_find.s"
