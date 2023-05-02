@@ -659,6 +659,7 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: \
   /home/clement/.emscripten_cache/sysroot/include/endian.h \
   /home/clement/.emscripten_cache/sysroot/include/sys/select.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream \
+  /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui/../imgui/misc/cpp/imgui_stdlib.h \
   /home/clement/Desktop/vielsprachig/lexicon.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_callbacks.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_params.h

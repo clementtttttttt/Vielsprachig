@@ -12,6 +12,9 @@
 #include <archive_entry.h>
 #include <sstream>
 
+#include <imgui/misc/cpp/imgui_stdlib.h>
+
+
 #include "lexicon.h"
 #include "runner_callbacks.h"
 #include "runner_params.h"
@@ -110,6 +113,9 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 
 
 int find_win = 0;
+int openfind = 0;
+
+
 void maingui(){
 
 
@@ -179,7 +185,9 @@ void maingui(){
 
             if(mode == M_LEX){
                     if (ImGui::MenuItem("Find Word", "CTRL+F")) {
-                        ImGui::OpenPopup("Find...");
+
+                        openfind = 1;
+
                     }
             }
 
@@ -188,9 +196,8 @@ void maingui(){
         ImGui::EndMainMenuBar();
     }
 
-    if(ImGui::BeginPopupModal("Find...")){
-            ImGui::Text("TEST");
-            ImGui::EndPopup();
+    if(openfind){
+        ImGui::OpenPopup("FindWord");
     }
 
 
@@ -214,7 +221,6 @@ void maingui(){
 
         draw_lexicon_page();
 
-
     }
 
     if(popup){
@@ -230,6 +236,17 @@ void maingui(){
         ImGui::EndPopup();
     }
     //ImGui::EndGroup();
+
+
+
+    if(ImGui::BeginPopup("FindWord", 0)){
+
+        if(lexi_find_dialogue()){
+            openfind = 0;
+        }
+
+        ImGui::EndPopup();
+    }
 
 }
 

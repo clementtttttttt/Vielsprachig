@@ -1,13 +1,13 @@
 #include "lexicon.h"
 #include <imgui.h>
-#include "pugixml.hpp"
 #include <iostream>
 #include <imgui/misc/cpp/imgui_stdlib.h>
+#include <regex>
 
 extern pugi::xml_document dict;
 
 
-std::vector<std::string> lexlist;
+std::vector<int> lexlist;
 std::vector<std::string> poslist;
 
 std::string coninput;
@@ -16,7 +16,7 @@ std::string proinput;
 
 int current_pos;
 
-std::string current_word_id;
+int current_word_id;
 
 extern char *confont;
 
@@ -35,12 +35,12 @@ std::string find_new_id(){
 }
 
 
-pugi::xml_node find_word_from_conword_id(std::string str){
+pugi::xml_node find_word_from_conword_id(int id){
     pugi::xml_node words = dict.child("dictionary").child("lexicon");
 
     for(auto it = words.first_child(); it; it = it.next_sibling()){
-        std::string val = it.child("wordId").first_child().value();
-        if(val == str){
+        int val = it.child("wordId").text().as_int();
+        if(val == id){
             return it;
         }
     }    int conedit = 0;
@@ -54,7 +54,6 @@ pugi::xml_node find_pos_from_pos_id(std::string str){
     for(auto it = words.first_child(); it; it = it.next_sibling()){
         std::string val = it.child("partOfSpeechId").first_child().value();
         if(val == str){
-            std::cout << val << std::endl;
             return it;
         }
     }    int conedit = 0;
@@ -99,20 +98,19 @@ void update_lexicon_page(){
 
 
     for(auto it = words.first_child(); it; it = it.next_sibling()){
-        lexlist.push_back(it.child("wordId").first_child().value());
+        lexlist.push_back(it.child("wordId").text().as_int());
     }
     for(auto it = poses.first_child(); it; it = it.next_sibling()){
         poslist.push_back(it.child("partOfSpeechId").first_child().value());
-        std::cout << it.child("partOfSpeechId").first_child().value() << std::endl;
     }
 
 }
 
 
-void update_lexicon_word_prop(std::string word){
-    pugi::xml_node result = find_word_from_conword_id(word);
+void update_lexicon_word_prop(int id){
+    pugi::xml_node result = find_word_from_conword_id(id);
 
-    current_word_id = word;
+    current_word_id = id;
 
     current_pos = std::atoi(result.child("wordPosId").first_child().value());
   //  coninput.resize(strlen(result.child("conWord").first_child().value())+1);
@@ -127,7 +125,7 @@ void fix_lexicon_word_prop(){
     update_lexicon_word_prop(lexlist[0]);
 }
 
-std::string create_entry(){
+int create_entry(){
     pugi::xml_node word =  dict.child("dictionary").child("lexicon").append_child("word");
     word.append_child("wordId").text().set(find_new_id().c_str());
     word.append_child("localWord").text().set("");
@@ -144,12 +142,13 @@ std::string create_entry(){
 
 
 
-    return word.child("wordId").text().as_string();
+    return word.child("wordId").text().as_int();
 }
 
 
 extern ImFont *imconfont;
 
+int scroll = 0;
 
 void draw_lexicon_page(){
 
@@ -175,10 +174,16 @@ void draw_lexicon_page(){
             update_lexicon_word_prop(*i);
 
         }
+        if(scroll && (scroll-1) == (i - lexlist.begin())){
+            ImGui::SetScrollHereY(0);
+        }
 
         selected = false;
 
     }
+
+
+
     ImGui::EndListBox();
 
     ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22));
@@ -196,7 +201,7 @@ void draw_lexicon_page(){
 
     if(ImGui::Button("New word", ImVec2(ratio.x * 133,40*ratio.y))){;
 
-        std::string id = create_entry();
+        int id = create_entry();
 
         current_word_id = id;
 

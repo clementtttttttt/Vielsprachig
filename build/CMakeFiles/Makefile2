@@ -555,7 +555,7 @@ CMakeFiles/vielsprachig.dir/all: _deps/imgui_bundle-build/external/ImGuiColorTex
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vielsprachig.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/vielsprachig.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : CMakeFiles/vielsprachig.dir/rule
@@ -1312,7 +1312,7 @@ libarchive/CMakeFiles/run_all_tests.dir/all: libarchive/cpio/test/CMakeFiles/run
 
 # Build rule for subdir invocation for target.
 libarchive/CMakeFiles/run_all_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 69
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 70
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libarchive/CMakeFiles/run_all_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : libarchive/CMakeFiles/run_all_tests.dir/rule
@@ -1385,12 +1385,12 @@ libarchive/libarchive/CMakeFiles/archive_static.dir/clean:
 libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/all: libarchive/libarchive/CMakeFiles/archive_static.dir/all
 	$(MAKE) $(MAKESILENT) -f libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/build.make libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/depend
 	$(MAKE) $(MAKESILENT) -f libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/build.make libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99 "Built target libarchive_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99 "Built target libarchive_test"
 .PHONY : libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/all
 
 # Build rule for subdir invocation for target.
 libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 49
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 50
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : libarchive/libarchive/test/CMakeFiles/libarchive_test.dir/rule
@@ -1416,7 +1416,7 @@ libarchive/libarchive/test/CMakeFiles/run_libarchive_test.dir/all: libarchive/li
 
 # Build rule for subdir invocation for target.
 libarchive/libarchive/test/CMakeFiles/run_libarchive_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 49
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 50
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libarchive/libarchive/test/CMakeFiles/run_libarchive_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : libarchive/libarchive/test/CMakeFiles/run_libarchive_test.dir/rule
@@ -1688,12 +1688,12 @@ _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/all: _deps/imgui_bundle-bui
 _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/all: _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/build.make _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/build.make _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num= "Built target imgui_bundle"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=56 "Built target imgui_bundle"
 .PHONY : _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/rule
@@ -1714,12 +1714,12 @@ _deps/imgui_bundle-build/CMakeFiles/imgui_bundle.dir/clean:
 _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=56 "Built target imgui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num= "Built target imgui"
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/rule
@@ -1745,7 +1745,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/implot.dir/all: _deps/imgui_bundle-
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/implot.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/implot.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/implot.dir/rule
@@ -1771,7 +1771,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/all: _deps/im
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/rule
@@ -1797,7 +1797,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_knobs.dir/all: _deps/imgui_bu
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_knobs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_knobs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_knobs.dir/rule
@@ -1825,7 +1825,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/all: _deps/imgui
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/rule
@@ -1846,12 +1846,12 @@ _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/clean:
 _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/all: _deps/imgui_bundle-build/external/CMakeFiles/imgui.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=65 "Built target imspinner"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num= "Built target imspinner"
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imspinner.dir/rule
@@ -1877,7 +1877,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_toggle.dir/all: _deps/imgui_b
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_toggle.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_toggle.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_toggle.dir/rule
@@ -1903,7 +1903,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_command_palette.dir/all: _dep
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_command_palette.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_command_palette.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_command_palette.dir/rule
@@ -1929,7 +1929,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_md.dir/all: _deps/imgui_bundl
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_md.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_md.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_md.dir/rule
@@ -1955,7 +1955,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/all: _deps/imgui_bundl
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/rule
@@ -1983,7 +1983,7 @@ _deps/imgui_bundle-build/external/CMakeFiles/imgui_tex_inspect.dir/all: _deps/im
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/CMakeFiles/imgui_tex_inspect.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/CMakeFiles/imgui_tex_inspect.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/CMakeFiles/imgui_tex_inspect.dir/rule
@@ -2036,7 +2036,7 @@ _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeF
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeFiles/hello_imgui.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeFiles/hello_imgui.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeFiles/hello_imgui.dir/rule
@@ -2057,12 +2057,12 @@ _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeF
 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/build.make _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/build.make _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num= "Built target immvision_gl_loader"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=64 "Built target immvision_gl_loader"
 .PHONY : _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/rule
@@ -2084,12 +2084,12 @@ _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/i
 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/all: _deps/imgui_bundle-build/external/immvision/immvision/src/immvision_gl_loader/CMakeFiles/immvision_gl_loader.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/build.make _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/build.make _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=62,63,64 "Built target immvision"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/clement/Desktop/vielsprachig/build/CMakeFiles --progress-num=62,63 "Built target immvision"
 .PHONY : _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/immvision/immvision/src/immvision/CMakeFiles/immvision.dir/rule
@@ -2123,7 +2123,7 @@ _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/all: _deps
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/rule
@@ -2149,7 +2149,7 @@ _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text
 
 # Build rule for subdir invocation for target.
 _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/clement/Desktop/vielsprachig/build/CMakeFiles 0
 .PHONY : _deps/imgui_bundle-build/external/ImGuiColorTextEdit/CMakeFiles/imgui_color_text_edit.dir/rule

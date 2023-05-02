@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/vielsprachig.dir/lexi_find.cpp.o"
+  "CMakeFiles/vielsprachig.dir/lexi_find.cpp.o.d"
   "CMakeFiles/vielsprachig.dir/lexicon.cpp.o"
   "CMakeFiles/vielsprachig.dir/lexicon.cpp.o.d"
   "CMakeFiles/vielsprachig.dir/main.cpp.o"
