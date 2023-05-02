@@ -109,7 +109,7 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 }
 
 
-
+int find_win = 0;
 void maingui(){
 
 
@@ -179,7 +179,7 @@ void maingui(){
 
             if(mode == M_LEX){
                     if (ImGui::MenuItem("Find Word", "CTRL+F")) {
-
+                        ImGui::OpenPopup("Find...");
                     }
             }
 
@@ -187,6 +187,13 @@ void maingui(){
         }
         ImGui::EndMainMenuBar();
     }
+
+    if(ImGui::BeginPopupModal("Find...")){
+            ImGui::Text("TEST");
+            ImGui::EndPopup();
+    }
+
+
     ImVec2 pos = ImGui::GetCursorScreenPos();
     ImVec2 sz = ImGui::GetWindowSize();
     ImVec2 ratio = ImVec2(sz.x/1280, sz.y/720);

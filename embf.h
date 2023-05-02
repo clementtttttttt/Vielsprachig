@@ -48,11 +48,41 @@ EM_JS_INLINE(void, upload, (char const *accept_types, upload_handler callback, v
     file_reader.readAsArrayBuffer(e.target.files[0]);
   };
 
+  var safarifix = document.createElement('div');
+  safarifix.id = 'safarifix';
+  safarifix.style.zIndex = '2';
+  safarifix.style.position = 'relative';
+  safarifix.style.backgroundColor = '#FFFFFF';
+  safarifix.style.width = '40vw';
+  safarifix.style.height = '20vh';
+  safarifix.style.display = 'block';
+  safarifix.style.marginLeft = '30vw';
+  safarifix.style.marginTop = '40vh';
+
+
+  document.body.appendChild(safarifix);
+
+  var workaround_warning = document.createElement('p');
+  workaround_warning.innerText = 'Open the file selecting dialogue manually with the button below';
+  workaround_warning.style.textAlign = 'center';
+  safarifix.appendChild(workaround_warning);
+
+
   var file_selector = document.createElement('input');
   file_selector.setAttribute('type', 'file');
-  document.body.appendChild(file_selector);
-  file_selector.setAttribute('onchange', 'globalThis["open_file"](event); document.body.removeChild(file_selector)');
-  file_selector.setAttribute('accept', UTF8ToString(accept_types));
+  file_selector.setAttribute('accept', '.pgd');
+
+  file_selector.style.position = 'absolute';
+  file_selector.style.marginLeft = '20%';
+  file_selector.style.width = '80%';
+  file_selector.style.align = 'center';
+
+  safarifix.appendChild(file_selector);
+  file_selector.onchange =  function(event){
+    globalThis["open_file"](event);
+    document.body.removeChild(document.getElementById('safarifix'));
+  };
+
   file_selector.click();
 });
 #pragma GCC diagnostic pop
