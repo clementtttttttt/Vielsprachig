@@ -14,7 +14,7 @@ std::string coninput;
 std::string natinput;
 std::string proinput;
 
-int current_pos;
+int current_pos_id;
 
 int current_word_id;
 
@@ -122,7 +122,7 @@ void update_lexicon_word_prop(int id){
 
     current_word_id = id;
 
-    current_pos = result.child("wordPosId").text().as_int();
+    current_pos_id = result.child("wordPosId").text().as_int();
   //  coninput.resize(strlen(result.child("conWord").first_child().value())+1);
     coninput = result.child("conWord").text().as_string();
     natinput = result.child("localWord").text().as_string();
@@ -251,14 +251,14 @@ void draw_lexicon_page(){
    // ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
     ImGui::PushItemWidth(ratio.x * 400);
 
-    if(ImGui::BeginCombo("##Part of Speech", find_pos_from_pos_id(current_pos).child("partOfSpeechName").first_child().value())){
+    if(ImGui::BeginCombo("##Part of Speech", find_pos_from_pos_id(current_pos_id).child("partOfSpeechName").first_child().value())){
 
         static bool pos_selected = false;
 
         for(auto i = poslist.begin();i!=poslist.end();++i){
             ImGui::Selectable((std::string(find_pos_from_pos_id(*i).child("partOfSpeechName").first_child().value()) + " ").c_str(), &pos_selected);
             if(pos_selected){
-                current_pos = *i;
+                current_pos_id = *i;
                 pugi::xml_node n = find_word_from_conword_id(current_word_id);
 
                 n.child("wordPosId").text().set(*i);
