@@ -2516,8 +2516,111 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
   _deps/imgui_bundle-src/external/imgui/imgui/misc/cpp/imgui_stdlib.h \
   /home/clement/Desktop/vielsprachig/lexicon.h \
   _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_callbacks.h \
-  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_params.h
+  _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_params.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_main.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_stdinc.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_config.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_platform.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/begin_code.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/close_code.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_config_emscripten.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_assert.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_atomic.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_audio.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_error.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_endian.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_mutex.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_thread.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_rwops.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_clipboard.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_cpuinfo.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_events.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_video.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_pixels.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_rect.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_surface.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_blendmode.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_keyboard.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_keycode.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_scancode.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_mouse.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_joystick.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_guid.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_gamecontroller.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_sensor.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_quit.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_gesture.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_touch.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_filesystem.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_haptic.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_hidapi.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_hints.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_loadso.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_log.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_messagebox.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_metal.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_power.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_render.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_shape.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_system.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_timer.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_version.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_locale.h \
+  /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_misc.h
 
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_misc.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_locale.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_version.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_system.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_shape.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_messagebox.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_log.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_haptic.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_filesystem.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_touch.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_quit.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_gamecontroller.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_guid.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_joystick.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_scancode.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_keycode.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_keyboard.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_blendmode.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_surface.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_clipboard.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_mutex.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_atomic.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_config_emscripten.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/close_code.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_config.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_main.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream:
 
@@ -2566,6 +2669,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_im
 _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_assets.h:
 
 _deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_audio.h:
 
 /home/clement/Desktop/vielsprachig/main.cpp:
 
@@ -2668,6 +2773,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/icons_fo
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ranges/access.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/remove_cv.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/begin_code.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/any_of.h:
 
@@ -2783,6 +2890,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/icons_fo
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/common_iterator.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_stdinc.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_final.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/uniform_random_bit_generator_adaptor.h:
@@ -2826,6 +2935,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/icons_fo
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__concepts/semiregular.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__utility/exchange.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_hints.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__concepts/movable.h:
 
@@ -2905,6 +3016,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/icons_fo
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_fundamental.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_rwops.h:
+
 _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/backend_pointers.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/pointer_traits.h:
@@ -2971,6 +3084,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/backend_
 
 /home/clement/.emscripten_cache/sysroot/include/stdint.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_error.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/apply_cv.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/compressed_pair.h:
@@ -3005,7 +3120,11 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/backend_
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__chrono/year.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_pixels.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__variant/monostate.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_loadso.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__functional/operations.h:
 
@@ -3014,6 +3133,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/backend_
 /home/clement/.emscripten_cache/sysroot/include/stdio.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_arithmetic.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_video.h:
 
 /opt/emscripten-llvm/lib/clang/17/include/stddef.h:
 
@@ -3030,6 +3151,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/backend_
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_signed_integer.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/is_sorted_until.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_timer.h:
 
 _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui.h:
 
@@ -3067,6 +3190,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_c
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/empty.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_mouse.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/has_virtual_destructor.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/advance.h:
@@ -3097,6 +3222,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_c
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__random/uniform_random_bit_generator.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_endian.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_integral.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/comp.h:
@@ -3122,6 +3249,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_c
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_polymorphic.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ranges/subrange.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_assert.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/version:
 
@@ -3239,6 +3368,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/screen_b
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/make_signed.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_hidapi.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_null_pointer.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_floating_point.h:
@@ -3265,6 +3396,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/screen_b
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/distance.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_thread.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_search_n.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/new:
@@ -3290,6 +3423,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/screen_b
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/mismatch.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/string_view:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_nothrow_convertible.h:
 
@@ -3371,6 +3506,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/docking_
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/move_sentinel.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_render.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/copy.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__iterator/next.h:
@@ -3423,6 +3560,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/docking_
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_is_sorted.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_events.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__errc:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/string:
@@ -3464,6 +3603,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/docking_
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/is_empty.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__ios/fpos.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_metal.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/allocate_at_least.h:
 
@@ -3527,11 +3668,15 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/docking_
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__memory/allocation_guard.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_rect.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/all_of.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_includes.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/wctype.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_power.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/make_projected.h:
 
@@ -3540,6 +3685,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/docking_
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__functional/reference_wrapper.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/climits:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_platform.h:
 
 /opt/emscripten-llvm/lib/clang/17/include/limits.h:
 
@@ -3789,6 +3936,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_p
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_next_permutation.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_cpuinfo.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/partial_sort.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_nth_element.h:
@@ -3817,6 +3966,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_p
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/ranges_sample.h:
 
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_sensor.h:
+
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__type_traits/lazy.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__algorithm/sample.h:
@@ -3826,6 +3977,8 @@ _deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/runner_p
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/bit:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bit/byteswap.h:
+
+/home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_gesture.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/__chrono/month.h:
 

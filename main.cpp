@@ -11,8 +11,8 @@
 #include <archive.h>
 #include <archive_entry.h>
 #include <sstream>
-
 #include <imgui/misc/cpp/imgui_stdlib.h>
+#include <emscripten.h>
 
 
 #include "lexicon.h"
@@ -112,9 +112,35 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 }
 
 
+
 int find_win = 0;
 bool openfind = false;
+bool vkeyboard = false;
 
+
+EM_JS(void, t_vk_js, (bool enable), {
+
+    var inp = document.getElementById('minput');
+
+    if(enable){
+        if(document.activeElement != inp){
+            inp.focus();
+            inp.click();
+        }
+
+
+    }
+    else{
+        document.activeElement.blur();
+    }
+});
+
+void toggle_vkeyboard(bool p_open){
+
+        t_vk_js(p_open);
+
+
+}
 
 void maingui(){
 
@@ -193,6 +219,10 @@ void maingui(){
 
             ImGui::EndMenu();
         }
+        if(ImGui::Checkbox("Open Mobile Keyboard", &vkeyboard)){
+            toggle_vkeyboard(vkeyboard);
+        }
+
         ImGui::EndMainMenuBar();
     }
 
@@ -246,6 +276,9 @@ void maingui(){
         }
     ImGui::End();
     }
+                        ImGuiIO &io = ImGui::GetIO();
+    toggle_vkeyboard(io.WantCaptureKeyboard);
+
 
 
 }
@@ -275,12 +308,16 @@ void pre_new_frame(){
         if(confont == 0) imconfont == 0;
 }
 
+#include <SDL2/SDL.h>
+
 int main(int , char *[])
 {
     auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui, .callbacks.PreNewFrame = pre_new_frame,  .appWindowParams.windowTitle = "Vielsprachig", //.appWindowParams.windowGeometry.sizeAuto = true,
     .appWindowParams.windowGeometry.size = {300,200},  };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
+	SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT,"#minput");
+
     HelloImGui::Run(
         params
     );
