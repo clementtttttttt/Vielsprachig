@@ -121,17 +121,35 @@ bool vkeyboard = false;
 EM_JS(void, t_vk_js, (bool enable), {
 
     var inp = document.getElementById('minput');
+    var c = document.getElementById('canvas');
+
+
+    function hack(param1, param2){
+            if(window.openVirtualKeyboard ){
+                var inp = document.getElementById('minput');
+                inp.focus();
+                inp.click();
+            }
+
+
+    }
+
+
+    canvas.addEventListener('click', hack);
+    canvas.addEventListener('touchstart', hack);
 
     if(enable){
         if(document.activeElement != inp){
             inp.focus();
             inp.click();
         }
+        window.openVirtualKeyboard = true;
 
 
     }
     else{
         document.activeElement.blur();
+        window.openVirtualKeyboard = false;
     }
 });
 
@@ -305,7 +323,7 @@ void pre_new_frame(){
 
 
         }
-        if(confont == 0) imconfont == 0;
+        if(confont == 0) imconfont = 0;
 }
 
 #include <SDL2/SDL.h>

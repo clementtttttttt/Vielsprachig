@@ -200,8 +200,6 @@ void draw_lexicon_page(){
 
     }
 
-
-
     ImGui::EndListBox();
 
 
