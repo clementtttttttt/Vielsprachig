@@ -1,2 +1,0 @@
-/usr/lib/emscripten/emar qc libimspinner.a CMakeFiles/imspinner.dir/imspinner/imspinner/imspinner.cpp.o
-/usr/lib/emscripten/emranlib libimspinner.a
