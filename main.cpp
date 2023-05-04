@@ -138,6 +138,8 @@ EM_JS(void, t_vk_js, (bool enable), {
     canvas.addEventListener('click', hack);
     canvas.addEventListener('touchstart', hack);
 
+    inp.addEventListener('keydown', (e) => alert(e.keyCode + " " + e.charcode + " " + e.which));
+
     if(enable){
         if(document.activeElement != inp){
             inp.focus();
