@@ -6,5 +6,5 @@ CXX_DEFINES = -DEMSCRIPTEN -DIMGUI_USER_CONFIG=\"/home/clement/Desktop/vielsprac
 
 CXX_INCLUDES = @CMakeFiles/imgui_knobs.dir/includes_CXX.rsp
 
-CXX_FLAGS =  -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp -O2 -g -DNDEBUG -std=gnu++17 -fPIC
+CXX_FLAGS = -w  -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -g -std=gnu++17 -fPIC
 

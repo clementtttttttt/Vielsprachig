@@ -598,5 +598,5 @@ _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeF
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES2/gl2.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES2/gl2platform.h \
-  /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/external/OpenGL_Loaders/glad/include/KHR/khrplatform.h \
+  /home/clement/.emscripten_cache/sysroot/include/KHR/khrplatform.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES2/gl2ext.h

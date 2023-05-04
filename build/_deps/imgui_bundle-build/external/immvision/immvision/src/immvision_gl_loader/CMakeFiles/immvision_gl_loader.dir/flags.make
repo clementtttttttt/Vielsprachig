@@ -6,5 +6,5 @@ CXX_DEFINES = -DEMSCRIPTEN -DIMMVISION_USE_GLES3 -DIMMVISION_VERSION=\"0.8.0\"
 
 CXX_INCLUDES = @CMakeFiles/immvision_gl_loader.dir/includes_CXX.rsp
 
-CXX_FLAGS =  -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp -fvisibility=hidden -O2 -g -DNDEBUG -std=gnu++17 -fPIC
+CXX_FLAGS = -w  -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -fvisibility=hidden -g -std=gnu++17 -fPIC
 

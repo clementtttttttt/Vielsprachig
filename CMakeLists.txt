@@ -2,23 +2,25 @@ cmake_minimum_required(VERSION 3.12)
 project(vielsprachig)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXECUTABLE_SUFFIX ".html")
-set(HELLOIMGUI_USE_SDL_OPENGL3 "ON")
+set(CMAKE_COMPILE_WARNING_AS_ERROR NO)
+set(ENABLE_WERROR, NO)
 
 file(GLOB_RECURSE pugixml_sources ${CMAKE_SOURCE_DIR}/pugixml/src/*.cpp)
 add_library(pugixml STATIC ${pugixml_sources})
 
+set(CMAKE_C_FLAGS "-w ${CMAKE_C_FLAGS} -sTOTAL_MEMORY=128MB -sUSE_ZLIB=1 -Wno-unused-command-line-argument ")
+set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS} -Wno-unused-command-line-argument -Wl,--max-memory=134217728")
+
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -sTOTAL_MEMORY=128MB -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp --shell-file=shell.emscripten.html -Wl,--max-memory=134217728")
+
 include_directories(pugixml/src/)
 include_directories(libarchive/libarchive/)
 
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -sUSE_ZLIB=1 -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp")
-
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp --shell-file=shell.emscripten.html")
-
+set (CMAKE_BUILD_TYPE "Release")
 add_subdirectory(libarchive)
 
 link_directories(libarchive)
+set (CMAKE_BUILD_TYPE "Debug")
 
 # Prepare hello_imgui during configure time
 ##########################################################

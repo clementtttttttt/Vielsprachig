@@ -1,4 +1,4 @@
-prefix=/usr/local
+prefix=/home/clement/.emscripten_cache/sysroot
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

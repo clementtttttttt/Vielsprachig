@@ -173,7 +173,6 @@ vielsprachig.html: _deps/imgui_bundle-build/external/ImGuiColorTextEdit/libimgui
 vielsprachig.html: _deps/imgui_bundle-build/external/libimguizmo.a
 vielsprachig.html: _deps/imgui_bundle-build/external/libimgui_tex_inspect.a
 vielsprachig.html: _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/libhello_imgui.a
-vielsprachig.html: _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/libglad.a
 vielsprachig.html: _deps/imgui_bundle-build/external/libimgui.a
 vielsprachig.html: CMakeFiles/vielsprachig.dir/linkLibs.rsp
 vielsprachig.html: CMakeFiles/vielsprachig.dir/objects1.rsp

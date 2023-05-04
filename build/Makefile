@@ -890,19 +890,6 @@ imgui_tex_inspect/fast:
 .PHONY : imgui_tex_inspect/fast
 
 #=============================================================================
-# Target rules for targets named glad
-
-# Build rule for target.
-glad: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glad
-.PHONY : glad
-
-# fast build rule for target.
-glad/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build
-.PHONY : glad/fast
-
-#=============================================================================
 # Target rules for targets named hello_imgui
 
 # Build rule for target.
@@ -1140,7 +1127,6 @@ help:
 	@echo "... bsdcpio_test"
 	@echo "... bsdtar"
 	@echo "... bsdtar_test"
-	@echo "... glad"
 	@echo "... hello_imgui"
 	@echo "... im_file_dialog"
 	@echo "... imgui"

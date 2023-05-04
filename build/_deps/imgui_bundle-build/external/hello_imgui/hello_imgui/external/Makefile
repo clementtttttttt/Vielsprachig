@@ -161,44 +161,6 @@ depend:
 	cd /home/clement/Desktop/vielsprachig/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-_deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/rule:
-	cd /home/clement/Desktop/vielsprachig/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/rule
-.PHONY : _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/rule
-
-# Convenience name for target.
-glad: _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/rule
-.PHONY : glad
-
-# fast build rule for target.
-glad/fast:
-	cd /home/clement/Desktop/vielsprachig/build && $(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build
-.PHONY : glad/fast
-
-OpenGL_Loaders/glad/src/glad.o: OpenGL_Loaders/glad/src/glad.c.o
-.PHONY : OpenGL_Loaders/glad/src/glad.o
-
-# target to build an object file
-OpenGL_Loaders/glad/src/glad.c.o:
-	cd /home/clement/Desktop/vielsprachig/build && $(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/OpenGL_Loaders/glad/src/glad.c.o
-.PHONY : OpenGL_Loaders/glad/src/glad.c.o
-
-OpenGL_Loaders/glad/src/glad.i: OpenGL_Loaders/glad/src/glad.c.i
-.PHONY : OpenGL_Loaders/glad/src/glad.i
-
-# target to preprocess a source file
-OpenGL_Loaders/glad/src/glad.c.i:
-	cd /home/clement/Desktop/vielsprachig/build && $(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/OpenGL_Loaders/glad/src/glad.c.i
-.PHONY : OpenGL_Loaders/glad/src/glad.c.i
-
-OpenGL_Loaders/glad/src/glad.s: OpenGL_Loaders/glad/src/glad.c.s
-.PHONY : OpenGL_Loaders/glad/src/glad.s
-
-# target to generate assembly for a file
-OpenGL_Loaders/glad/src/glad.c.s:
-	cd /home/clement/Desktop/vielsprachig/build && $(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/external/CMakeFiles/glad.dir/OpenGL_Loaders/glad/src/glad.c.s
-.PHONY : OpenGL_Loaders/glad/src/glad.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,10 +173,6 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... glad"
-	@echo "... OpenGL_Loaders/glad/src/glad.o"
-	@echo "... OpenGL_Loaders/glad/src/glad.i"
-	@echo "... OpenGL_Loaders/glad/src/glad.s"
 .PHONY : help
 
 

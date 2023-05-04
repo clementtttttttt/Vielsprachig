@@ -3,15 +3,15 @@
 
 # compile C with /usr/lib/emscripten/emcc
 # compile CXX with /usr/lib/emscripten/em++
-C_DEFINES = -DEMSCRIPTEN -DHELLOIMGUI_CANNOTQUIT -DHELLOIMGUI_HAS_OPENGL -DHELLOIMGUI_USE_GLAD -DHELLOIMGUI_USE_GLES3 -DHELLOIMGUI_USE_SDL -DHELLOIMGUI_USE_SDL_OPENGL3 -DIMGUI_IMPL_OPENGL_LOADER_GLAD -DIMGUI_USER_CONFIG=\"/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/cmake/imgui_bundle_config.h\" -DIMMVISION_USE_GLES3
+C_DEFINES = -DEMSCRIPTEN -DHELLOIMGUI_CANNOTQUIT -DHELLOIMGUI_HAS_OPENGL -DHELLOIMGUI_USE_GLES3 -DHELLOIMGUI_USE_SDL -DHELLOIMGUI_USE_SDL_OPENGL3 -DIMGUI_USER_CONFIG=\"/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/cmake/imgui_bundle_config.h\" -DIMMVISION_USE_GLES3
 
 C_INCLUDES = @CMakeFiles/imgui_md.dir/includes_C.rsp
 
-C_FLAGS =  -sUSE_ZLIB=1 -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp -O2 -g -DNDEBUG -fPIC -s USE_SDL=2
+C_FLAGS = -w  -sTOTAL_MEMORY=128MB -sUSE_ZLIB=1 -Wno-unused-command-line-argument  -g -fPIC -s USE_SDL=2
 
-CXX_DEFINES = -DEMSCRIPTEN -DHELLOIMGUI_CANNOTQUIT -DHELLOIMGUI_HAS_OPENGL -DHELLOIMGUI_USE_GLAD -DHELLOIMGUI_USE_GLES3 -DHELLOIMGUI_USE_SDL -DHELLOIMGUI_USE_SDL_OPENGL3 -DIMGUI_IMPL_OPENGL_LOADER_GLAD -DIMGUI_USER_CONFIG=\"/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/cmake/imgui_bundle_config.h\" -DIMMVISION_USE_GLES3
+CXX_DEFINES = -DEMSCRIPTEN -DHELLOIMGUI_CANNOTQUIT -DHELLOIMGUI_HAS_OPENGL -DHELLOIMGUI_USE_GLES3 -DHELLOIMGUI_USE_SDL -DHELLOIMGUI_USE_SDL_OPENGL3 -DIMGUI_USER_CONFIG=\"/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/cmake/imgui_bundle_config.h\" -DIMMVISION_USE_GLES3
 
 CXX_INCLUDES = @CMakeFiles/imgui_md.dir/includes_CXX.rsp
 
-CXX_FLAGS =  -sTOTAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sEXPORTED_RUNTIME_METHODS=ccall,cwarp -O2 -g -DNDEBUG -std=gnu++17 -fPIC -s USE_SDL=2
+CXX_FLAGS = -w  -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -g -std=gnu++17 -fPIC -s USE_SDL=2
 

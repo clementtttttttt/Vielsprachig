@@ -593,7 +593,7 @@ _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/src/hello_imgui/CMakeF
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/../hello_imgui/hello_imgui_include_opengl.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES3/gl3.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES3/gl3platform.h \
-  /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/external/OpenGL_Loaders/glad/include/KHR/khrplatform.h \
+  /home/clement/.emscripten_cache/sysroot/include/KHR/khrplatform.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES3/gl2ext.h \
   /home/clement/.emscripten_cache/sysroot/include/GLES3/../GLES2/gl2ext.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/internal/backend_impls/backend_window_helper/backend_window_helper.h \

@@ -138,7 +138,7 @@ EM_JS(void, t_vk_js, (bool enable), {
     canvas.addEventListener('click', hack);
     canvas.addEventListener('touchstart', hack);
 
-    inp.addEventListener('keydown', (e) => alert(e.keyCode + " " + e.charcode + " " + e.which));
+    inp.addEventListener('keyup', (e) => {if (e.keyCode == 229){var code = inp.value.charAt(inp.selectionStart - 1).charCodeAt(); inp.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': code}));}});
 
     if(enable){
         if(document.activeElement != inp){
@@ -326,14 +326,61 @@ void pre_new_frame(){
 
         }
         if(confont == 0) imconfont = 0;
+
+
 }
 
 #include <SDL2/SDL.h>
 
+
+EM_JS(char, get_mobile_key, (void), {
+
+    var inp = document.getElementById('minput');
+
+
+    var code = inp.value.charAt(inp.selectionStart - 1).charCodeAt();
+    return code;
+});
+
+
+
+
+bool android_input(void* event){
+
+
+    SDL_Event* ev = (SDL_Event*) event;
+
+
+    if(ev->type != SDL_KEYDOWN) return false;
+
+
+
+    char code =  get_mobile_key();
+
+    if(code == 0) return false;
+
+    std::cout << SDL_GetKeyName(ev->key.keysym.sym) << " " << (int)  get_mobile_key() << std::endl;
+
+
+    SDL_Event newevent;
+
+    memcpy(&newevent, event, sizeof(SDL_Event));
+
+    char str[2] = {0,0};
+    str[0]= get_mobile_key();
+
+    newevent.key.keysym.sym = SDL_GetKeyFromName(str);
+
+    SDL_PushEvent(&newevent);
+
+
+    return false;
+}
+
 int main(int , char *[])
 {
     auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui, .callbacks.PreNewFrame = pre_new_frame,  .appWindowParams.windowTitle = "Vielsprachig", //.appWindowParams.windowGeometry.sizeAuto = true,
-    .appWindowParams.windowGeometry.size = {300,200},  };
+    .appWindowParams.windowGeometry.size = {300,200}, .callbacks.AnyBackendEventCallback = android_input };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
 	SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT,"#minput");

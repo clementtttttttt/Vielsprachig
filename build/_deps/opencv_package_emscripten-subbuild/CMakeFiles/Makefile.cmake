@@ -10,8 +10,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.26.3/CMakeSystem.cmake"
   "CMakeLists.txt"
   "opencv_package_emscripten-populate-prefix/tmp/opencv_package_emscripten-populate-mkdirs.cmake"
+  "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake"
   "/usr/share/cmake/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake"
+  "/usr/share/cmake/Modules/CMakeSystem.cmake.in"
   "/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake"
   "/usr/share/cmake/Modules/ExternalProject.cmake"
@@ -32,6 +34,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "CMakeFiles/3.26.3/CMakeSystem.cmake"
   "opencv_package_emscripten-populate-prefix/tmp/opencv_package_emscripten-populate-mkdirs.cmake"
   "opencv_package_emscripten-populate-prefix/src/opencv_package_emscripten-populate-stamp/download-opencv_package_emscripten-populate.cmake"
   "opencv_package_emscripten-populate-prefix/src/opencv_package_emscripten-populate-stamp/extract-opencv_package_emscripten-populate.cmake"
