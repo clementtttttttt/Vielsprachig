@@ -619,7 +619,9 @@ CMakeFiles/vielsprachig.dir/lexi_conjugator.cpp.o: /home/clement/Desktop/vielspr
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdarg \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/streambuf \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/regex \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque
 
 CMakeFiles/vielsprachig.dir/lexi_find.cpp.o: /home/clement/Desktop/vielsprachig/lexi_find.cpp \
   /home/clement/Desktop/vielsprachig/lexicon.h \
