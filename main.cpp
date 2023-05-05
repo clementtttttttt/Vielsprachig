@@ -41,12 +41,22 @@ int hasconfont = 0;
 
 struct stat old_xml_stat;
 
+int find_win = 0;
+bool openfind = false;
+bool vkeyboard = false;
+
 
 void handle_upload_file(std::string const &filename,  // the filename of the file the user selected
     std::string const &mime_type, // the MIME type of the file the user selected, for example "image/png"
     std::string_view buffer,      // the file's content is exposed in this string_view - access the data with buffer.data() and size with buffer.size().
     void *callback_data = nullptr // optional callback data - identical to whatever you passed to handle_upload_file()
   ){
+
+    openfind = 0;
+    extern bool open_conjugator;
+    open_conjugator = false;
+
+
     struct archive *arr = archive_read_new();
     archive_read_support_format_zip(arr);
 
@@ -114,10 +124,20 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
 
 
 
-int find_win = 0;
-bool openfind = false;
-bool vkeyboard = false;
 
+extern "C" {
+EMSCRIPTEN_KEEPALIVE
+void spoof_event(int in){
+
+    uint16_t ev = in;
+
+    ImGuiIO &io = ImGui::GetIO();
+
+    io.AddInputCharacterUTF16(ev);
+//    io.AddKeyEvent(ImGui::GetKey, )
+
+}
+}
 
 EM_JS(void, t_vk_js, (bool enable), {
 
@@ -139,7 +159,24 @@ EM_JS(void, t_vk_js, (bool enable), {
     canvas.addEventListener('click', hack);
     canvas.addEventListener('touchstart', hack);
 
-    inp.addEventListener('keyup', (e) => {if (e.keyCode == 229){var code = inp.value.charAt(inp.selectionStart - 1).charCodeAt(); inp.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': code}));}});
+    inp.addEventListener('input', (e) => {
+        var code = inp.value.charAt(0).charCodeAt();
+        if(isNaN(code) || code === 2) return;
+        Module.ccall('spoof_event', 'undefined', ['number'], [code]);
+        inp.focus();
+        inp.value = "\u{0002}\u{0002}";
+        inp.selectionStart = 0;
+        inp.selectionEnd = 0;
+     });
+
+    inp.addEventListener('keyup', (e) => {
+        var code = e.keyCode;
+        if(e.keyCode != 229 && e.keyCode === 8){
+                Module.ccall('spoof_event', 'undefined', ['number'], [e.keyCode]);
+        }
+
+
+    });
 
     if(enable){
         if(document.activeElement != inp){
@@ -350,7 +387,7 @@ EM_JS(char, get_mobile_key, (void), {
 
 bool android_input(void* event){
 
-
+    return false;
     SDL_Event* ev = (SDL_Event*) event;
 
 
@@ -359,7 +396,6 @@ bool android_input(void* event){
 
 
     char code =  get_mobile_key();
-    std::cout << SDL_GetKeyName(ev->key.keysym.sym) << " " << (int)  code<< std::endl;
 
     if(code == 0) return false;
 
@@ -369,19 +405,10 @@ bool android_input(void* event){
 
     memcpy(&newevent, event, sizeof(SDL_Event));
 
-    char str[2] = {0,0};
+    char str[3] = {0};
     str[0]= code;
 
-    newevent.type = SDL_TEXTINPUT;
-
-    newevent.text.text[0] = str[0];
-
-    newevent.key.keysym.sym = SDL_GetKeyFromName(str);
-
  //   SDL_PushEvent(&newevent);
-                        ImGuiIO &io = ImGui::GetIO();
-
-                io.AddInputCharactersUTF8(newevent.text.text);
 
 
  //   ImGui_ImplSDL2_ProcessEvent(&newevent);

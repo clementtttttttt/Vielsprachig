@@ -618,7 +618,8 @@ CMakeFiles/vielsprachig.dir/lexi_conjugator.cpp.o: /home/clement/Desktop/vielspr
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/locale \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/cstdarg \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/streambuf \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream
 
 CMakeFiles/vielsprachig.dir/lexi_find.cpp.o: /home/clement/Desktop/vielsprachig/lexi_find.cpp \
   /home/clement/Desktop/vielsprachig/lexicon.h \
@@ -2623,8 +2624,6 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
 
 /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_main.h:
 
-/home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream:
-
 /home/clement/.emscripten_cache/sysroot/include/bits/posix.h:
 
 /home/clement/.emscripten_cache/sysroot/include/unistd.h:
@@ -2678,6 +2677,8 @@ _deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h:
 /home/clement/Desktop/vielsprachig/main.cpp:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque:
+
+/home/clement/.emscripten_cache/sysroot/include/c++/v1/sstream:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/streambuf:
 
