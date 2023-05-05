@@ -118,6 +118,7 @@ void update_lexicon_page(){
 
 
 void update_lexicon_word_prop(int id){
+
     pugi::xml_node result = find_word_from_conword_id(id);
 
     current_word_id = id;
@@ -187,7 +188,9 @@ void draw_lexicon_page(){
 
         selected = (*i == current_word_id);
 
-        if(ImGui::Selectable((std::string(find_word_from_conword_id(*i).child("conWord").first_child().value()) + " ").c_str(), &selected)){
+        pugi::xml_node res = find_word_from_conword_id(*i);
+
+        if(ImGui::Selectable((std::string(res.child("conWord").text().as_string()) + " ##" + std::string(res.child("wordId").text().as_string())).c_str(), &selected)){
            // if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
                 update_lexicon_word_prop(*i);
             //}
