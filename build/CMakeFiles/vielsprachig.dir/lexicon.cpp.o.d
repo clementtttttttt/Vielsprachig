@@ -618,4 +618,6 @@ CMakeFiles/vielsprachig.dir/lexicon.cpp.o: \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui/../imgui/misc/cpp/imgui_stdlib.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/regex \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque \
+  /home/clement/.emscripten_cache/sysroot/include/unistd.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/posix.h

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <imgui/misc/cpp/imgui_stdlib.h>
 #include <regex>
+#include <unistd.h>
 
 extern pugi::xml_document dict;
 
@@ -284,6 +285,18 @@ void draw_lexicon_page(){
 
     if(ImGui::Button("Conjugations")){
         open_conjugator = true;
+    }
+
+    ImGui::SameLine();
+
+    bool isautogen = find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().as_bool();
+    if(ImGui::Checkbox("Override declension autogen", &isautogen)){
+        if(isautogen){
+            find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().set("T");
+        }
+        else{
+                        find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().set("F");
+        }
     }
 
     if(open_conjugator){

@@ -1854,7 +1854,9 @@ CMakeFiles/vielsprachig.dir/lexicon.cpp.o: /home/clement/Desktop/vielsprachig/le
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
   _deps/imgui_bundle-src/external/imgui/imgui/misc/cpp/imgui_stdlib.h \
   /home/clement/.emscripten_cache/sysroot/include/c++/v1/regex \
-  /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque
+  /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque \
+  /home/clement/.emscripten_cache/sysroot/include/unistd.h \
+  /home/clement/.emscripten_cache/sysroot/include/bits/posix.h
 
 CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.cpp \
   _deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h \
@@ -2626,10 +2628,6 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: /home/clement/Desktop/vielsprachig/main.
 
 /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_main.h:
 
-/home/clement/.emscripten_cache/sysroot/include/bits/posix.h:
-
-/home/clement/.emscripten_cache/sysroot/include/unistd.h:
-
 /home/clement/.emscripten_cache/sysroot/include/inttypes.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/inttypes.h:
@@ -2677,6 +2675,10 @@ _deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_opengl3.h:
 /home/clement/.emscripten_cache/sysroot/include/SDL2/SDL_audio.h:
 
 /home/clement/Desktop/vielsprachig/main.cpp:
+
+/home/clement/.emscripten_cache/sysroot/include/bits/posix.h:
+
+/home/clement/.emscripten_cache/sysroot/include/unistd.h:
 
 /home/clement/.emscripten_cache/sysroot/include/c++/v1/deque:
 
