@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include <cstdlib>
 #include <imgui.h>
+#include <backends/imgui_impl_sdl2.h>
 #include <iostream>
 #include "imgui_default_settings.h"
 #include "pugixml.hpp"
@@ -339,6 +340,8 @@ EM_JS(char, get_mobile_key, (void), {
 
 
     var code = inp.value.charAt(inp.selectionStart - 1).charCodeAt();
+
+    inp.value = '';
     return code;
 });
 
@@ -356,10 +359,10 @@ bool android_input(void* event){
 
 
     char code =  get_mobile_key();
+    std::cout << SDL_GetKeyName(ev->key.keysym.sym) << " " << (int)  code<< std::endl;
 
     if(code == 0) return false;
 
-    std::cout << SDL_GetKeyName(ev->key.keysym.sym) << " " << (int)  get_mobile_key() << std::endl;
 
 
     SDL_Event newevent;
@@ -367,11 +370,21 @@ bool android_input(void* event){
     memcpy(&newevent, event, sizeof(SDL_Event));
 
     char str[2] = {0,0};
-    str[0]= get_mobile_key();
+    str[0]= code;
+
+    newevent.type = SDL_TEXTINPUT;
+
+    newevent.text.text[0] = str[0];
 
     newevent.key.keysym.sym = SDL_GetKeyFromName(str);
 
-    SDL_PushEvent(&newevent);
+ //   SDL_PushEvent(&newevent);
+                        ImGuiIO &io = ImGui::GetIO();
+
+                io.AddInputCharactersUTF8(newevent.text.text);
+
+
+ //   ImGui_ImplSDL2_ProcessEvent(&newevent);
 
 
     return false;
@@ -383,7 +396,10 @@ int main(int , char *[])
     .appWindowParams.windowGeometry.size = {300,200}, .callbacks.AnyBackendEventCallback = android_input };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
+
 	SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT,"#minput");
+    SDL_SetHint(SDL_HINT_GRAB_KEYBOARD, "true");
+
 
     HelloImGui::Run(
         params

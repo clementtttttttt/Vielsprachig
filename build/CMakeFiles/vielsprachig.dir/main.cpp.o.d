@@ -632,6 +632,7 @@ CMakeFiles/vielsprachig.dir/main.cpp.o: \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/../hello_imgui/hello_imgui_logger.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/../hello_imgui/dpi_aware.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/hello_imgui_assets.h \
+  /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui/backends/imgui_impl_sdl2.h \
   /home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/src/hello_imgui/imgui_default_settings.h \
   /home/clement/Desktop/vielsprachig/pugixml/src/pugixml.hpp \
   /home/clement/Desktop/vielsprachig/pugixml/src/pugiconfig.hpp \
