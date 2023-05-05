@@ -277,9 +277,6 @@ void maingui(){
 
             ImGui::EndMenu();
         }
-        if(ImGui::Checkbox("Open Mobile Keyboard", &vkeyboard)){
-            toggle_vkeyboard(vkeyboard);
-        }
 
         ImGui::EndMainMenuBar();
     }
