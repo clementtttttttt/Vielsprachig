@@ -145,39 +145,6 @@ EM_JS(void, t_vk_js, (bool enable), {
     var c = document.getElementById('canvas');
 
 
-    function hack(param1, param2){
-            if(window.openVirtualKeyboard ){
-                var inp = document.getElementById('minput');
-                inp.focus();
-                inp.click();
-            }
-
-
-    }
-
-
-    canvas.addEventListener('click', hack);
-    canvas.addEventListener('touchstart', hack);
-
-    inp.addEventListener('input', (e) => {
-        var code = inp.value.charAt(0).charCodeAt();
-        if(isNaN(code) || code === 2) return;
-        Module.ccall('spoof_event', 'undefined', ['number'], [code]);
-        inp.focus();
-        inp.value = "\u{0002}\u{0002}";
-        inp.selectionStart = 0;
-        inp.selectionEnd = 0;
-     });
-
-    inp.addEventListener('keyup', (e) => {
-        var code = e.keyCode;
-        if(e.keyCode != 229 && e.keyCode === 8){
-                Module.ccall('spoof_event', 'undefined', ['number'], [e.keyCode]);
-        }
-
-
-    });
-
     if(enable){
         if(document.activeElement != inp){
             inp.focus();
@@ -382,42 +349,10 @@ EM_JS(char, get_mobile_key, (void), {
 
 
 
-bool android_input(void* event){
-
-    return false;
-    SDL_Event* ev = (SDL_Event*) event;
-
-
-    if(ev->type != SDL_KEYDOWN) return false;
-
-
-
-    char code =  get_mobile_key();
-
-    if(code == 0) return false;
-
-
-
-    SDL_Event newevent;
-
-    memcpy(&newevent, event, sizeof(SDL_Event));
-
-    char str[3] = {0};
-    str[0]= code;
-
- //   SDL_PushEvent(&newevent);
-
-
- //   ImGui_ImplSDL2_ProcessEvent(&newevent);
-
-
-    return false;
-}
-
 int main(int , char *[])
 {
     auto params = HelloImGui::RunnerParams {.callbacks.ShowGui = maingui, .callbacks.PreNewFrame = pre_new_frame,  .appWindowParams.windowTitle = "Vielsprachig", //.appWindowParams.windowGeometry.sizeAuto = true,
-    .appWindowParams.windowGeometry.size = {300,200}, .callbacks.AnyBackendEventCallback = android_input };
+    .appWindowParams.windowGeometry.size = {300,200} };
 
     params.callbacks.LoadAdditionalFonts = load_noto_sans;
 

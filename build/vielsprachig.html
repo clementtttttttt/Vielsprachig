@@ -62,6 +62,39 @@
     window.onerror = function() {
         console.log("onerror: " + event);
     };
+
+    var inp = document.getElementById('minput');
+    var c = document.getElementById('canvas');
+
+    function hack(param1, param2){
+            if(window.openVirtualKeyboard ){
+                var inp = document.getElementById('minput');
+                inp.focus();
+                inp.click();
+            }
+
+    }
+
+    canvas.addEventListener('click', hack);
+    canvas.addEventListener('touchstart', hack);
+
+    inp.addEventListener('input', (e) => {
+        var code = inp.value.charAt(0).charCodeAt();
+        if(isNaN(code) || code === 2) return;
+        Module.ccall('spoof_event', 'undefined', ['number'], [code]);
+        inp.focus();
+        inp.value = "\u{0002}\u{0002}";
+        inp.selectionStart = 0;
+        inp.selectionEnd = 0;
+     });
+
+    inp.addEventListener('keyup', (e) => {
+        var code = e.keyCode;
+        if(e.keyCode != 229 && e.keyCode === 8){
+                Module.ccall('spoof_event', 'undefined', ['number'], [e.keyCode]);
+        }
+
+    });
 </script>
 <script async type="text/javascript" src="vielsprachig.js"></script>
 </body>
