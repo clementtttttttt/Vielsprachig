@@ -22,7 +22,7 @@
 
 
 enum modes{
-    nil, M_LEX,M_PROP
+    nil, M_LEX,M_PHO
 };
 
 
@@ -263,8 +263,8 @@ void maingui(){
         if(ImGui::Button("Lexicon", ImVec2((float)200*ratio.x,(float)120*ratio.y))){
             mode = M_LEX;
         }
-        if(ImGui::Button("Properties", ImVec2((float)200*ratio.x,(float)120*ratio.y))){
-            mode = M_PROP;
+        if(ImGui::Button("Phonology", ImVec2((float)200*ratio.x,(float)120*ratio.y))){
+            mode = M_PHO;
         }
 
 

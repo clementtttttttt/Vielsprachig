@@ -251,7 +251,6 @@ void draw_lexicon_page(){
     ImVec2 sz = ImGui::GetWindowSize();
     ImVec2 ratio = ImVec2(sz.x/1280, sz.y/720);
 
-    ImGui::PushItemWidth(100);
     static int items_current=0;
 
     ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22));
@@ -302,7 +301,6 @@ void draw_lexicon_page(){
         ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22));
     ImGui::BeginGroup();
 
-    ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Conword",&coninput, ImGuiInputTextFlags_CallbackEdit, contextin_callback)){
 
@@ -315,31 +313,47 @@ void draw_lexicon_page(){
    // ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22 + 620*ratio.y));
 
 
-    ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::InputText("##Natword",&natinput, ImGuiInputTextFlags_CallbackEdit, nattextin_callback)){
 
     }
 
   //  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
-    ImGui::PushItemWidth(ratio.x * 400);
 
     if(isautoproc){
         std::string disp = curr_word.child("conWord").text().as_string();
 
-        std::map< struct regex_w_order,std::string, sort_by_e_order> replacement_map;
+        if(!dict.child("dictionary").child("pronunciationCollection").child("proGuideRecurse").text().as_bool()){
 
-        int count = 0;
+            std::map< struct regex_w_order,std::string, sort_by_e_order> replacement_map;
 
-        std::map<std::string, int> ordermap;
+            int count = 0;
 
-        for(auto it = dict.child("dictionary").child("pronunciationCollection").children("proGuide").begin();
-            it != dict.child("dictionary").child("pronunciationCollection").children("proGuide").end();
-            ++it){
-                replacement_map[{it->child("proGuideBase").text().as_string(), ++count}] = it->child("proGuidePhon").text().as_string();
-                ordermap[it->child("proGuideBase").text().as_string()] = {count};
+            std::map<std::string, int> ordermap;
+
+            for(auto it = dict.child("dictionary").child("pronunciationCollection").children("proGuide").begin();
+                it != dict.child("dictionary").child("pronunciationCollection").children("proGuide").end();
+                ++it){
+                    replacement_map[{it->child("proGuideBase").text().as_string(), ++count}] = it->child("proGuidePhon").text().as_string();
+                    ordermap[it->child("proGuideBase").text().as_string()] = {count};
+                }
+            disp = custom_regex_replace(disp, replacement_map, ordermap);
         }
-        disp = custom_regex_replace(disp, replacement_map, ordermap);
+        else{
+            int match = 0;
+
+            std::string disp_org;
+
+            while(disp_org != disp){
+                disp_org = disp;
+                for(auto it = dict.child("dictionary").child("pronunciationCollection").children("proGuide").begin();
+                    it != dict.child("dictionary").child("pronunciationCollection").children("proGuide").end();
+                    ++it){
+                    disp = std::regex_replace(disp, std::regex(it->child("proGuideBase").text().as_string()), it->child("proGuidePhon").text().as_string());
+                }
+            }
+
+        }
         ImGui::Text(disp.c_str());
     }
     else{
@@ -351,7 +365,6 @@ void draw_lexicon_page(){
 
 
    // ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
-    ImGui::PushItemWidth(ratio.x * 400);
 
     if(ImGui::BeginCombo("##Part of Speech", find_pos_from_pos_id(current_pos_id).child("partOfSpeechName").first_child().value())){
 
@@ -409,6 +422,8 @@ void draw_lexicon_page(){
     if(open_conjugator){
         lexi_conjugator_dialogue(&open_conjugator);
     }
+
+
 
     ImGui::EndGroup();
 
