@@ -129,6 +129,7 @@ int lexi_find_dialogue(){
 
             ImGui::SameLine();
             if(ImGui::Button("Close##button")){
+                scroll = 0;
                 return 1;
             }
             return 0;
