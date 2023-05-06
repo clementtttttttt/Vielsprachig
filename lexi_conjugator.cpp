@@ -251,7 +251,6 @@ int lexi_conjugator_dialogue(bool *p_open){
                                                 disp += " ";
                                             }
                                             std::regex rep = std::regex(regex_str);
-                                            std::cout << rit->child("decGenTransRegex").text().as_string() <<" "<< rit->child("decGenTransReplace").text().as_string() << std::endl;
                                             disp = std::regex_replace(disp, rep, std::string(rit->child("decGenTransReplace").text().as_string()));
                                         }
 

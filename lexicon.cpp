@@ -4,6 +4,7 @@
 #include <imgui/misc/cpp/imgui_stdlib.h>
 #include <regex>
 #include <unistd.h>
+#include <map>
 
 extern pugi::xml_document dict;
 
@@ -24,6 +25,7 @@ pugi::xml_node curr_word;
 extern char *confont;
 
 bool isautogen;
+bool isautoproc;
 
 
 int find_new_id(){
@@ -130,7 +132,8 @@ void update_lexicon_word_prop(pugi::xml_node node){
     natinput = node.child("localWord").text().as_string();
     proinput = node.child("pronunciation").text().as_string();
     definput = node.child("definition").text().as_string();
-    isautogen = node.child("autoDeclOverride").text().as_bool();
+    isautogen = !node.child("autoDeclOverride").text().as_bool();
+    isautoproc = !node.child("wordProcOverride").text().as_bool();
 
 
 }
@@ -168,6 +171,79 @@ extern ImFont *imconfont;
 int scroll = 0;
 
 bool open_conjugator = false;
+
+struct regex_w_order{
+    std::string in;
+    int order;
+};
+
+struct sort_by_e_order {
+    bool operator()( struct regex_w_order a,  struct regex_w_order b) const {
+        return a.order < b.order;
+    }
+};
+
+std::regex regex_from_map(const std::map<struct regex_w_order,  std::string, sort_by_e_order>& map)
+{
+    std::string pattern_str = "(";
+    auto it = map.begin();
+    if (it != map.end())
+    {
+
+        pattern_str += "(";
+        pattern_str += it->first.in;
+        pattern_str += ")";
+        for(++it; it != map.end(); ++it){
+            pattern_str += "|";
+            pattern_str += "(";
+            pattern_str += it->first.in;
+            pattern_str += ")";
+
+        }
+    }
+    pattern_str += ")";
+
+    std::cout << pattern_str << std::endl;
+
+    return std::regex(pattern_str);
+}
+
+
+
+std::string custom_regex_replace(const std::string& text,
+    std::map<struct regex_w_order,std::string, sort_by_e_order>& replacement_map, std::map<std::string, int> order)
+{
+    auto regex = regex_from_map(replacement_map);
+    std::string result;
+    std::sregex_token_iterator it(text.begin(), text.end(), regex);
+    std::sregex_token_iterator end;
+
+    size_t last_pos = 0;
+    for (; it != end; ++it) {
+      //  result += text.substr(last_pos, it->position() - last_pos);
+                std::cout << it->str() << std::endl;
+
+            std::string match_res(it->first, text.end());
+
+            std::string key = it->str();
+
+            for(auto mit = replacement_map.begin();mit != replacement_map.end(); ++mit){
+                std::smatch submatch;
+                if(std::regex_search(match_res, submatch, std::regex(mit->first.in))){
+                    if(submatch.position() == 0){
+                        key = mit->first.in;
+                    }
+                    break;
+                }
+            }
+            result += replacement_map.at({key, order[key] });
+    //    last_pos = it->position() + it->length();
+    }
+  //  result += text.substr(last_pos, text.size() - last_pos);
+
+    return result;
+}
+
 
 void draw_lexicon_page(){
 
@@ -243,16 +319,36 @@ void draw_lexicon_page(){
 
     if(ImGui::InputText("##Natword",&natinput, ImGuiInputTextFlags_CallbackEdit, nattextin_callback)){
 
-
     }
 
   //  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
     ImGui::PushItemWidth(ratio.x * 400);
 
-    if(ImGui::InputText("##Pronunciation",&proinput, ImGuiInputTextFlags_CallbackEdit, protextin_callback)){
+    if(isautoproc){
+        std::string disp = curr_word.child("conWord").text().as_string();
 
+        std::map< struct regex_w_order,std::string, sort_by_e_order> replacement_map;
 
+        int count = 0;
+
+        std::map<std::string, int> ordermap;
+
+        for(auto it = dict.child("dictionary").child("pronunciationCollection").children("proGuide").begin();
+            it != dict.child("dictionary").child("pronunciationCollection").children("proGuide").end();
+            ++it){
+                replacement_map[{it->child("proGuideBase").text().as_string(), ++count}] = it->child("proGuidePhon").text().as_string();
+                ordermap[it->child("proGuideBase").text().as_string()] = {count};
+        }
+        disp = custom_regex_replace(disp, replacement_map, ordermap);
+        ImGui::Text(disp.c_str());
     }
+    else{
+        if(ImGui::InputText("##Pronunciation",&proinput, ImGuiInputTextFlags_CallbackEdit, protextin_callback)){
+
+
+        }
+    }
+
 
    // ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
     ImGui::PushItemWidth(ratio.x * 400);
@@ -292,12 +388,21 @@ void draw_lexicon_page(){
 
     ImGui::SameLine();
 
-    if(ImGui::Checkbox("Override declension autogen", &isautogen)){
+    if(ImGui::Checkbox("Enable declension autogen", &isautogen)){
         if(isautogen){
-            curr_word.child("autoDeclOverride").text().set("T");
+            curr_word.child("autoDeclOverride").text().set("F");
         }
         else{
-                        curr_word.child("autoDeclOverride").text().set("F");
+                        curr_word.child("autoDeclOverride").text().set("T");
+        }
+    }
+    ImGui::SameLine();
+    if(ImGui::Checkbox("Enable pronunciation autogen", &isautoproc)){
+        if(isautoproc){
+            curr_word.child("wordProcOverride").text().set("F");
+        }
+        else{
+                        curr_word.child("wordProcOverride").text().set("T");
         }
     }
 
