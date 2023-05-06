@@ -1,0 +1,4 @@
+build/_deps
+build/.cache
+build/CMakeFiles
+build/libarchive
