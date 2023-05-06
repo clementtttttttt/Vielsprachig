@@ -45,6 +45,7 @@ int find_win = 0;
 bool openfind = false;
 bool vkeyboard = false;
 
+std::string curr_lang_fname;
 
 void handle_upload_file(std::string const &filename,  // the filename of the file the user selected
     std::string const &mime_type, // the MIME type of the file the user selected, for example "image/png"
@@ -56,6 +57,7 @@ void handle_upload_file(std::string const &filename,  // the filename of the fil
     extern bool open_conjugator;
     open_conjugator = false;
 
+    curr_lang_fname = filename;
 
     struct archive *arr = archive_read_new();
     archive_read_support_format_zip(arr);
@@ -222,7 +224,7 @@ void maingui(){
                 archive_write_free(arr); // Note 5
 
                 std::string_view sv(reinterpret_cast<char*>(buffer.data()), used);
-                emscripten_browser_file::download("lang", ".pgd", sv);
+                emscripten_browser_file::download(curr_lang_fname, "application/octet-stream", sv);
 
 
             }
