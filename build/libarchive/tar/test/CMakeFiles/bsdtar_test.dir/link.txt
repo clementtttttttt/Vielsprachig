@@ -1,1 +1,0 @@
-/usr/lib/emscripten/emcc -w  -O0 -sTOTAL_MEMORY=128MB -sUSE_ZLIB=1 -Wno-unused-command-line-argument -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event -sEXPORTED_FUNCTIONS=_main,_malloc,_free  -Wall -Wformat -Wformat-security -ffunction-sections -fdata-sections -O3 -DNDEBUG  -Wl,--gc-sections @CMakeFiles/bsdtar_test.dir/objects1.rsp -o ../../bin/bsdtar_test.html 
