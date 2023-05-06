@@ -14,6 +14,7 @@ struct dim_sorter
     }
 };
 
+extern pugi::xml_node curr_word;
 
 std::vector<pugi::xml_node> find_decl_from_rel_id(int id){
     pugi::xml_node words = dict.child("dictionary").child("declensionCollection");
@@ -219,8 +220,6 @@ int lexi_conjugator_dialogue(bool *p_open){
                     }
                     find_idx << ",";
 
-                    pugi::xml_node curr_word = find_word_from_conword_id(current_word_id);
-
                     if(curr_word.child("autoDeclOverride").text().as_bool()){
                         int found = 0;
                         for(auto i = ents.begin(); i != ents.end(); ++i){
@@ -241,22 +240,23 @@ int lexi_conjugator_dialogue(bool *p_open){
                     else{
                         std::string disp = curr_word.child("conWord").text().as_string();
                         for(auto i = rules.begin(); i != rules.end(); ++i){
-
                             if(i->child("decGenRuleComb").text().as_string() == find_idx.str()){
                                     std::regex f_regex(i->child("decGenRuleRegex").text().as_string());
 
                                     if(std::regex_search(curr_word.child("conWord").text().as_string(), f_regex)){
-
                                         for(auto rit = i->children("decGenTrans").begin();rit != i->children("decGenTrans").end();++rit){
-                                            disp = std::regex_replace(disp, std::regex(rit->child("decGenTransRegex").text().as_string()), rit->child("decGenTransReplace").text().as_string());
+                                            std::string regex_str = std::string(rit->child("decGenTransRegex").text().as_string());
+                                            if(regex_str == "$"){
+                                                regex_str = ".$";
+                                                disp += " ";
+                                            }
+                                            std::regex rep = std::regex(regex_str);
+                                            std::cout << rit->child("decGenTransRegex").text().as_string() <<" "<< rit->child("decGenTransReplace").text().as_string() << std::endl;
+                                            disp = std::regex_replace(disp, rep, std::string(rit->child("decGenTransReplace").text().as_string()));
                                         }
 
-
                                     }
-
                             }
-
-
                         }
 
 

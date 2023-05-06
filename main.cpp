@@ -134,7 +134,10 @@ void spoof_event(int in){
     ImGuiIO &io = ImGui::GetIO();
 
     io.AddInputCharacterUTF16(ev);
-//    io.AddKeyEvent(ImGui::GetKey, )
+    io.ClearInputKeys();
+    io.ClearInputCharacters();
+
+    //    io.AddKeyEvent(ImGui::GetKey, )
 
 }
 }

@@ -8,20 +8,25 @@
 extern pugi::xml_document dict;
 
 
-std::vector<int> lexlist;
+std::vector<pugi::xml_node> lexlist;
 std::vector<int> poslist;
 
 std::string coninput;
 std::string natinput;
 std::string proinput;
+std::string definput;
 
 int current_pos_id;
 
 int current_word_id;
+pugi::xml_node curr_word;
 
 extern char *confont;
 
-std::string find_new_id(){
+bool isautogen;
+
+
+int find_new_id(){
     pugi::xml_node words = dict.child("dictionary").child("lexicon");
 
     int maxid = 0;
@@ -32,7 +37,7 @@ std::string find_new_id(){
             maxid = comp;
         }
     }
-    return std::to_string(++maxid);
+    return ++maxid;
 }
 
 
@@ -63,8 +68,7 @@ pugi::xml_node find_pos_from_pos_id(int id){
 }
 
 int contextin_callback(ImGuiInputTextCallbackData *in){
-    pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("conWord").text().set(in -> Buf);
+    curr_word.child("conWord").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -72,8 +76,7 @@ int contextin_callback(ImGuiInputTextCallbackData *in){
 }
 
 int nattextin_callback(ImGuiInputTextCallbackData *in){
-    pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("localWord").text().set(in -> Buf);
+    curr_word.child("localWord").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -81,8 +84,7 @@ int nattextin_callback(ImGuiInputTextCallbackData *in){
 }
 
 int protextin_callback(ImGuiInputTextCallbackData *in){
-    pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("pronunciation").text().set(in -> Buf);
+    curr_word.child("pronunciation").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -90,8 +92,7 @@ int protextin_callback(ImGuiInputTextCallbackData *in){
 }
 
 int deftextin_callback(ImGuiInputTextCallbackData *in){
-    pugi::xml_node n = find_word_from_conword_id(current_word_id);
-    n.child("definition").text().set(in -> Buf);
+    curr_word.child("definition").text().set(in -> Buf);
 
     update_lexicon_page();
 
@@ -108,28 +109,28 @@ void update_lexicon_page(){
 
 
     for(auto it = words.first_child(); it; it = it.next_sibling()){
-        lexlist.push_back(it.child("wordId").text().as_int());
+        lexlist.push_back(it);
     }
     for(auto it = poses.first_child(); it; it = it.next_sibling()){
         poslist.push_back(it.child("partOfSpeechId").text().as_int());
     }
 
 }
-    std::string definput;
 
 
-void update_lexicon_word_prop(int id){
+void update_lexicon_word_prop(pugi::xml_node node){
 
-    pugi::xml_node result = find_word_from_conword_id(id);
+    current_word_id = node.child("wordId").text().as_int();
 
-    current_word_id = id;
+    curr_word = node;
 
-    current_pos_id = result.child("wordPosId").text().as_int();
+    current_pos_id = node.child("wordPosId").text().as_int();
   //  coninput.resize(strlen(result.child("conWord").first_child().value())+1);
-    coninput = result.child("conWord").text().as_string();
-    natinput = result.child("localWord").text().as_string();
-    proinput = result.child("pronunciation").text().as_string();
-    definput = result.child("definition").text().as_string();
+    coninput = node.child("conWord").text().as_string();
+    natinput = node.child("localWord").text().as_string();
+    proinput = node.child("pronunciation").text().as_string();
+    definput = node.child("definition").text().as_string();
+    isautogen = node.child("autoDeclOverride").text().as_bool();
 
 
 }
@@ -138,9 +139,12 @@ void fix_lexicon_word_prop(){
     update_lexicon_word_prop(lexlist[0]);
 }
 
-int create_entry(){
-    pugi::xml_node word =  dict.child("dictionary").child("lexicon").append_child("word");
-    word.append_child("wordId").text().set(find_new_id().c_str());
+pugi::xml_node create_entry(){
+
+    int new_id = find_new_id();
+    pugi::xml_node word =
+    dict.child("dictionary").child("lexicon").append_child("word");
+    word.append_child("wordId").text().set(new_id);
     word.append_child("localWord").text().set("");
     word.append_child("conWord").text().set("");
     word.append_child("wordPosId").text().set("");
@@ -155,7 +159,7 @@ int create_entry(){
 
 
 
-    return word.child("wordId").text().as_int();
+    return word;
 }
 
 
@@ -185,19 +189,19 @@ void draw_lexicon_page(){
 
     static bool selected;
 
-    for(auto i = lexlist.begin();i!=lexlist.end();++i){
+    for(auto i = dict.child("dictionary").child("lexicon").children("word").begin();i!=dict.child("dictionary").child("lexicon").children("word").end();++i){
 
-        selected = (*i == current_word_id);
+        int i_word_id = i->child("wordId").text().as_int();
 
-        pugi::xml_node res = find_word_from_conword_id(*i);
+        selected = (i_word_id == current_word_id);
 
-        if(ImGui::Selectable((std::string(res.child("conWord").text().as_string()) + " ##" + std::string(res.child("wordId").text().as_string())).c_str(), &selected)){
+        if(ImGui::Selectable((std::string(i->child("conWord").text().as_string()) + " ##" + std::to_string(i_word_id)).c_str(), &selected)){
            // if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
                 update_lexicon_word_prop(*i);
             //}
         }
 
-        if(scroll && (scroll-1) == (i - lexlist.begin())){
+        if(scroll && (scroll-1) == std::distance(dict.child("dictionary").child("lexicon").children("word").begin(), i)){
             ImGui::SetScrollHereY(0);
         }
 
@@ -209,12 +213,12 @@ void draw_lexicon_page(){
 
     if(ImGui::Button("New word", ImVec2(ratio.x * 133,40*ratio.y))){;
 
-        int id = create_entry();
+        curr_word = create_entry();
 
-        current_word_id = id;
+        current_word_id = curr_word.child("wordId").text().as_int();
 
         update_lexicon_page();
-        update_lexicon_word_prop(id);
+        update_lexicon_word_prop(curr_word);
     }
 
     ImGui::EndGroup();
@@ -261,9 +265,8 @@ void draw_lexicon_page(){
             ImGui::Selectable((std::string(find_pos_from_pos_id(*i).child("partOfSpeechName").first_child().value()) + " ").c_str(), &pos_selected);
             if(pos_selected){
                 current_pos_id = *i;
-                pugi::xml_node n = find_word_from_conword_id(current_word_id);
 
-                n.child("wordPosId").text().set(*i);
+                curr_word.child("wordPosId").text().set(*i);
 
 
             }
@@ -289,13 +292,12 @@ void draw_lexicon_page(){
 
     ImGui::SameLine();
 
-    bool isautogen = find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().as_bool();
     if(ImGui::Checkbox("Override declension autogen", &isautogen)){
         if(isautogen){
-            find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().set("T");
+            curr_word.child("autoDeclOverride").text().set("T");
         }
         else{
-                        find_word_from_conword_id(current_word_id).child("autoDeclOverride").text().set("F");
+                        curr_word.child("autoDeclOverride").text().set("F");
         }
     }
 

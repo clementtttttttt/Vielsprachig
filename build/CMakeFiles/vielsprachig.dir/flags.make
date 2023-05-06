@@ -6,5 +6,5 @@ CXX_DEFINES = -DHELLOIMGUI_CANNOTQUIT -DHELLOIMGUI_HAS_OPENGL -DHELLOIMGUI_USE_G
 
 CXX_INCLUDES = @CMakeFiles/vielsprachig.dir/includes_CXX.rsp
 
-CXX_FLAGS = -w  -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event -sEXPORTED_FUNCTIONS=_main,_malloc,_free -g -std=gnu++17 -s USE_SDL=2 -fPIC
+CXX_FLAGS = -w  -O0 -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event -sEXPORTED_FUNCTIONS=_main,_malloc,_free -g -std=gnu++17 -s USE_SDL=2 -fPIC
 

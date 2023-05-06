@@ -5,8 +5,9 @@
 #include <regex>
 #include <vector>
 
-extern std::vector<int> lexlist;
+extern std::vector<pugi::xml_node> lexlist;
 extern int current_word_id;
+extern pugi::xml_node curr_word;
 
 std::string search_conword;
 std::string search_natword;
@@ -22,6 +23,7 @@ bool empty_natword = false;
 bool empty_definition = false;
 bool empty_pronun = false;
 bool match_case = false;
+
 
 int lexi_find_dialogue(){
 
@@ -81,7 +83,7 @@ int lexi_find_dialogue(){
 
                 found_total = 0;
                 for(auto i=0;i<lexlist.size();++i){
-                    pugi::xml_node node = find_word_from_conword_id(lexlist[i]);
+                    pugi::xml_node node = lexlist[i];
 
                     if((std::regex_search(node.child("conWord").text().as_string(), conword_crit) || empty_conword)
                         && (std::regex_search(node.child("localWord").text().as_string(), natword_crit) || empty_natword)
@@ -93,15 +95,16 @@ int lexi_find_dialogue(){
 
                 if(found_total){
                     for(auto i=current_find_index;i<lexlist.size();++i){
-                        pugi::xml_node node = find_word_from_conword_id(lexlist[i]);
+                        pugi::xml_node node = lexlist[i];
 
                         int quit=0;
 
-                    if((std::regex_search(node.child("conWord").text().as_string(), conword_crit) || empty_conword)
-                        && (std::regex_search(node.child("localWord").text().as_string(), natword_crit) || empty_natword)
-                        && (std::regex_search(node.child("pronunciation").text().as_string(), pronun_crit) || empty_pronun)
-                        && (std::regex_search(node.child("definition").text().as_string(), defword_crit) || empty_definition)){
-                            current_word_id = lexlist[i];
+                        if((std::regex_search(node.child("conWord").text().as_string(), conword_crit) || empty_conword)
+                            && (std::regex_search(node.child("localWord").text().as_string(), natword_crit) || empty_natword)
+                            && (std::regex_search(node.child("pronunciation").text().as_string(), pronun_crit) || empty_pronun)
+                            && (std::regex_search(node.child("definition").text().as_string(), defword_crit) || empty_definition)){
+                            current_word_id = lexlist[i].child("wordId").text().as_int();
+                            curr_word = node;
                             current_find_index = i+1;
                             ++found_count;
                             quit=1;
@@ -118,7 +121,7 @@ int lexi_find_dialogue(){
                     }
                 }
 
-                update_lexicon_word_prop(current_word_id);
+                update_lexicon_word_prop(curr_word);
 
                 scroll = current_find_index;
 
