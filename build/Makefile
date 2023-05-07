@@ -1050,6 +1050,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+phono.o: phono.cpp.o
+.PHONY : phono.o
+
+# target to build an object file
+phono.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/phono.cpp.o
+.PHONY : phono.cpp.o
+
+phono.i: phono.cpp.i
+.PHONY : phono.i
+
+# target to preprocess a source file
+phono.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/phono.cpp.i
+.PHONY : phono.cpp.i
+
+phono.s: phono.cpp.s
+.PHONY : phono.s
+
+# target to generate assembly for a file
+phono.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/phono.cpp.s
+.PHONY : phono.cpp.s
+
 pugixml/src/pugixml.o: pugixml/src/pugixml.cpp.o
 .PHONY : pugixml/src/pugixml.o
 
@@ -1159,6 +1183,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... phono.o"
+	@echo "... phono.i"
+	@echo "... phono.s"
 	@echo "... pugixml/src/pugixml.o"
 	@echo "... pugixml/src/pugixml.i"
 	@echo "... pugixml/src/pugixml.s"

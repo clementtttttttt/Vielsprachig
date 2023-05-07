@@ -248,7 +248,7 @@ void draw_lexicon_page() {
 
 	ImGui::BeginGroup();
 
-	ImGui::BeginListBox(" ", ImVec2(400 * ratio.x, 620 * ratio.y));
+	if(ImGui::BeginListBox(" ", ImVec2(400 * ratio.x, 620 * ratio.y))){
 
 	static bool selected;
 
@@ -285,12 +285,31 @@ void draw_lexicon_page() {
 	}
 
 	ImGui::EndListBox();
+    }
 
 	if (ImGui::Button("New word", ImVec2(ratio.x * 133, 40 * ratio.y))) {
 		;
 
 		curr_word = create_entry();
 
+		current_word_id = curr_word.child("wordId").text().as_int();
+
+		update_lexicon_page();
+		update_lexicon_word_prop(curr_word);
+	}
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("Delete word", ImVec2(ratio.x * 133, 40 * ratio.y))) {
+		;
+        pugi::xml_node old = curr_word;
+
+		if(!(curr_word = curr_word.previous_sibling())){
+                old.parent().remove_child(old);
+                curr_word = dict.child("dictionary").child("lexicon").first_child();
+        }else{
+                old.parent().remove_child(old);
+        }
 		current_word_id = curr_word.child("wordId").text().as_int();
 
 		update_lexicon_page();

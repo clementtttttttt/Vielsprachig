@@ -44,7 +44,7 @@ include(imgui_bundle_add_app)
 # Build your app
 ##########################################################
 
-imgui_bundle_add_app(vielsprachig main.cpp lexicon.cpp lexi_find.cpp lexi_conjugator.cpp)
+imgui_bundle_add_app(vielsprachig main.cpp lexicon.cpp lexi_find.cpp lexi_conjugator.cpp phono.cpp)
 
 target_link_libraries(vielsprachig PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/libarchive/libarchive/libarchive.a)
 
