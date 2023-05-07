@@ -145,9 +145,9 @@ pugi::xml_node create_entry() {
 	word.append_child("wordPosId").text().set("");
 	word.append_child("pronunciation").text().set("");
 	word.append_child("definition").text().set("");
-	word.append_child("wordProcOverride").text().set("");
-	word.append_child("autoDeclOverride").text().set("");
-	word.append_child("wordRuleOverride").text().set("");
+	word.append_child("wordProcOverride").text().set("F");
+	word.append_child("autoDeclOverride").text().set("F");
+	word.append_child("wordRuleOverride").text().set("F");
 	word.append_child("wordClassCollection").text().set("");
 	word.append_child("wordClassTextValueCollection").text().set("");
 	word.append_child("wordEtymologyNotes").text().set("");
@@ -388,7 +388,8 @@ void draw_lexicon_page() {
 				}
 			}
 		}
-		ImGui::Text(disp.c_str());
+		ImGui::InputText("##Pronunciation",&disp, ImGuiInputTextFlags_ReadOnly);
+        curr_word.child("pronunciation").text().set(disp.c_str());
 	} else {
 		if (ImGui::InputText("##Pronunciation", &proinput,
 				     ImGuiInputTextFlags_CallbackEdit,
