@@ -16,6 +16,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "phono.hpp"
 #include "lexicon.h"
 #include "runner_callbacks.h"
 #include "runner_params.h"
@@ -260,6 +261,9 @@ void maingui() {
 	if (mode == M_LEX) {
 
 		draw_lexicon_page();
+	}
+	if (mode == M_PHO) {
+        draw_phono_page();
 	}
 
 	if (popup) {
