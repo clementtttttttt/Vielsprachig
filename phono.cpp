@@ -9,6 +9,8 @@ bool recgen = false;
 
 pugi::xml_node current_pho_ent;
 
+extern std::string procol;
+
 void draw_phono_page() {
 
 	std::string pat, rep;
@@ -29,11 +31,11 @@ void draw_phono_page() {
 
 		ImGui::PushItemWidth( 131 * ratio.x);
 		for (auto it = dict.child("dictionary")
-				   .child("pronunciationCollection")
+				   .child(procol.c_str())
 				   .children("proGuide")
 				   .begin();
 		     it != dict.child("dictionary")
-			       .child("pronunciationCollection")
+			       .child(procol.c_str())
 			       .children("proGuide")
 			       .end();
 		     ++it) {
@@ -69,7 +71,7 @@ void draw_phono_page() {
 	}
 
 	recgen = 			dict.child("dictionary")
-			 .child("pronunciationCollection")
+			 .child(procol.c_str())
 			 .child("proGuideRecurse")
 			 .text()
 			 .as_bool();
@@ -79,13 +81,13 @@ void draw_phono_page() {
 	if (ImGui::Checkbox("Enable recursive autogen", &recgen)) {
 		if (recgen) {
 			dict.child("dictionary")
-			 .child("pronunciationCollection")
+			 .child(procol.c_str())
 			 .child("proGuideRecurse")
 			 .text()
 			 .set("T");
 		} else {
 			dict.child("dictionary")
-			 .child("pronunciationCollection")
+			 .child(procol.c_str())
 			 .child("proGuideRecurse")
 			 .text()
 			 .set("F");		}
@@ -93,7 +95,7 @@ void draw_phono_page() {
 
 	if(ImGui::Button("New rule")){
 		pugi::xml_node protrans_par = dict.child("dictionary")
-				   .child("pronunciationCollection");
+				   .child(procol.c_str());
 
 		pugi::xml_node node = protrans_par.append_child("proGuide");
 
@@ -122,5 +124,6 @@ void draw_phono_page() {
 		current_pho_ent.parent().insert_move_after(current_pho_ent, current_pho_ent.next_sibling());
 
 	}
+
 	ImGui::EndGroup();
 }

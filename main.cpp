@@ -16,12 +16,13 @@
 #include <iostream>
 #include <sstream>
 
+#include "pos.h"
 #include "phono.hpp"
 #include "lexicon.h"
 #include "runner_callbacks.h"
 #include "runner_params.h"
 
-enum modes { nil, M_LEX, M_PHO };
+enum modes { nil, M_LEX, M_PHO, M_POS };
 
 int mode = M_LEX;
 
@@ -43,6 +44,27 @@ bool openfind = false;
 bool vkeyboard = false;
 
 std::string curr_lang_fname;
+
+std::string procol, posname, wposid;
+
+void parse_ver(int result[4], const std::string& input)
+{
+    std::istringstream parser(input);
+    parser >> result[0];
+    for(int idx = 1; idx < 4; idx++)
+    {
+        parser.get(); //Skip period
+        parser >> result[idx];
+    }
+}
+
+bool less_than_ver(const std::string& a,const std::string& b)
+{
+    int parsedA[4], parsedB[4];
+    parse_ver(parsedA, a);
+    parse_ver(parsedB, b);
+    return std::lexicographical_compare(parsedA, parsedA + 4, parsedB, parsedB + 4);
+}
 
 void handle_upload_file(
     std::string const &filename,  // the filename of the file the user selected
@@ -117,9 +139,21 @@ void handle_upload_file(
 		errstr = "Cannot find PGDictionary.xml in archive";
 		return;
 	}
+	if(less_than_ver(dict.child("dictionary").child("PolyGlotVer").text().as_string(), "3.6")){
+		procol = "etymologyCollection";
+		posname = "class";
+		wposid = "wordTypeId";
+	}
+	else{
+		procol = "pronunciationCollection";
+		posname = "partOfSpeech";
+		wposid = "wordPosId";
+	}
 
 	update_lexicon_page();
 	fix_lexicon_word_prop();
+
+
 }
 
 extern "C" {
@@ -251,9 +285,13 @@ void maingui() {
 			  ImVec2((float)200 * ratio.x, (float)120 * ratio.y))) {
 		mode = M_LEX;
 	}
-	if (ImGui::Button("Phonology",
+	if (ImGui::Button("Phonology & Rom.",
 			  ImVec2((float)200 * ratio.x, (float)120 * ratio.y))) {
 		mode = M_PHO;
+	}
+	if (ImGui::Button("Part of Speech",
+			  ImVec2((float)200 * ratio.x, (float)120 * ratio.y))) {
+		mode = M_POS;
 	}
 
 	ImGui::EndGroup();
@@ -264,6 +302,9 @@ void maingui() {
 	}
 	if (mode == M_PHO) {
         draw_phono_page();
+	}
+	if (mode == M_POS) {
+        draw_pos_page();
 	}
 
 	if (popup) {

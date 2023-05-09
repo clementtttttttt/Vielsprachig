@@ -26,6 +26,8 @@ extern char *confont;
 bool isautogen;
 bool isautoproc;
 
+extern std::string procol, posname, wposid;
+
 int find_new_id() {
 	pugi::xml_node words = dict.child("dictionary").child("lexicon");
 
@@ -58,7 +60,7 @@ pugi::xml_node find_pos_from_pos_id(int id) {
 	pugi::xml_node words = dict.child("dictionary").child("partsOfSpeech");
 
 	for (auto it = words.first_child(); it; it = it.next_sibling()) {
-		int val = it.child("partOfSpeechId").text().as_int();
+		int val = it.child((posname + "Id").c_str()).text().as_int();
 		if (val == id) {
 			return it;
 		}
@@ -112,7 +114,7 @@ void update_lexicon_page() {
 		lexlist.push_back(it);
 	}
 	for (auto it = poses.first_child(); it; it = it.next_sibling()) {
-		poslist.push_back(it.child("partOfSpeechId").text().as_int());
+		poslist.push_back(it.child((posname+"Id").c_str()).text().as_int());
 	}
 }
 
@@ -122,7 +124,7 @@ void update_lexicon_word_prop(pugi::xml_node node) {
 
 	curr_word = node;
 
-	current_pos_id = node.child("wordPosId").text().as_int();
+	current_pos_id = node.child(wposid.c_str()).text().as_int();
 	//  coninput.resize(strlen(result.child("conWord").first_child().value())+1);
 	coninput = node.child("conWord").text().as_string();
 	natinput = node.child("localWord").text().as_string();
@@ -142,7 +144,7 @@ pugi::xml_node create_entry() {
 	word.append_child("wordId").text().set(new_id);
 	word.append_child("localWord").text().set("");
 	word.append_child("conWord").text().set("");
-	word.append_child("wordPosId").text().set("");
+	word.append_child(wposid.c_str()).text().set("");
 	word.append_child("pronunciation").text().set("");
 	word.append_child("definition").text().set("");
 	word.append_child("wordProcOverride").text().set("F");
@@ -189,6 +191,7 @@ std::regex regex_from_map(
 		}
 	}
 	pattern_str += ")";
+			std::cout << "" << pattern_str << std::endl;
 
 	return std::regex(pattern_str);
 }
@@ -198,8 +201,6 @@ std::string custom_regex_replace(
     std::map<struct regex_w_order, std::string, sort_by_e_order>
 	replacement_map,
     std::map<std::string, int> order) {
-	std::map<struct regex_w_order, std::string, sort_by_e_order> copy =
-	    replacement_map;
 
 	auto regex = regex_from_map(replacement_map);
 	std::string result;
@@ -213,8 +214,9 @@ std::string custom_regex_replace(
 		std::string match_res(it->first, text.end());
 
 		std::string key = it->str();
+			std::cout << "TEXT" << text << std::endl;
 
-		for (auto mit = copy.begin(); mit != copy.end(); ++mit) {
+		for (auto mit = replacement_map.begin(); mit != replacement_map.end(); ++mit) {
 			std::smatch submatch;
 
 			if (std::regex_search(match_res, submatch,
@@ -343,7 +345,7 @@ void draw_lexicon_page() {
 		    curr_word.child("conWord").text().as_string();
 
 		if (!dict.child("dictionary")
-			 .child("pronunciationCollection")
+			 .child(procol.c_str())
 			 .child("proGuideRecurse")
 			 .text()
 			 .as_bool()) {
@@ -357,11 +359,11 @@ void draw_lexicon_page() {
 			std::map<std::string, int> ordermap;
 
 			for (auto it = dict.child("dictionary")
-					   .child("pronunciationCollection")
+					   .child(procol.c_str())
 					   .children("proGuide")
 					   .begin();
 			     it != dict.child("dictionary")
-				       .child("pronunciationCollection")
+				       .child(procol.c_str())
 				       .children("proGuide")
 				       .end();
 			     ++it) {
@@ -388,11 +390,11 @@ void draw_lexicon_page() {
 				disp_org = disp;
 				for (auto it =
 					 dict.child("dictionary")
-					     .child("pronunciationCollection")
+					     .child(procol.c_str())
 					     .children("proGuide")
 					     .begin();
 				     it != dict.child("dictionary")
-					       .child("pronunciationCollection")
+					       .child(procol.c_str())
 					       .children("proGuide")
 					       .end();
 				     ++it) {
@@ -420,7 +422,7 @@ void draw_lexicon_page() {
 
 	if (ImGui::BeginCombo("##Part of Speech",
 			      find_pos_from_pos_id(current_pos_id)
-				  .child("partOfSpeechName")
+				  .child((posname + "Name").c_str())
 				  .first_child()
 				  .value())) {
 
@@ -429,7 +431,7 @@ void draw_lexicon_page() {
 		for (auto i = poslist.begin(); i != poslist.end(); ++i) {
 			ImGui::Selectable(
 			    (std::string(find_pos_from_pos_id(*i)
-					     .child("partOfSpeechName")
+						 .child((posname + "Name").c_str())
 					     .first_child()
 					     .value()) +
 			     " ")
@@ -438,7 +440,7 @@ void draw_lexicon_page() {
 			if (pos_selected) {
 				current_pos_id = *i;
 
-				curr_word.child("wordPosId").text().set(*i);
+				curr_word.child(wposid.c_str()).text().set(*i);
 			}
 
 			pos_selected = false;
