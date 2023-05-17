@@ -254,6 +254,8 @@ void draw_lexicon_page() {
 
 	static bool selected;
 
+	
+
 	for (auto i = dict.child("dictionary")
 			  .child("lexicon")
 			  .children("word")
@@ -378,9 +380,10 @@ void draw_lexicon_page() {
 					     .text()
 					     .as_string()] = {count};
 			}
-
+			if(!replacement_map.empty() || !ordermap.empty()){
 			disp = custom_regex_replace(disp, replacement_map,
 						    ordermap);
+			}
 		} else {
 			int match = 0;
 

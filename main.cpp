@@ -409,6 +409,10 @@ int main(int, char *[]) {
 	SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT, "#minput");
 	SDL_SetHint(SDL_HINT_GRAB_KEYBOARD, "true");
 
+	pugi::xml_node obj = dict.append_child("dictionary");
+	obj.append_child("lexicon");
+	//obj.append_child("")
+
 	HelloImGui::Run(params);
 
 	return 0;
