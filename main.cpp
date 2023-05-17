@@ -331,6 +331,9 @@ void maingui() {
 				openfind = false;
 			}
 		}
+		else{
+			lexi_find_dialogue_set_scroll_false();
+		}
 		ImGui::End();
 	}
 	ImGuiIO &io = ImGui::GetIO();

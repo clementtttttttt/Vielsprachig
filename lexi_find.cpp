@@ -25,6 +25,11 @@ bool empty_definition = false;
 bool empty_pronun = false;
 bool match_case = false;
 
+
+void lexi_find_dialogue_set_scroll_false(){
+	scroll = false;
+}
+
 int lexi_find_dialogue() {
 
 	ImGuiIO io = ImGui::GetIO();
