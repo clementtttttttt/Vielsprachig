@@ -269,7 +269,7 @@ void draw_lexicon_page() {
 		selected = (i_word_id == current_word_id);
 
 		if (ImGui::Selectable(
-			(std::string(i->child("conWord").text().as_string()) +
+			(std::string(i->child("conWord").text().as_string()) + " = " + std::string(i->child("localWord").text().as_string()) +
 			 " ##" + std::to_string(i_word_id))
 			    .c_str(),
 			&selected)) {
@@ -329,11 +329,28 @@ void draw_lexicon_page() {
 			     ImGuiInputTextFlags_CallbackEdit,
 			     contextin_callback)) {
 	}
+
+
+
+
+	if(coninput.empty()){
+
+		ImGui::SameLine();
+
+		pos.y = ImGui::GetCursorScreenPos().y;
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
+
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::Text("Conword goes here");
+		ImGui::PopStyleColor();
+
+
+	}
+
 	if (imconfont)
 		ImGui::PopFont();
 
-	// ImGui::SetCursorScreenPos(ImVec2(pos.x+202*ratio.x, 22 +
-	// 620*ratio.y));
 
 	if (ImGui::InputText("##Natword", &natinput,
 			     ImGuiInputTextFlags_CallbackEdit,
@@ -341,6 +358,21 @@ void draw_lexicon_page() {
 	}
 
 	//  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
+	if(natinput.empty()){
+
+		ImGui::SameLine();
+
+		pos.y = ImGui::GetCursorScreenPos().y;
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
+// Particular widget styling
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::Text("Local word goes here");
+		ImGui::PopStyleColor();
+
+	}
+
+	bool isDispEmpty = true;
 
 	if (isautoproc) {
 		std::string disp =
@@ -414,6 +446,7 @@ void draw_lexicon_page() {
 		}
 		ImGui::InputText("##Pronunciation",&disp, ImGuiInputTextFlags_ReadOnly);
         curr_word.child("pronunciation").text().set(disp.c_str());
+		isDispEmpty = disp.empty();
 	} else {
 		if (ImGui::InputText("##Pronunciation", &proinput,
 				     ImGuiInputTextFlags_CallbackEdit,
@@ -421,7 +454,23 @@ void draw_lexicon_page() {
 		}
 	}
 
+	if(proinput.empty() && isDispEmpty){
+
+		ImGui::SameLine();
+
+		pos.y = ImGui::GetCursorScreenPos().y;
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
+
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::Text("Pronunciation goes here");
+		ImGui::PopStyleColor();
+
+
+	}
+
 	// ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
+	ImGui::Text("Part of speech");
 
 	if (ImGui::BeginCombo("##Part of Speech",
 			      find_pos_from_pos_id(current_pos_id)
@@ -452,11 +501,26 @@ void draw_lexicon_page() {
 		ImGui::EndCombo();
 	}
 
+
 	ImGui::Separator();
 
 	ImGui::InputTextMultiline("##Definition", &definput, ImVec2(0, 0),
 				  ImGuiInputTextFlags_CallbackEdit,
 				  deftextin_callback);
+
+	if(definput.empty()){
+
+		ImGui::SameLine();
+
+		pos.y = ImGui::GetCursorScreenPos().y;
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
+// Particular widget styling
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::Text("Definition goes here");
+		ImGui::PopStyleColor();
+
+	}
 
 	ImGui::Separator();
 

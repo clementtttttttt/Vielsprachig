@@ -247,7 +247,16 @@ void maingui() {
 				    curr_lang_fname, "application/octet-stream",
 				    sv);
 			}
+			if (ImGui::MenuItem("Open from browser stor.", "")) {
+
+			}
+			if (ImGui::MenuItem("Save to browser stor.", "")) {
+
+			}
 			ImGui::EndMenu();
+
+
+
 		}
 		if (ImGui::BeginMenu("Edit")) {
 			if (ImGui::MenuItem("Undo", "CTRL+Z")) {
@@ -331,10 +340,11 @@ void maingui() {
 				openfind = false;
 			}
 		}
-		else{
-			lexi_find_dialogue_set_scroll_false();
-		}
+
 		ImGui::End();
+	}
+	else{
+		lexi_find_dialogue_set_scroll_false();
 	}
 	ImGuiIO &io = ImGui::GetIO();
 	toggle_vkeyboard(io.WantCaptureKeyboard);

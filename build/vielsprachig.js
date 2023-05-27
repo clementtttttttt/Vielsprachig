@@ -82,7 +82,7 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
               num++;
             }
             total = Math.ceil(total * Module.expectedDataFileDownloads/num);
-            if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
+            if (Module['setStatus']) Module['setStatus'](`Downloading data... (${loaded}/${total})`);
           } else if (!Module.dataFileDownloads) {
             if (Module['setStatus']) Module['setStatus']('Downloading data...');
           }
@@ -135,7 +135,7 @@ Module['FS_createPath']("/", "fonts", true, true);
         open: function(mode, name) {
           this.name = name;
           this.requests[name] = this;
-          Module['addRunDependency']('fp ' + this.name);
+          Module['addRunDependency'](`fp ${this.name}`);
         },
         send: function() {},
         onload: function() {
@@ -146,7 +146,7 @@ Module['FS_createPath']("/", "fonts", true, true);
           var that = this;
           // canOwn this data in the filesystem, it is a slide into the heap that will never change
           Module['FS_createDataFile'](this.name, null, byteArray, true, true, true);
-          Module['removeRunDependency']('fp ' + that.name);
+          Module['removeRunDependency'](`fp ${that.name}`);
           this.requests[this.name] = null;
         }
       };
@@ -388,7 +388,7 @@ if (ENVIRONMENT_IS_SHELL) {
           if (toThrow && typeof toThrow == 'object' && toThrow.stack) {
             toLog = [toThrow, toThrow.stack];
           }
-          err('exiting due to exception: ' + toLog);
+          err(`exiting due to exception: ${toLog}`);
         }
         quit(status);
       });
@@ -474,7 +474,7 @@ read_ = (url) => {
 }
 
 var out = Module['print'] || console.log.bind(console);
-var err = Module['printErr'] || console.warn.bind(console);
+var err = Module['printErr'] || console.error.bind(console);
 
 // Merge back in the overrides
 Object.assign(Module, moduleOverrides);
@@ -1180,31 +1180,31 @@ function unexportedRuntimeSymbol(sym) {
 // Used by XXXXX_DEBUG settings to output debug messages.
 function dbg(text) {
   // TODO(sbc): Make this configurable somehow.  Its not always convenient for
-  // logging to show up as errors.
-  console.error.apply(console, arguments);
+  // logging to show up as warnings.
+  console.warn.apply(console, arguments);
 }
 
 // end include: runtime_debug.js
 // === Body ===
 
 var ASM_CONSTS = {
-  258752: () => { scale = window.devicePixelRatio; return scale; },  
- 258803: ($0) => { var str = UTF8ToString($0) + '\n\n' + 'Abort/Retry/Ignore/AlwaysIgnore? [ariA] :'; var reply = window.prompt(str, "i"); if (reply === null) { reply = "i"; } return allocate(intArrayFromString(reply), 'i8', ALLOC_NORMAL); },  
- 259028: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 259175: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 259409: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 259902: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 259970: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 261622: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 262032: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 262637: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 263117: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 264289: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 265758: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 266747: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 266830: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 266899: () => { return window.innerWidth; },  
- 266929: () => { return window.innerHeight; }
+  258880: () => { scale = window.devicePixelRatio; return scale; },  
+ 258931: ($0) => { var str = UTF8ToString($0) + '\n\n' + 'Abort/Retry/Ignore/AlwaysIgnore? [ariA] :'; var reply = window.prompt(str, "i"); if (reply === null) { reply = "i"; } return allocate(intArrayFromString(reply), 'i8', ALLOC_NORMAL); },  
+ 259156: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 259303: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 259537: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 260030: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 260098: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 261750: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 262160: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 262765: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 263245: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 264417: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 265886: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 266875: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 266958: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 267027: () => { return window.innerWidth; },  
+ 267057: () => { return window.innerHeight; }
 };
 function upload(accept_types,callback,callback_data) { globalThis["open_file"] = function(e) { const file_reader = new FileReader(); file_reader.onload = (event) => { const uint8Arr = new Uint8Array(event.target.result); const num_bytes = uint8Arr.length * uint8Arr.BYTES_PER_ELEMENT; const data_ptr = Module["_malloc"](num_bytes); const data_on_heap = new Uint8Array(Module["HEAPU8"].buffer, data_ptr, num_bytes); data_on_heap.set(uint8Arr); Module["ccall"]('upload_file_return', 'number', ['string', 'string', 'number', 'number', 'number', 'number'], [event.target.filename, event.target.mime_type, data_on_heap.byteOffset, uint8Arr.length, callback, callback_data]); Module["_free"](data_ptr); }; file_reader.filename = e.target.files[0].name; file_reader.mime_type = e.target.files[0].type; file_reader.readAsArrayBuffer(e.target.files[0]); }; var safarifix = document.createElement('div'); safarifix.id = 'safarifix'; safarifix.style.zIndex = '2'; safarifix.style.position = 'relative'; safarifix.style.backgroundColor = '#FFFFFF'; safarifix.style.width = '40vw'; safarifix.style.height = '20vh'; safarifix.style.display = 'block'; safarifix.style.marginLeft = '30vw'; safarifix.style.marginTop = '40vh'; document.body.appendChild(safarifix); var workaround_warning = document.createElement('p'); workaround_warning.innerText = 'Open the file selecting dialogue manually with the button below'; workaround_warning.style.textAlign = 'center'; safarifix.appendChild(workaround_warning); var file_selector = document.createElement('input'); file_selector.setAttribute('type', 'file'); file_selector.setAttribute('accept', '.pgd'); file_selector.style.position = 'absolute'; file_selector.style.marginLeft = '20%'; file_selector.style.width = '80%'; file_selector.style.align = 'center'; safarifix.appendChild(file_selector); file_selector.onchange = function(event){ globalThis["open_file"](event); document.body.removeChild(document.getElementById('safarifix')); }; file_selector.click(); }
 function download(filename,mime_type,buffer,buffer_size) { var a = document.createElement('a'); a.download = UTF8ToString(filename); a.href = URL.createObjectURL(new Blob([new Uint8Array(Module["HEAPU8"].buffer, buffer, buffer_size)], {type: UTF8ToString(mime_type)})); a.click(); }
@@ -1283,7 +1283,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       if (sig.includes('j')) {
         return dynCallLegacy(sig, ptr, args);
       }
-      assert(getWasmTableEntry(ptr), 'missing table entry in dynCall: ' + ptr);
+      assert(getWasmTableEntry(ptr), `missing table entry in dynCall: ${ptr}`);
       var rtn = getWasmTableEntry(ptr).apply(null, args);
       return rtn;
   
@@ -1305,7 +1305,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       case 'float': return HEAPF32[((ptr)>>2)];
       case 'double': return HEAPF64[((ptr)>>3)];
       case '*': return HEAPU32[((ptr)>>2)];
-      default: abort('invalid type for getValue: ' + type);
+      default: abort(`invalid type for getValue: ${type}`);
     }
   }
 
@@ -1331,7 +1331,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       case 'float': HEAPF32[((ptr)>>2)] = value; break;
       case 'double': HEAPF64[((ptr)>>3)] = value; break;
       case '*': HEAPU32[((ptr)>>2)] = value; break;
-      default: abort('invalid type for setValue: ' + type);
+      default: abort(`invalid type for setValue: ${type}`);
     }
   }
 
@@ -2204,7 +2204,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
   
   /** @param {boolean=} noRunDep */
   function asyncLoad(url, onload, onerror, noRunDep) {
-      var dep = !noRunDep ? getUniqueRunDependency('al ' + url) : '';
+      var dep = !noRunDep ? getUniqueRunDependency(`al ${url}`) : '';
       readAsync(url, (arrayBuffer) => {
         assert(arrayBuffer, `Loading data file "${url}" failed (no arrayBuffer).`);
         onload(new Uint8Array(arrayBuffer));
@@ -2238,7 +2238,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       // TODO we should allow people to just pass in a complete filename instead
       // of parent and name being that we just join them anyways
       var fullname = name ? PATH_FS.resolve(PATH.join2(parent, name)) : parent;
-      var dep = getUniqueRunDependency('cp ' + fullname); // might have several active requests for the same fullname
+      var dep = getUniqueRunDependency(`cp ${fullname}`); // might have several active requests for the same fullname
       function processData(byteArray) {
         function finish(byteArray) {
           if (preFinish) preFinish();
@@ -2275,7 +2275,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       };
       var flags = flagModes[str];
       if (typeof flags == 'undefined') {
-        throw new Error('Unknown file open mode: ' + str);
+        throw new Error(`Unknown file open mode: ${str}`);
       }
       return flags;
     }
@@ -2371,9 +2371,9 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
           if (FS.isRoot(node)) {
             var mount = node.mount.mountpoint;
             if (!path) return mount;
-            return mount[mount.length-1] !== '/' ? mount + '/' + path : mount + path;
+            return mount[mount.length-1] !== '/' ? `${mount}/${path}` : mount + path;
           }
-          path = path ? node.name + '/' + path : node.name;
+          path = path ? `${node.name}/${path}` : node.name;
           node = node.parent;
         }
       },hashName:(parentid, name) => {
@@ -2598,7 +2598,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         FS.syncFSRequests++;
   
         if (FS.syncFSRequests > 1) {
-          err('warning: ' + FS.syncFSRequests + ' FS.syncfs operations in flight at once, probably just doing extra work');
+          err(`warning: ${FS.syncFSRequests} FS.syncfs operations in flight at once, probably just doing extra work`);
         }
   
         var mounts = FS.getMounts(FS.root.mount);
@@ -3241,7 +3241,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         opts.flags = opts.flags || 0;
         opts.encoding = opts.encoding || 'binary';
         if (opts.encoding !== 'utf8' && opts.encoding !== 'binary') {
-          throw new Error('Invalid encoding type "' + opts.encoding + '"');
+          throw new Error(`Invalid encoding type "${opts.encoding}"`);
         }
         var ret;
         var stream = FS.open(path, opts.flags);
@@ -3372,9 +3372,9 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         var stdin = FS.open('/dev/stdin', 0);
         var stdout = FS.open('/dev/stdout', 1);
         var stderr = FS.open('/dev/stderr', 1);
-        assert(stdin.fd === 0, 'invalid handle for stdin (' + stdin.fd + ')');
-        assert(stdout.fd === 1, 'invalid handle for stdout (' + stdout.fd + ')');
-        assert(stderr.fd === 2, 'invalid handle for stderr (' + stderr.fd + ')');
+        assert(stdin.fd === 0, `invalid handle for stdin (${stdin.fd})`);
+        assert(stdout.fd === 1, `invalid handle for stdout (${stdout.fd})`);
+        assert(stderr.fd === 2, `invalid handle for stderr (${stderr.fd})`);
       },ensureErrnoError:() => {
         if (FS.ErrnoError) return;
         FS.ErrnoError = /** @this{Object} */ function ErrnoError(errno, node) {
@@ -4151,18 +4151,18 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         
         Browser.mainLoop.running = true;
       }
-      if (mode == 0 /*EM_TIMING_SETTIMEOUT*/) {
+      if (mode == 0) {
         Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler_setTimeout() {
           var timeUntilNextTick = Math.max(0, Browser.mainLoop.tickStartTime + value - _emscripten_get_now())|0;
           setTimeout(Browser.mainLoop.runner, timeUntilNextTick); // doing this each time means that on exception, we stop
         };
         Browser.mainLoop.method = 'timeout';
-      } else if (mode == 1 /*EM_TIMING_RAF*/) {
+      } else if (mode == 1) {
         Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler_rAF() {
           Browser.requestAnimationFrame(Browser.mainLoop.runner);
         };
         Browser.mainLoop.method = 'rAF';
-      } else if (mode == 2 /*EM_TIMING_SETIMMEDIATE*/) {
+      } else if (mode == 2) {
         if (typeof setImmediate == 'undefined') {
           // Emulate setImmediate. (note: not a complete polyfill, we don't emulate clearImmediate() to keep code size to minimum, since not needed)
           var setImmediates = [];
@@ -4260,11 +4260,11 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
   
         // Implement very basic swap interval control
         Browser.mainLoop.currentFrameNumber = Browser.mainLoop.currentFrameNumber + 1 | 0;
-        if (Browser.mainLoop.timingMode == 1/*EM_TIMING_RAF*/ && Browser.mainLoop.timingValue > 1 && Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0) {
+        if (Browser.mainLoop.timingMode == 1 && Browser.mainLoop.timingValue > 1 && Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0) {
           // Not the scheduled time to render this frame - skip.
           Browser.mainLoop.scheduler();
           return;
-        } else if (Browser.mainLoop.timingMode == 0/*EM_TIMING_SETTIMEOUT*/) {
+        } else if (Browser.mainLoop.timingMode == 0) {
           Browser.mainLoop.tickStartTime = _emscripten_get_now();
         }
   
@@ -4293,8 +4293,12 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       }
   
       if (!noSetTiming) {
-        if (fps && fps > 0) _emscripten_set_main_loop_timing(0/*EM_TIMING_SETTIMEOUT*/, 1000.0 / fps);
-        else _emscripten_set_main_loop_timing(1/*EM_TIMING_RAF*/, 1); // Do rAF by rendering each frame (no decimating)
+        if (fps && fps > 0) {
+          _emscripten_set_main_loop_timing(0, 1000.0 / fps);
+        } else {
+          // Do rAF by rendering each frame (no decimating)
+          _emscripten_set_main_loop_timing(1, 1);
+        }
   
         Browser.mainLoop.scheduler();
       }
@@ -4316,7 +4320,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       checkStackCookie();
       if (e instanceof WebAssembly.RuntimeError) {
         if (_emscripten_stack_get_current() <= 0) {
-          err('Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to ' + 65536 + ')');
+          err('Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 65536)');
         }
       }
       quit_(1, e);
@@ -5524,7 +5528,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
     }
   function runEmAsmFunction(code, sigPtr, argbuf) {
       var args = readEmAsmArgs(sigPtr, argbuf);
-      if (!ASM_CONSTS.hasOwnProperty(code)) abort('No EM_ASM constant found at address ' + code);
+      if (!ASM_CONSTS.hasOwnProperty(code)) abort(`No EM_ASM constant found at address ${code}`);
       return ASM_CONSTS[code].apply(null, args);
     }
   function _emscripten_asm_const_double(code, sigPtr, argbuf) {
@@ -5537,7 +5541,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
 
   function runMainThreadEmAsm(code, sigPtr, argbuf, sync) {
       var args = readEmAsmArgs(sigPtr, argbuf);
-      if (!ASM_CONSTS.hasOwnProperty(code)) abort('No EM_ASM constant found at address ' + code);
+      if (!ASM_CONSTS.hasOwnProperty(code)) abort(`No EM_ASM constant found at address ${code}`);
       return ASM_CONSTS[code].apply(null, args);
     }
   function _emscripten_asm_const_int_sync_on_main_thread(code, sigPtr, argbuf) {
@@ -5624,6 +5628,11 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         h.target.removeEventListener(h.eventTypeString, h.eventListenerFunc, h.useCapture);
         JSEvents.eventHandlers.splice(i, 1);
       },registerOrRemoveHandler:function(eventHandler) {
+        if (!eventHandler.target) {
+          err('registerOrRemoveHandler: the target element for event handler registration does not exist, when processing the following event handler registration:');
+          console.dir(eventHandler);
+          return -4;
+        }
         var jsEventHandler = function jsEventHandler(event) {
           // Increment nesting count for the event handler.
           ++JSEvents.inEventHandler;
@@ -5651,6 +5660,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
              }
           }
         }
+        return 0;
       },getNodeNameForTarget:function(target) {
         if (!target) return '';
         if (target == window) return '#window';
@@ -8037,15 +8047,14 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: beforeUnloadEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_beforeunload_callback_on_thread(userData, callbackfunc, targetThread) {
       if (typeof onbeforeunload == 'undefined') return -1;
       // beforeunload callback can only be registered on the main browser thread, because the page will go away immediately after returning from the handler,
       // and there is no time to start proxying it anywhere.
       if (targetThread !== 1) return -5;
-      registerBeforeUnloadEventCallback(2, userData, true, callbackfunc, 28, "beforeunload");
-      return 0;
+      return registerBeforeUnloadEventCallback(2, userData, true, callbackfunc, 28, "beforeunload");
     }
 
   
@@ -8073,11 +8082,10 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: focusEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_blur_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerFocusEventCallback(target, userData, useCapture, callbackfunc, 12, "blur", targetThread);
-      return 0;
+      return registerFocusEventCallback(target, userData, useCapture, callbackfunc, 12, "blur", targetThread);
     }
 
 
@@ -8093,8 +8101,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
     }
 
   function _emscripten_set_focus_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerFocusEventCallback(target, userData, useCapture, callbackfunc, 13, "focus", targetThread);
-      return 0;
+      return registerFocusEventCallback(target, userData, useCapture, callbackfunc, 13, "focus", targetThread);
     }
 
   
@@ -8143,7 +8150,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: fullscreenChangeEventhandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   
   
@@ -8151,13 +8158,12 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
       if (!JSEvents.fullscreenEnabled()) return -1;
       target = findEventTarget(target);
       if (!target) return -4;
-      registerFullscreenChangeEventCallback(target, userData, useCapture, callbackfunc, 19, "fullscreenchange", targetThread);
   
       // Unprefixed Fullscreen API shipped in Chromium 71 (https://bugs.chromium.org/p/chromium/issues/detail?id=383813)
       // As of Safari 13.0.3 on macOS Catalina 10.15.1 still ships with prefixed webkitfullscreenchange. TODO: revisit this check once Safari ships unprefixed version.
       registerFullscreenChangeEventCallback(target, userData, useCapture, callbackfunc, 19, "webkitfullscreenchange", targetThread);
   
-      return 0;
+      return registerFullscreenChangeEventCallback(target, userData, useCapture, callbackfunc, 19, "fullscreenchange", targetThread);
     }
 
   
@@ -8182,18 +8188,16 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: gamepadEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_gamepadconnected_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
       if (!navigator.getGamepads && !navigator.webkitGetGamepads) return -1;
-      registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 26, "gamepadconnected", targetThread);
-      return 0;
+      return registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 26, "gamepadconnected", targetThread);
     }
 
   function _emscripten_set_gamepaddisconnected_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
       if (!navigator.getGamepads && !navigator.webkitGetGamepads) return -1;
-      registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 27, "gamepaddisconnected", targetThread);
-      return 0;
+      return registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 27, "gamepaddisconnected", targetThread);
     }
 
   
@@ -8236,21 +8240,18 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: keyEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_keydown_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerKeyEventCallback(target, userData, useCapture, callbackfunc, 2, "keydown", targetThread);
-      return 0;
+      return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 2, "keydown", targetThread);
     }
 
   function _emscripten_set_keypress_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerKeyEventCallback(target, userData, useCapture, callbackfunc, 1, "keypress", targetThread);
-      return 0;
+      return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 1, "keypress", targetThread);
     }
 
   function _emscripten_set_keyup_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerKeyEventCallback(target, userData, useCapture, callbackfunc, 3, "keyup", targetThread);
-      return 0;
+      return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 3, "keyup", targetThread);
     }
 
   
@@ -8311,31 +8312,26 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: mouseEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_mousedown_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerMouseEventCallback(target, userData, useCapture, callbackfunc, 5, "mousedown", targetThread);
-      return 0;
+      return registerMouseEventCallback(target, userData, useCapture, callbackfunc, 5, "mousedown", targetThread);
     }
 
   function _emscripten_set_mouseenter_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerMouseEventCallback(target, userData, useCapture, callbackfunc, 33, "mouseenter", targetThread);
-      return 0;
+      return registerMouseEventCallback(target, userData, useCapture, callbackfunc, 33, "mouseenter", targetThread);
     }
 
   function _emscripten_set_mouseleave_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerMouseEventCallback(target, userData, useCapture, callbackfunc, 34, "mouseleave", targetThread);
-      return 0;
+      return registerMouseEventCallback(target, userData, useCapture, callbackfunc, 34, "mouseleave", targetThread);
     }
 
   function _emscripten_set_mousemove_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerMouseEventCallback(target, userData, useCapture, callbackfunc, 8, "mousemove", targetThread);
-      return 0;
+      return registerMouseEventCallback(target, userData, useCapture, callbackfunc, 8, "mousemove", targetThread);
     }
 
   function _emscripten_set_mouseup_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerMouseEventCallback(target, userData, useCapture, callbackfunc, 6, "mouseup", targetThread);
-      return 0;
+      return registerMouseEventCallback(target, userData, useCapture, callbackfunc, 6, "mouseup", targetThread);
     }
 
   
@@ -8372,7 +8368,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: pointerlockChangeEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   
   
@@ -8385,11 +8381,10 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
   
       target = findEventTarget(target);
       if (!target) return -4;
-      registerPointerlockChangeEventCallback(target, userData, useCapture, callbackfunc, 20, "pointerlockchange", targetThread);
       registerPointerlockChangeEventCallback(target, userData, useCapture, callbackfunc, 20, "mozpointerlockchange", targetThread);
       registerPointerlockChangeEventCallback(target, userData, useCapture, callbackfunc, 20, "webkitpointerlockchange", targetThread);
       registerPointerlockChangeEventCallback(target, userData, useCapture, callbackfunc, 20, "mspointerlockchange", targetThread);
-      return 0;
+      return registerPointerlockChangeEventCallback(target, userData, useCapture, callbackfunc, 20, "pointerlockchange", targetThread);
     }
 
   
@@ -8433,11 +8428,10 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: uiEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_resize_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerUiEventCallback(target, userData, useCapture, callbackfunc, 10, "resize", targetThread);
-      return 0;
+      return registerUiEventCallback(target, userData, useCapture, callbackfunc, 10, "resize", targetThread);
     }
 
   
@@ -8517,26 +8511,22 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: touchEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   function _emscripten_set_touchcancel_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerTouchEventCallback(target, userData, useCapture, callbackfunc, 25, "touchcancel", targetThread);
-      return 0;
+      return registerTouchEventCallback(target, userData, useCapture, callbackfunc, 25, "touchcancel", targetThread);
     }
 
   function _emscripten_set_touchend_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerTouchEventCallback(target, userData, useCapture, callbackfunc, 23, "touchend", targetThread);
-      return 0;
+      return registerTouchEventCallback(target, userData, useCapture, callbackfunc, 23, "touchend", targetThread);
     }
 
   function _emscripten_set_touchmove_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerTouchEventCallback(target, userData, useCapture, callbackfunc, 24, "touchmove", targetThread);
-      return 0;
+      return registerTouchEventCallback(target, userData, useCapture, callbackfunc, 24, "touchmove", targetThread);
     }
 
   function _emscripten_set_touchstart_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-      registerTouchEventCallback(target, userData, useCapture, callbackfunc, 22, "touchstart", targetThread);
-      return 0;
+      return registerTouchEventCallback(target, userData, useCapture, callbackfunc, 22, "touchstart", targetThread);
     }
 
   
@@ -8570,15 +8560,14 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: visibilityChangeEventHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   
   function _emscripten_set_visibilitychange_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
     if (!specialHTMLTargets[1]) {
       return -4;
     }
-      registerVisibilityChangeEventCallback(specialHTMLTargets[1], userData, useCapture, callbackfunc, 21, "visibilitychange", targetThread);
-      return 0;
+      return registerVisibilityChangeEventCallback(specialHTMLTargets[1], userData, useCapture, callbackfunc, 21, "visibilitychange", targetThread);
     }
 
   
@@ -8608,14 +8597,14 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         handlerFunc: wheelHandlerFunc,
         useCapture: useCapture
       };
-      JSEvents.registerOrRemoveHandler(eventHandler);
+      return JSEvents.registerOrRemoveHandler(eventHandler);
     }
   
   function _emscripten_set_wheel_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
       target = findEventTarget(target);
+      if (!target) return -4;
       if (typeof target.onwheel != 'undefined') {
-        registerWheelEventCallback(target, userData, useCapture, callbackfunc, 9, "wheel", targetThread);
-        return 0;
+        return registerWheelEventCallback(target, userData, useCapture, callbackfunc, 9, "wheel", targetThread);
       } else {
         return -1;
       }
@@ -9901,8 +9890,8 @@ var dynCall_iiiiij = Module["dynCall_iiiiij"] = createExportWrapper("dynCall_iii
 var dynCall_iiiiijj = Module["dynCall_iiiiijj"] = createExportWrapper("dynCall_iiiiijj");
 /** @type {function(...*):?} */
 var dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = createExportWrapper("dynCall_iiiiiijj");
-var ___start_em_js = Module['___start_em_js'] = 255316;
-var ___stop_em_js = Module['___stop_em_js'] = 258752;
+var ___start_em_js = Module['___start_em_js'] = 255444;
+var ___stop_em_js = Module['___stop_em_js'] = 258880;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
