@@ -5,6 +5,8 @@ set(CMAKE_EXECUTABLE_SUFFIX ".html")
 set(CMAKE_COMPILE_WARNING_AS_ERROR NO)
 set(ENABLE_WERROR, NO)
 
+set(LIBARCHIVE_INCLUDE_DIR "/usr/lib")
+
 file(GLOB_RECURSE pugixml_sources ${CMAKE_SOURCE_DIR}/pugixml/src/*.cpp)
 add_library(pugixml STATIC ${pugixml_sources})
 
@@ -16,11 +18,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -O0 -sTOTAL_MEMORY=1
 include_directories(pugixml/src/)
 include_directories(libarchive/libarchive/)
 
-set (CMAKE_BUILD_TYPE "Release")
-add_subdirectory(libarchive)
-
 link_directories(libarchive)
-set (CMAKE_BUILD_TYPE "Debug")
 
 # Prepare hello_imgui during configure time
 ##########################################################
@@ -30,7 +28,7 @@ FetchContent_Declare(
     imgui_bundle
     GIT_REPOSITORY https://github.com/pthom/imgui_bundle
     # Enter the desired git tag below
-    GIT_TAG main
+    GIT_TAG dev
 )
 FetchContent_MakeAvailable(imgui_bundle)
 # Make cmake function `hello_imgui_add_app` available

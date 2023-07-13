@@ -47,23 +47,32 @@ std::string curr_lang_fname;
 
 std::string procol, posname, wposid;
 
-void parse_ver(int result[4], const std::string& input)
-{
-    std::istringstream parser(input);
-    parser >> result[0];
-    for(int idx = 1; idx < 4; idx++)
-    {
-        parser.get(); //Skip period
-        parser >> result[idx];
-    }
-}
 
 bool less_than_ver(const std::string& a,const std::string& b)
 {
-    int parsedA[4], parsedB[4];
-    parse_ver(parsedA, a);
-    parse_ver(parsedB, b);
-    return std::lexicographical_compare(parsedA, parsedA + 4, parsedB, parsedB + 4);
+    std::vector<std::string>   ra, rb;
+
+	std::stringstream data(a), datb(b);
+
+	std::string l;
+
+	while(std::getline(data, l, '.')){
+		ra.push_back(l);
+	}
+
+	while(std::getline(datb, l, '.')){
+		rb.push_back(l);
+	}
+
+
+
+	for(int i=0; i < std::min(ra.size(),rb.size());++i){
+		if(std::stoi(ra[i]) < std::stoi(rb[i])){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void handle_upload_file(
@@ -139,6 +148,7 @@ void handle_upload_file(
 		errstr = "Cannot find PGDictionary.xml in archive";
 		return;
 	}
+
 	if(less_than_ver(dict.child("dictionary").child("PolyGlotVer").text().as_string(), "3.6")){
 		procol = "etymologyCollection";
 		posname = "class";

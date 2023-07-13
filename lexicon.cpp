@@ -374,6 +374,7 @@ void draw_lexicon_page() {
 
 	bool isDispEmpty = true;
 
+
 	if (isautoproc) {
 		std::string disp =
 		    curr_word.child("conWord").text().as_string();

@@ -39,6 +39,7 @@ void draw_phono_page() {
 			       .children("proGuide")
 			       .end();
 		     ++it) {
+
 			pat = it->child("proGuideBase").text().as_string();
 			rep = it->child("proGuidePhon").text().as_string();
 			if(ImGui::InputText(
