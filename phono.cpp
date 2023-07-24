@@ -30,6 +30,7 @@ void draw_phono_page() {
 	if (ImGui::BeginListBox("##IPA conv. conf",ImVec2(282 * ratio.x, 560 * ratio.y))) {
 
 		ImGui::PushItemWidth( 131 * ratio.x);
+
 		for (auto it = dict.child("dictionary")
 				   .child(procol.c_str())
 				   .children("proGuide")

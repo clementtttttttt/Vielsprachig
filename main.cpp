@@ -300,6 +300,9 @@ void maingui() {
 
 	ImGui::BeginGroup();
 	ImGui::SetCursorScreenPos(ImVec2(pos.x, 22));
+
+	ImGui::PushAllowKeyboardFocus(false);
+
 	if (ImGui::Button("Lexicon",
 			  ImVec2((float)200 * ratio.x, (float)120 * ratio.y))) {
 		mode = M_LEX;
@@ -312,6 +315,8 @@ void maingui() {
 			  ImVec2((float)200 * ratio.x, (float)120 * ratio.y))) {
 		mode = M_POS;
 	}
+
+	ImGui::PopAllowKeyboardFocus();
 
 	ImGui::EndGroup();
 

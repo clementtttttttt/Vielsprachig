@@ -5,6 +5,7 @@
 #include <map>
 #include <regex>
 #include <unistd.h>
+#include "pos.h"
 
 extern pugi::xml_document dict;
 
@@ -56,19 +57,6 @@ pugi::xml_node find_word_from_conword_id(int id) {
 	return pugi::xml_node();
 }
 
-pugi::xml_node find_pos_from_pos_id(int id) {
-	pugi::xml_node words = dict.child("dictionary").child("partsOfSpeech");
-
-	for (auto it = words.first_child(); it; it = it.next_sibling()) {
-		int val = it.child((posname + "Id").c_str()).text().as_int();
-		if (val == id) {
-			return it;
-		}
-	}
-	int conedit = 0;
-
-	return pugi::xml_node();
-}
 
 int contextin_callback(ImGuiInputTextCallbackData *in) {
 	curr_word.child("conWord").text().set(in->Buf);
