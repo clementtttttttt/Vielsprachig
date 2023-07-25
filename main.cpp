@@ -441,6 +441,10 @@ int main(int, char *[]) {
 	obj.append_child("lexicon");
 	//obj.append_child("")
 
+		procol = "pronunciationCollection";
+		posname = "partOfSpeech";
+		wposid = "wordPosId";
+
 	HelloImGui::Run(params);
 
 	return 0;

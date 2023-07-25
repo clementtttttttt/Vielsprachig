@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/clement/.emscripten_cache/sysroot")
+  set(CMAKE_INSTALL_PREFIX "/home/clement/Desktop/emsdk/emscripten/main/cache/sysroot")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,11 +34,12 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
+  set(CMAKE_OBJDUMP "/home/clement/Desktop/emsdk/llvm/git/build_main_64/bin/llvm-objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/clement/Desktop/vielsprachig/build/libarchive/cmake_install.cmake")
   include("/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build/cmake_install.cmake")
 
 endif()

@@ -17,6 +17,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -O0 -sTOTAL_MEMORY=1
 
 include_directories(pugixml/src/)
 include_directories(libarchive/libarchive/)
+add_subdirectory(libarchive)
 
 link_directories(libarchive)
 

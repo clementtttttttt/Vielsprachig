@@ -58,32 +58,8 @@ pugi::xml_node find_word_from_conword_id(int id) {
 }
 
 
-int contextin_callback(ImGuiInputTextCallbackData *in) {
-	curr_word.child("conWord").text().set(in->Buf);
-
-	update_lexicon_page();
-
-	return 0;
-}
-
-int nattextin_callback(ImGuiInputTextCallbackData *in) {
-	curr_word.child("localWord").text().set(in->Buf);
-
-	update_lexicon_page();
-
-	return 0;
-}
-
-int protextin_callback(ImGuiInputTextCallbackData *in) {
-	curr_word.child("pronunciation").text().set(in->Buf);
-
-	update_lexicon_page();
-
-	return 0;
-}
-
-int deftextin_callback(ImGuiInputTextCallbackData *in) {
-	curr_word.child("definition").text().set(in->Buf);
+int lextextin_callback(ImGuiInputTextCallbackData *in) {
+	curr_word.child((char*)in->UserData).text().set(in->Buf);
 
 	update_lexicon_page();
 
@@ -315,7 +291,7 @@ void draw_lexicon_page() {
 
 	if (ImGui::InputText("##Conword", &coninput,
 			     ImGuiInputTextFlags_CallbackEdit,
-			     contextin_callback)) {
+			     lextextin_callback, (void*)"conWord")) {
 	}
 
 
@@ -342,7 +318,7 @@ void draw_lexicon_page() {
 
 	if (ImGui::InputText("##Natword", &natinput,
 			     ImGuiInputTextFlags_CallbackEdit,
-			     nattextin_callback)) {
+			     lextextin_callback, (void*)"localWord")) {
 	}
 
 	//  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
@@ -357,7 +333,6 @@ void draw_lexicon_page() {
 		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
 		ImGui::Text("Local word goes here");
 		ImGui::PopStyleColor();
-
 	}
 
 	bool isDispEmpty = true;
@@ -439,7 +414,7 @@ void draw_lexicon_page() {
 	} else {
 		if (ImGui::InputText("##Pronunciation", &proinput,
 				     ImGuiInputTextFlags_CallbackEdit,
-				     protextin_callback)) {
+				     lextextin_callback, (void*)"pronunciation")) {
 		}
 	}
 
@@ -495,7 +470,7 @@ void draw_lexicon_page() {
 
 	ImGui::InputTextMultiline("##Definition", &definput, ImVec2(0, 0),
 				  ImGuiInputTextFlags_CallbackEdit,
-				  deftextin_callback);
+				  lextextin_callback,(void*)"definition");
 
 	if(definput.empty()){
 

@@ -331,17 +331,14 @@ if (ENVIRONMENT_IS_SHELL) {
   if ((typeof process == 'object' && typeof require === 'function') || typeof window == 'object' || typeof importScripts == 'function') throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
 
   if (typeof read != 'undefined') {
-    read_ = (f) => {
-      return read(f);
-    };
+    read_ = read;
   }
 
   readBinary = (f) => {
-    let data;
     if (typeof readbuffer == 'function') {
       return new Uint8Array(readbuffer(f));
     }
-    data = read(f, 'binary');
+    let data = read(f, 'binary');
     assert(typeof data == 'object');
     return data;
   };
@@ -427,19 +424,19 @@ if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
   {
 // include: web_or_worker_shell_read.js
 read_ = (url) => {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, false);
-      xhr.send(null);
-      return xhr.responseText;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, false);
+    xhr.send(null);
+    return xhr.responseText;
   }
 
   if (ENVIRONMENT_IS_WORKER) {
     readBinary = (url) => {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
-        xhr.responseType = 'arraybuffer';
-        xhr.send(null);
-        return new Uint8Array(/** @type{!ArrayBuffer} */(xhr.response));
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, false);
+      xhr.responseType = 'arraybuffer';
+      xhr.send(null);
+      return new Uint8Array(/** @type{!ArrayBuffer} */(xhr.response));
     };
   }
 
@@ -499,6 +496,7 @@ assert(typeof Module['readAsync'] == 'undefined', 'Module.readAsync option was r
 assert(typeof Module['readBinary'] == 'undefined', 'Module.readBinary option was removed (modify readBinary in JS)');
 assert(typeof Module['setWindowTitle'] == 'undefined', 'Module.setWindowTitle option was removed (modify setWindowTitle in JS)');
 assert(typeof Module['TOTAL_MEMORY'] == 'undefined', 'Module.TOTAL_MEMORY has been renamed Module.INITIAL_MEMORY');
+legacyModuleProp('asm', 'wasmExports');
 legacyModuleProp('read', 'read_');
 legacyModuleProp('readAsync', 'readAsync');
 legacyModuleProp('readBinary', 'readBinary');
@@ -534,6 +532,7 @@ if (typeof WebAssembly != 'object') {
 // Wasm globals
 
 var wasmMemory;
+var wasmExports;
 
 //========================================
 // Runtime essentials
@@ -879,19 +878,12 @@ function isFileURI(filename) {
   return filename.startsWith('file://');
 }
 // end include: URIUtils.js
-/** @param {boolean=} fixedasm */
-function createExportWrapper(name, fixedasm) {
+function createExportWrapper(name) {
   return function() {
-    var displayName = name;
-    var asm = fixedasm;
-    if (!fixedasm) {
-      asm = Module['asm'];
-    }
-    assert(runtimeInitialized, 'native function `' + displayName + '` called before runtime initialization');
-    if (!asm[name]) {
-      assert(asm[name], 'exported native function `' + displayName + '` not found');
-    }
-    return asm[name].apply(null, arguments);
+    assert(runtimeInitialized, `native function \`${name}\` called before runtime initialization`);
+    var f = wasmExports[name];
+    assert(f, `exported native function \`${name}\` not found`);
+    return f.apply(null, arguments);
   };
 }
 
@@ -919,7 +911,8 @@ function getBinaryPromise(binaryFile) {
   // See https://github.com/github/fetch/pull/92#issuecomment-140665932
   // Cordova or Electron apps are typically loaded from a file:// url.
   // So use fetch if it is available and the url is not a file, otherwise fall back to XHR.
-  if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+  if (!wasmBinary
+      && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
     if (typeof fetch == 'function'
       && !isFileURI(binaryFile)
     ) {
@@ -1009,9 +1002,11 @@ function createWasm() {
   function receiveInstance(instance, module) {
     var exports = instance.exports;
 
-    Module['asm'] = exports;
+    wasmExports = exports;
+    
 
-    wasmMemory = Module['asm']['memory'];
+    wasmMemory = wasmExports['memory'];
+    
     assert(wasmMemory, "memory not found in wasm exports");
     // This assertion doesn't hold when emscripten is run in --post-link
     // mode.
@@ -1019,10 +1014,11 @@ function createWasm() {
     //assert(wasmMemory.buffer.byteLength === 16777216);
     updateMemoryViews();
 
-    wasmTable = Module['asm']['__indirect_function_table'];
+    wasmTable = wasmExports['__indirect_function_table'];
+    
     assert(wasmTable, "table not found in wasm exports");
 
-    addOnInit(Module['asm']['__wasm_call_ctors']);
+    addOnInit(wasmExports['__wasm_call_ctors']);
 
     removeRunDependency('wasm-instantiate');
     return exports;
@@ -1070,12 +1066,14 @@ var tempDouble;
 var tempI64;
 
 // include: runtime_debug.js
-function legacyModuleProp(prop, newName) {
+function legacyModuleProp(prop, newName, incomming=true) {
   if (!Object.getOwnPropertyDescriptor(Module, prop)) {
     Object.defineProperty(Module, prop, {
       configurable: true,
       get() {
-        abort('Module.' + prop + ' has been replaced with plain ' + newName + ' (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)');
+        let extra = incomming ? ' (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)' : '';
+        abort(`\`Module.${prop}\` has been replaced by \`${newName}\`` + extra);
+
       }
     });
   }
@@ -1083,7 +1081,7 @@ function legacyModuleProp(prop, newName) {
 
 function ignoredModuleProp(prop) {
   if (Object.getOwnPropertyDescriptor(Module, prop)) {
-    abort('`Module.' + prop + '` was supplied but `' + prop + '` not included in INCOMING_MODULE_JS_API');
+    abort(`\`Module.${prop}\` was supplied but \`${prop}\` not included in INCOMING_MODULE_JS_API`);
   }
 }
 
@@ -1168,23 +1166,23 @@ function dbg(text) {
 // === Body ===
 
 var ASM_CONSTS = {
-  193440: () => { scale = window.devicePixelRatio; return scale; },  
- 193491: ($0) => { var str = UTF8ToString($0) + '\n\n' + 'Abort/Retry/Ignore/AlwaysIgnore? [ariA] :'; var reply = window.prompt(str, "i"); if (reply === null) { reply = "i"; } return allocate(intArrayFromString(reply), 'i8', ALLOC_NORMAL); },  
- 193716: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 193863: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 194097: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 194590: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 194658: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 196310: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 196720: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 197325: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 197805: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 198977: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 200446: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 201435: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 201518: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 201587: () => { return window.innerWidth; },  
- 201617: () => { return window.innerHeight; }
+  193552: () => { scale = window.devicePixelRatio; return scale; },  
+ 193603: ($0) => { var str = UTF8ToString($0) + '\n\n' + 'Abort/Retry/Ignore/AlwaysIgnore? [ariA] :'; var reply = window.prompt(str, "i"); if (reply === null) { reply = "i"; } return allocate(intArrayFromString(reply), 'i8', ALLOC_NORMAL); },  
+ 193828: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 193975: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 194209: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 194702: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 194770: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 196422: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 196832: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 197437: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 197917: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 199089: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 200558: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 201547: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 201630: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 201699: () => { return window.innerWidth; },  
+ 201729: () => { return window.innerHeight; }
 };
 function upload(accept_types,callback,callback_data) { globalThis["open_file"] = function(e) { const file_reader = new FileReader(); file_reader.onload = (event) => { const uint8Arr = new Uint8Array(event.target.result); const num_bytes = uint8Arr.length * uint8Arr.BYTES_PER_ELEMENT; const data_ptr = Module["_malloc"](num_bytes); const data_on_heap = new Uint8Array(Module["HEAPU8"].buffer, data_ptr, num_bytes); data_on_heap.set(uint8Arr); Module["ccall"]('upload_file_return', 'number', ['string', 'string', 'number', 'number', 'number', 'number'], [event.target.filename, event.target.mime_type, data_on_heap.byteOffset, uint8Arr.length, callback, callback_data]); Module["_free"](data_ptr); }; file_reader.filename = e.target.files[0].name; file_reader.mime_type = e.target.files[0].type; file_reader.readAsArrayBuffer(e.target.files[0]); }; var safarifix = document.createElement('div'); safarifix.id = 'safarifix'; safarifix.style.zIndex = '2'; safarifix.style.position = 'relative'; safarifix.style.backgroundColor = '#FFFFFF'; safarifix.style.width = '40vw'; safarifix.style.height = '20vh'; safarifix.style.display = 'block'; safarifix.style.marginLeft = '30vw'; safarifix.style.marginTop = '40vh'; document.body.appendChild(safarifix); var workaround_warning = document.createElement('p'); workaround_warning.innerText = 'Open the file selecting dialogue manually with the button below'; workaround_warning.style.textAlign = 'center'; safarifix.appendChild(workaround_warning); var file_selector = document.createElement('input'); file_selector.setAttribute('type', 'file'); file_selector.setAttribute('accept', '.pgd'); file_selector.style.position = 'absolute'; file_selector.style.marginLeft = '20%'; file_selector.style.width = '80%'; file_selector.style.align = 'center'; safarifix.appendChild(file_selector); file_selector.onchange = function(event){ globalThis["open_file"](event); document.body.removeChild(document.getElementById('safarifix')); }; file_selector.click(); }
 function download(filename,mime_type,buffer,buffer_size) { var a = document.createElement('a'); a.download = UTF8ToString(filename); a.href = URL.createObjectURL(new Blob([new Uint8Array(Module["HEAPU8"].buffer, buffer, buffer_size)], {type: UTF8ToString(mime_type)})); a.click(); }
@@ -4192,9 +4190,7 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
           stream.flags |= arg;
           return 0;
         }
-        case 5:
-        /* case 5: Currently in musl F_GETLK64 has same value as F_GETLK, so omitted to avoid duplicate case blocks. If that changes, uncomment this */ {
-          
+        case 5: {
           var arg = SYSCALLS.get();
           var offset = 0;
           // We're always unlocked.
@@ -4203,10 +4199,6 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
         }
         case 6:
         case 7:
-        /* case 6: Currently in musl F_SETLK64 has same value as F_SETLK, so omitted to avoid duplicate case blocks. If that changes, uncomment this */
-        /* case 7: Currently in musl F_SETLKW64 has same value as F_SETLKW, so omitted to avoid duplicate case blocks. If that changes, uncomment this */
-          
-          
           return 0; // Pretend that the locking is successful.
         case 16:
         case 8:
@@ -4503,8 +4495,6 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
   var _abort = () => {
       abort('native code called abort()');
     };
-
-
 
   function _emscripten_set_main_loop_timing(mode, value) {
       Browser.mainLoop.timingMode = mode;
@@ -9317,7 +9307,6 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
 
 
 
-
   
   var arraySum = (array, index) => {
       var sum = 0;
@@ -9618,8 +9607,6 @@ function get_mobile_key() { var inp = document.getElementById('minput'); var cod
   var _strftime_l = (s, maxsize, format, tm, loc) => {
       return _strftime(s, maxsize, format, tm); // no locale support yet
     };
-
-
 
 
 
@@ -10190,83 +10177,38 @@ var wasmImports = {
   upload: upload
 };
 var asm = createWasm();
-/** @type {function(...*):?} */
-var ___wasm_call_ctors = createExportWrapper("__wasm_call_ctors");
-/** @type {function(...*):?} */
-var _upload_file_return = Module['_upload_file_return'] = createExportWrapper("upload_file_return");
-/** @type {function(...*):?} */
-var _paste_return = Module['_paste_return'] = createExportWrapper("paste_return");
-/** @type {function(...*):?} */
-var _copy_return = Module['_copy_return'] = createExportWrapper("copy_return");
-/** @type {function(...*):?} */
-var _spoof_event = Module['_spoof_event'] = createExportWrapper("spoof_event");
-/** @type {function(...*):?} */
-var _main = Module['_main'] = createExportWrapper("__main_argc_argv");
-/** @type {function(...*):?} */
-var _free = Module['_free'] = createExportWrapper("free");
-/** @type {function(...*):?} */
-var _malloc = Module['_malloc'] = createExportWrapper("malloc");
-/** @type {function(...*):?} */
-var ___errno_location = createExportWrapper("__errno_location");
-/** @type {function(...*):?} */
-var _fflush = Module['_fflush'] = createExportWrapper("fflush");
-/** @type {function(...*):?} */
-var setTempRet0 = createExportWrapper("setTempRet0");
-/** @type {function(...*):?} */
-var _emscripten_stack_init = function() {
-  return (_emscripten_stack_init = Module['asm']['emscripten_stack_init']).apply(null, arguments);
-};
-
-/** @type {function(...*):?} */
-var _emscripten_stack_get_free = function() {
-  return (_emscripten_stack_get_free = Module['asm']['emscripten_stack_get_free']).apply(null, arguments);
-};
-
-/** @type {function(...*):?} */
-var _emscripten_stack_get_base = function() {
-  return (_emscripten_stack_get_base = Module['asm']['emscripten_stack_get_base']).apply(null, arguments);
-};
-
-/** @type {function(...*):?} */
-var _emscripten_stack_get_end = function() {
-  return (_emscripten_stack_get_end = Module['asm']['emscripten_stack_get_end']).apply(null, arguments);
-};
-
-/** @type {function(...*):?} */
-var stackSave = createExportWrapper("stackSave");
-/** @type {function(...*):?} */
-var stackRestore = createExportWrapper("stackRestore");
-/** @type {function(...*):?} */
-var stackAlloc = createExportWrapper("stackAlloc");
-/** @type {function(...*):?} */
-var _emscripten_stack_get_current = function() {
-  return (_emscripten_stack_get_current = Module['asm']['emscripten_stack_get_current']).apply(null, arguments);
-};
-
-/** @type {function(...*):?} */
-var ___cxa_is_pointer_type = createExportWrapper("__cxa_is_pointer_type");
-/** @type {function(...*):?} */
-var dynCall_iijii = Module['dynCall_iijii'] = createExportWrapper("dynCall_iijii");
-/** @type {function(...*):?} */
-var dynCall_jii = Module['dynCall_jii'] = createExportWrapper("dynCall_jii");
-/** @type {function(...*):?} */
-var dynCall_jiiji = Module['dynCall_jiiji'] = createExportWrapper("dynCall_jiiji");
-/** @type {function(...*):?} */
-var dynCall_jiij = Module['dynCall_jiij'] = createExportWrapper("dynCall_jiij");
-/** @type {function(...*):?} */
-var dynCall_jiji = Module['dynCall_jiji'] = createExportWrapper("dynCall_jiji");
-/** @type {function(...*):?} */
-var dynCall_ji = Module['dynCall_ji'] = createExportWrapper("dynCall_ji");
-/** @type {function(...*):?} */
-var dynCall_viijii = Module['dynCall_viijii'] = createExportWrapper("dynCall_viijii");
-/** @type {function(...*):?} */
-var dynCall_iiiiij = Module['dynCall_iiiiij'] = createExportWrapper("dynCall_iiiiij");
-/** @type {function(...*):?} */
-var dynCall_iiiiijj = Module['dynCall_iiiiijj'] = createExportWrapper("dynCall_iiiiijj");
-/** @type {function(...*):?} */
-var dynCall_iiiiiijj = Module['dynCall_iiiiiijj'] = createExportWrapper("dynCall_iiiiiijj");
-var ___start_em_js = Module['___start_em_js'] = 190004;
-var ___stop_em_js = Module['___stop_em_js'] = 193440;
+var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors');
+var _upload_file_return = Module['_upload_file_return'] = createExportWrapper('upload_file_return');
+var _paste_return = Module['_paste_return'] = createExportWrapper('paste_return');
+var _copy_return = Module['_copy_return'] = createExportWrapper('copy_return');
+var _spoof_event = Module['_spoof_event'] = createExportWrapper('spoof_event');
+var _main = Module['_main'] = createExportWrapper('__main_argc_argv');
+var _free = Module['_free'] = createExportWrapper('free');
+var _malloc = Module['_malloc'] = createExportWrapper('malloc');
+var ___errno_location = createExportWrapper('__errno_location');
+var _fflush = Module['_fflush'] = createExportWrapper('fflush');
+var setTempRet0 = createExportWrapper('setTempRet0');
+var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();
+var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'])();
+var _emscripten_stack_get_base = () => (_emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'])();
+var _emscripten_stack_get_end = () => (_emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'])();
+var stackSave = createExportWrapper('stackSave');
+var stackRestore = createExportWrapper('stackRestore');
+var stackAlloc = createExportWrapper('stackAlloc');
+var _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'])();
+var ___cxa_is_pointer_type = createExportWrapper('__cxa_is_pointer_type');
+var dynCall_iijii = Module['dynCall_iijii'] = createExportWrapper('dynCall_iijii');
+var dynCall_jii = Module['dynCall_jii'] = createExportWrapper('dynCall_jii');
+var dynCall_jiiji = Module['dynCall_jiiji'] = createExportWrapper('dynCall_jiiji');
+var dynCall_jiij = Module['dynCall_jiij'] = createExportWrapper('dynCall_jiij');
+var dynCall_jiji = Module['dynCall_jiji'] = createExportWrapper('dynCall_jiji');
+var dynCall_ji = Module['dynCall_ji'] = createExportWrapper('dynCall_ji');
+var dynCall_viijii = Module['dynCall_viijii'] = createExportWrapper('dynCall_viijii');
+var dynCall_iiiiij = Module['dynCall_iiiiij'] = createExportWrapper('dynCall_iiiiij');
+var dynCall_iiiiijj = Module['dynCall_iiiiijj'] = createExportWrapper('dynCall_iiiiijj');
+var dynCall_iiiiiijj = Module['dynCall_iiiiiijj'] = createExportWrapper('dynCall_iiiiiijj');
+var ___start_em_js = Module['___start_em_js'] = 190116;
+var ___stop_em_js = Module['___stop_em_js'] = 193552;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
@@ -10325,7 +10267,6 @@ var missingLibrarySymbols = [
   'readSockaddr',
   'writeSockaddr',
   'getHostByName',
-  'traverseStack',
   'getCallstack',
   'emscriptenLog',
   'convertPCtoSourceLocation',
@@ -10391,6 +10332,7 @@ var missingLibrarySymbols = [
   'makePromise',
   'idsToPromises',
   'makePromiseCallback',
+  'findMatchingCatch',
   'getSocketFromFD',
   'getSocketAddress',
   '_setNetworkCallback',
@@ -10421,6 +10363,8 @@ var unexportedSymbols = [
   'abort',
   'keepRuntimeAlive',
   'wasmMemory',
+  'wasmTable',
+  'wasmExports',
   'stackAlloc',
   'stackSave',
   'stackRestore',
