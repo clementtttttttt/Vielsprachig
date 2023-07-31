@@ -178,7 +178,6 @@ std::string custom_regex_replace(
 		std::string match_res(it->first, text.end());
 
 		std::string key = it->str();
-			std::cout << "TEXT" << text << std::endl;
 
 		for (auto mit = replacement_map.begin(); mit != replacement_map.end(); ++mit) {
 			std::smatch submatch;
