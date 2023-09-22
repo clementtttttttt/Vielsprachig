@@ -168,11 +168,15 @@ void handle_upload_file(
 
 extern "C" {
 EMSCRIPTEN_KEEPALIVE
-void spoof_event(int in) {
-
+void spoof_event(int in,bool isctrl) {
+	
 	uint16_t ev = in;
 
 	ImGuiIO &io = ImGui::GetIO();
+
+	if(isctrl){
+		io.AddInputCharacter(ImGuiKey_LeftCtrl);
+	}
 
 	io.AddInputCharacterUTF16(ev);
 	io.ClearInputKeys();
@@ -201,7 +205,7 @@ EM_JS(void, t_vk_js, (bool enable), {
 void toggle_vkeyboard(bool p_open) { t_vk_js(p_open); }
 
 void maingui() {
-
+	
 	if (ImGui::BeginMainMenuBar()) {
 
 		if (ImGui::BeginMenu("File")) {
@@ -415,14 +419,6 @@ void pre_new_frame() {
 
 #include <SDL2/SDL.h>
 
-EM_JS(char, get_mobile_key, (void), {
-	var inp = document.getElementById('minput');
-
-	var code = inp.value.charAt(inp.selectionStart - 1).charCodeAt();
-
-	inp.value = '';
-	return code;
-});
 
 int main(int, char *[]) {
 	auto params = HelloImGui::RunnerParams{

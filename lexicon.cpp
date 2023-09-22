@@ -155,8 +155,7 @@ std::regex regex_from_map(
 		}
 	}
 	pattern_str += ")";
-			std::cout << "" << pattern_str << std::endl;
-
+			
 	return std::regex(pattern_str);
 }
 
