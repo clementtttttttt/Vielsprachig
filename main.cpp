@@ -435,12 +435,15 @@ int main(int, char *[]) {
 
 	pugi::xml_node obj = dict.append_child("dictionary");
 	obj.append_child("lexicon");
+	obj.append_child("partsOfSpeech");
+	obj.append_child("declensionCollection");
 	//obj.append_child("")
 
 		procol = "pronunciationCollection";
 		posname = "partOfSpeech";
 		wposid = "wordPosId";
-
+	pugi::xml_node procn = obj.append_child(procol.c_str());
+	procn.append_child("proGuide");
 	HelloImGui::Run(params);
 
 	return 0;
