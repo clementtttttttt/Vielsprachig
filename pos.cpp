@@ -236,6 +236,21 @@ void draw_pos_page(){
 		
 			ImGui::EndListBox();
 	}
+
+	if(ImGui::Button("New declension")){
+		pugi::xml_node decls = dict.child("dictionary").child("declensionCollection");
+		pugi::xml_node newd = decls.append_child();
+		newd.append_child("declensionRelatedId").text().set(pos_curr_pos_id);
+		newd.append_child("declensionTemplate").text().set(1);
+		newd.append_child("declensionText").text().set("(New declension)");
+
+	}
+
+	ImGui::SameLine();
+
+	if(ImGui::Button("Delete declension")){
+		pos_curr_decl.parent().remove_child(pos_curr_decl);
+	}
 	
 
 	
@@ -273,7 +288,8 @@ void draw_pos_page(){
 			ImGui::PopItemWidth();
 			ImGui::PushItemWidth(ImGui::GetWindowWidth()*0.95);
 			if(ImGui::Button("New")){
-				
+				pugi::xml_node dn=pos_curr_decl.append_child("dimensionNode");
+				dn.append_child("dimensionName").text().set("(New dimension)");
 			}
 			ImGui::SameLine();
 			
