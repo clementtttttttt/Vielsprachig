@@ -1098,6 +1098,30 @@ pos.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/pos.cpp.s
 .PHONY : pos.cpp.s
 
+pos_reged.o: pos_reged.cpp.o
+.PHONY : pos_reged.o
+
+# target to build an object file
+pos_reged.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/pos_reged.cpp.o
+.PHONY : pos_reged.cpp.o
+
+pos_reged.i: pos_reged.cpp.i
+.PHONY : pos_reged.i
+
+# target to preprocess a source file
+pos_reged.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/pos_reged.cpp.i
+.PHONY : pos_reged.cpp.i
+
+pos_reged.s: pos_reged.cpp.s
+.PHONY : pos_reged.s
+
+# target to generate assembly for a file
+pos_reged.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/pos_reged.cpp.s
+.PHONY : pos_reged.cpp.s
+
 pugixml/src/pugixml.o: pugixml/src/pugixml.cpp.o
 .PHONY : pugixml/src/pugixml.o
 
@@ -1213,6 +1237,9 @@ help:
 	@echo "... pos.o"
 	@echo "... pos.i"
 	@echo "... pos.s"
+	@echo "... pos_reged.o"
+	@echo "... pos_reged.i"
+	@echo "... pos_reged.s"
 	@echo "... pugixml/src/pugixml.o"
 	@echo "... pugixml/src/pugixml.i"
 	@echo "... pugixml/src/pugixml.s"

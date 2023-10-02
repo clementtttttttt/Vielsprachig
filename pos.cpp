@@ -9,7 +9,7 @@ extern std::vector<int> poslist;
 extern std::string procol, posname, wposid;
 std::string posnameinput, posnoteinput;
 
-int pos_curr_pos_id;
+int pos_curr_pos_id=0;
 pugi::xml_node pos_curr_decl = pugi::xml_node();
 
 pugi::xml_node find_pos_from_pos_id(int id) {
@@ -57,7 +57,7 @@ int find_new_pos_id() {
 	return ++maxid;
 }
 
-bool dim_open = false;
+bool dim_open = false, reged = false;
 
 int find_new_decl_id() {
 	pugi::xml_node decl = dict.child("dictionary").child("declensionCollection");
@@ -226,11 +226,16 @@ void draw_pos_page() {
 		pugi::xml_node it = decls.first_child();
 		while (it) {
 			if (it.child("declensionRelatedId").text().as_int() == pos_curr_pos_id && it.child("declensionTemplate").text().as_int() == 1) {
+				int count;
+				std::string buf = (it.child("declensionText").text().as_string());
+				if (ImGui::InputText(("##sdklfjnkdsnkfn" + std::to_string(count++)).c_str(), &buf)) {
 
-				if (ImGui::Selectable((it.child("declensionText").text().as_string() + std::string("## hurr durr")).c_str())) {
+					it.child("declensionText").text().set(buf.c_str());
+					
+				}
+				if(ImGui::IsItemFocused()){
+										pos_curr_decl = it;
 
-					pos_curr_decl = it;
-					dim_open = true;
 				}
 			}
 			it = it.next_sibling();
@@ -241,11 +246,12 @@ void draw_pos_page() {
 
 	if (ImGui::Button("New declension")) {
 		pugi::xml_node decls = dict.child("dictionary").child("declensionCollection");
-		pugi::xml_node newd = decls.append_child();
+		pugi::xml_node newd = decls.append_child("declensionNode");
 		newd.append_child("declensionRelatedId").text().set(pos_curr_pos_id);
 		newd.append_child("declensionTemplate").text().set(1);
 		newd.append_child("declensionText").text().set("(New declension)");
 		newd.append_child("declensionId").text().set(find_new_decl_id());
+		pos_curr_decl = newd;
 	}
 
 	ImGui::SameLine();
@@ -254,12 +260,26 @@ void draw_pos_page() {
 		pos_curr_decl.parent().remove_child(pos_curr_decl);
 	}
 
+	if(ImGui::Button("Edit dimensions")){
+		dim_open = 1;
+	}
+	
+	if(ImGui::Button("Edit declension regex rules")){
+		reged = true;
+	}
+	
+	if(reged){
+			
+			pos_reged(&reged, dict.child("dictionary").child("declensionCollection"), pos_curr_pos_id);
+		
+	}
+
 	if (dim_open) {
 		if (ImGui::Begin("Declension dimensions", &dim_open)) {
 
 			ImGui::PushItemWidth(ImGui::GetWindowWidth());
 
-			if (ImGui::BeginListBox("Dimensions")) {
+			if (pos_curr_pos_id != 0 && ImGui::BeginListBox("Dimensions")) {
 				int count = 0;
 				std::string in;
 
