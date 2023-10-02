@@ -1,11 +1,11 @@
 #include "lexicon.h"
+#include "pos.h"
 #include <imgui.h>
 #include <imgui/misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <map>
 #include <regex>
 #include <unistd.h>
-#include "pos.h"
 
 extern pugi::xml_document dict;
 
@@ -57,9 +57,8 @@ pugi::xml_node find_word_from_conword_id(int id) {
 	return pugi::xml_node();
 }
 
-
 int lextextin_callback(ImGuiInputTextCallbackData *in) {
-	curr_word.child((char*)in->UserData).text().set(in->Buf);
+	curr_word.child((char *)in->UserData).text().set(in->Buf);
 
 	update_lexicon_page();
 
@@ -78,7 +77,7 @@ void update_lexicon_page() {
 		lexlist.push_back(it);
 	}
 	for (auto it = poses.first_child(); it; it = it.next_sibling()) {
-		poslist.push_back(it.child((posname+"Id").c_str()).text().as_int());
+		poslist.push_back(it.child((posname + "Id").c_str()).text().as_int());
 	}
 }
 
@@ -104,7 +103,7 @@ pugi::xml_node create_entry() {
 
 	int new_id = find_new_id();
 	pugi::xml_node word =
-	    dict.child("dictionary").child("lexicon").append_child("word");
+		dict.child("dictionary").child("lexicon").append_child("word");
 	word.append_child("wordId").text().set(new_id);
 	word.append_child("localWord").text().set("");
 	word.append_child("conWord").text().set("");
@@ -139,7 +138,7 @@ struct sort_by_e_order {
 };
 
 std::regex regex_from_map(
-    const std::map<struct regex_w_order, std::string, sort_by_e_order> map) {
+	const std::map<struct regex_w_order, std::string, sort_by_e_order> map) {
 	std::string pattern_str = "(";
 	auto it = map.begin();
 	if (it != map.end()) {
@@ -155,15 +154,15 @@ std::regex regex_from_map(
 		}
 	}
 	pattern_str += ")";
-			
+
 	return std::regex(pattern_str);
 }
 
 std::string custom_regex_replace(
-    const std::string &text,
-    std::map<struct regex_w_order, std::string, sort_by_e_order>
-	replacement_map,
-    std::map<std::string, int> order) {
+	const std::string &text,
+	std::map<struct regex_w_order, std::string, sort_by_e_order>
+		replacement_map,
+	std::map<std::string, int> order) {
 
 	auto regex = regex_from_map(replacement_map);
 	std::string result;
@@ -182,7 +181,7 @@ std::string custom_regex_replace(
 			std::smatch submatch;
 
 			if (std::regex_search(match_res, submatch,
-					      std::regex(mit->first.in))) {
+								  std::regex(mit->first.in))) {
 				if (submatch.position() == 0) {
 					key = mit->first.in;
 					break;
@@ -212,46 +211,44 @@ void draw_lexicon_page() {
 
 	ImGui::BeginGroup();
 
-	if(ImGui::BeginListBox(" ", ImVec2(400 * ratio.x, 620 * ratio.y))){
+	if (ImGui::BeginListBox(" ", ImVec2(400 * ratio.x, 620 * ratio.y))) {
 
-	static bool selected;
+		static bool selected;
 
-	
+		for (auto i = dict.child("dictionary")
+						  .child("lexicon")
+						  .children("word")
+						  .begin();
+			 i !=
+			 dict.child("dictionary").child("lexicon").children("word").end();
+			 ++i) {
 
-	for (auto i = dict.child("dictionary")
-			  .child("lexicon")
-			  .children("word")
-			  .begin();
-	     i !=
-	     dict.child("dictionary").child("lexicon").children("word").end();
-	     ++i) {
+			int i_word_id = i->child("wordId").text().as_int();
 
-		int i_word_id = i->child("wordId").text().as_int();
+			selected = (i_word_id == current_word_id);
 
-		selected = (i_word_id == current_word_id);
+			if (ImGui::Selectable(
+					(std::string(i->child("conWord").text().as_string()) + " = " + std::string(i->child("localWord").text().as_string()) +
+					 " ##" + std::to_string(i_word_id))
+						.c_str(),
+					&selected)) {
+				// if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
+				update_lexicon_word_prop(*i);
+				//}
+			}
 
-		if (ImGui::Selectable(
-			(std::string(i->child("conWord").text().as_string()) + " = " + std::string(i->child("localWord").text().as_string()) +
-			 " ##" + std::to_string(i_word_id))
-			    .c_str(),
-			&selected)) {
-			// if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
-			update_lexicon_word_prop(*i);
-			//}
+			if (scroll &&
+				(scroll - 1) == std::distance(dict.child("dictionary")
+												  .child("lexicon")
+												  .children("word")
+												  .begin(),
+											  i)) {
+				ImGui::SetScrollHereY(0);
+			}
 		}
 
-		if (scroll &&
-		    (scroll - 1) == std::distance(dict.child("dictionary")
-						      .child("lexicon")
-						      .children("word")
-						      .begin(),
-						  i)) {
-			ImGui::SetScrollHereY(0);
-		}
+		ImGui::EndListBox();
 	}
-
-	ImGui::EndListBox();
-    }
 
 	if (ImGui::Button("New word", ImVec2(ratio.x * 133, 40 * ratio.y))) {
 		;
@@ -268,14 +265,14 @@ void draw_lexicon_page() {
 
 	if (ImGui::Button("Delete word", ImVec2(ratio.x * 133, 40 * ratio.y))) {
 		;
-        pugi::xml_node old = curr_word;
+		pugi::xml_node old = curr_word;
 
-		if(!(curr_word = curr_word.previous_sibling())){
-                old.parent().remove_child(old);
-                curr_word = dict.child("dictionary").child("lexicon").first_child();
-        }else{
-                old.parent().remove_child(old);
-        }
+		if (!(curr_word = curr_word.previous_sibling())) {
+			old.parent().remove_child(old);
+			curr_word = dict.child("dictionary").child("lexicon").first_child();
+		} else {
+			old.parent().remove_child(old);
+		}
 		current_word_id = curr_word.child("wordId").text().as_int();
 
 		update_lexicon_page();
@@ -288,14 +285,11 @@ void draw_lexicon_page() {
 	ImGui::BeginGroup();
 
 	if (ImGui::InputText("##Conword", &coninput,
-			     ImGuiInputTextFlags_CallbackEdit,
-			     lextextin_callback, (void*)"conWord")) {
+						 ImGuiInputTextFlags_CallbackEdit,
+						 lextextin_callback, (void *)"conWord")) {
 	}
 
-
-
-
-	if(coninput.empty()){
+	if (coninput.empty()) {
 
 		ImGui::SameLine();
 
@@ -303,80 +297,76 @@ void draw_lexicon_page() {
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
 
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128, 128, 128, 255));
 		ImGui::Text("Conword goes here");
 		ImGui::PopStyleColor();
-
-
 	}
 
 	if (imconfont)
 		ImGui::PopFont();
 
-
 	if (ImGui::InputText("##Natword", &natinput,
-			     ImGuiInputTextFlags_CallbackEdit,
-			     lextextin_callback, (void*)"localWord")) {
+						 ImGuiInputTextFlags_CallbackEdit,
+						 lextextin_callback, (void *)"localWord")) {
 	}
 
 	//  ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 60));
-	if(natinput.empty()){
+	if (natinput.empty()) {
 
 		ImGui::SameLine();
 
 		pos.y = ImGui::GetCursorScreenPos().y;
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
-// Particular widget styling
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		// Particular widget styling
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128, 128, 128, 255));
 		ImGui::Text("Local word goes here");
 		ImGui::PopStyleColor();
 	}
 
 	bool isDispEmpty = true;
 
-
 	if (isautoproc) {
 		std::string disp =
-		    curr_word.child("conWord").text().as_string();
+			curr_word.child("conWord").text().as_string();
 
 		if (!dict.child("dictionary")
-			 .child(procol.c_str())
-			 .child("proGuideRecurse")
-			 .text()
-			 .as_bool()) {
+				 .child(procol.c_str())
+				 .child("proGuideRecurse")
+				 .text()
+				 .as_bool()) {
 
 			std::map<struct regex_w_order, std::string,
-				 sort_by_e_order>
-			    replacement_map;
+					 sort_by_e_order>
+				replacement_map;
 
 			int count = 0;
 
 			std::map<std::string, int> ordermap;
 
 			for (auto it = dict.child("dictionary")
-					   .child(procol.c_str())
-					   .children("proGuide")
-					   .begin();
-			     it != dict.child("dictionary")
-				       .child(procol.c_str())
-				       .children("proGuide")
-				       .end();
-			     ++it) {
+							   .child(procol.c_str())
+							   .children("proGuide")
+							   .begin();
+				 it != dict.child("dictionary")
+						   .child(procol.c_str())
+						   .children("proGuide")
+						   .end();
+				 ++it) {
 				replacement_map[{it->child("proGuideBase")
-						     .text()
-						     .as_string(),
-						 ++count}] =
-				    it->child("proGuidePhon")
-					.text()
-					.as_string();
+									 .text()
+									 .as_string(),
+								 ++count}] =
+					it->child("proGuidePhon")
+						.text()
+						.as_string();
 				ordermap[it->child("proGuideBase")
-					     .text()
-					     .as_string()] = {count};
+							 .text()
+							 .as_string()] = {count};
 			}
-			if(!replacement_map.empty() || !ordermap.empty()){
-			disp = custom_regex_replace(disp, replacement_map,
-						    ordermap);
+			if (!replacement_map.empty() || !ordermap.empty()) {
+				disp = custom_regex_replace(disp, replacement_map,
+											ordermap);
 			}
 		} else {
 			int match = 0;
@@ -386,37 +376,37 @@ void draw_lexicon_page() {
 			while (disp_org != disp) {
 				disp_org = disp;
 				for (auto it =
-					 dict.child("dictionary")
-					     .child(procol.c_str())
-					     .children("proGuide")
-					     .begin();
-				     it != dict.child("dictionary")
-					       .child(procol.c_str())
-					       .children("proGuide")
-					       .end();
-				     ++it) {
+						 dict.child("dictionary")
+							 .child(procol.c_str())
+							 .children("proGuide")
+							 .begin();
+					 it != dict.child("dictionary")
+							   .child(procol.c_str())
+							   .children("proGuide")
+							   .end();
+					 ++it) {
 					disp = std::regex_replace(
-					    disp,
-					    std::regex(it->child("proGuideBase")
-							   .text()
-							   .as_string()),
-					    it->child("proGuidePhon")
-						.text()
-						.as_string());
+						disp,
+						std::regex(it->child("proGuideBase")
+									   .text()
+									   .as_string()),
+						it->child("proGuidePhon")
+							.text()
+							.as_string());
 				}
 			}
 		}
-		ImGui::InputText("##Pronunciation",&disp, ImGuiInputTextFlags_ReadOnly);
-        curr_word.child("pronunciation").text().set(disp.c_str());
+		ImGui::InputText("##Pronunciation", &disp, ImGuiInputTextFlags_ReadOnly);
+		curr_word.child("pronunciation").text().set(disp.c_str());
 		isDispEmpty = disp.empty();
 	} else {
 		if (ImGui::InputText("##Pronunciation", &proinput,
-				     ImGuiInputTextFlags_CallbackEdit,
-				     lextextin_callback, (void*)"pronunciation")) {
+							 ImGuiInputTextFlags_CallbackEdit,
+							 lextextin_callback, (void *)"pronunciation")) {
 		}
 	}
 
-	if(proinput.empty() && isDispEmpty){
+	if (proinput.empty() && isDispEmpty) {
 
 		ImGui::SameLine();
 
@@ -424,33 +414,31 @@ void draw_lexicon_page() {
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
 
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128, 128, 128, 255));
 		ImGui::Text("Pronunciation goes here");
 		ImGui::PopStyleColor();
-
-
 	}
 
 	// ImGui::SetCursorScreenPos(ImVec2(pos.x+604*ratio.x, 22 + 90));
 	ImGui::Text("Part of speech");
 
 	if (ImGui::BeginCombo("##Part of Speech",
-			      find_pos_from_pos_id(current_pos_id)
-				  .child((posname + "Name").c_str())
-				  .first_child()
-				  .value())) {
+						  find_pos_from_pos_id(current_pos_id)
+							  .child((posname + "Name").c_str())
+							  .first_child()
+							  .value())) {
 
 		static bool pos_selected = false;
 
 		for (auto i = poslist.begin(); i != poslist.end(); ++i) {
 			ImGui::Selectable(
-			    (std::string(find_pos_from_pos_id(*i)
-						 .child((posname + "Name").c_str())
-					     .first_child()
-					     .value()) +
-			     " ")
-				.c_str(),
-			    &pos_selected);
+				(std::string(find_pos_from_pos_id(*i)
+								 .child((posname + "Name").c_str())
+								 .first_child()
+								 .value()) +
+				 " ")
+					.c_str(),
+				&pos_selected);
 			if (pos_selected) {
 				current_pos_id = *i;
 
@@ -463,25 +451,23 @@ void draw_lexicon_page() {
 		ImGui::EndCombo();
 	}
 
-
 	ImGui::Separator();
 
 	ImGui::InputTextMultiline("##Definition", &definput, ImVec2(0, 0),
-				  ImGuiInputTextFlags_CallbackEdit,
-				  lextextin_callback,(void*)"definition");
+							  ImGuiInputTextFlags_CallbackEdit,
+							  lextextin_callback, (void *)"definition");
 
-	if(definput.empty()){
+	if (definput.empty()) {
 
 		ImGui::SameLine();
 
 		pos.y = ImGui::GetCursorScreenPos().y;
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + 604 * ratio.x + 4, pos.y));
-// Particular widget styling
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128,128,128,255));
+		// Particular widget styling
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128, 128, 128, 255));
 		ImGui::Text("Definition goes here");
 		ImGui::PopStyleColor();
-
 	}
 
 	ImGui::Separator();

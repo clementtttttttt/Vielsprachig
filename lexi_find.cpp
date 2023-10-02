@@ -25,8 +25,7 @@ bool empty_definition = false;
 bool empty_pronun = false;
 bool match_case = false;
 
-
-void lexi_find_dialogue_set_scroll_false(){
+void lexi_find_dialogue_set_scroll_false() {
 	scroll = false;
 }
 
@@ -69,7 +68,7 @@ int lexi_find_dialogue() {
 	ImGui::Separator();
 
 	if (ImGui::Button("Find \(f2\)##button") ||
-	    ImGui::IsKeyPressed(ImGuiKey_F2)) {
+		ImGui::IsKeyPressed(ImGuiKey_F2)) {
 
 		if (search_changed) {
 			search_changed = 0;
@@ -77,19 +76,19 @@ int lexi_find_dialogue() {
 		}
 
 		pugi::xml_node words =
-		    dict.child("dictionary").child("lexicon");
+			dict.child("dictionary").child("lexicon");
 		std::regex conword_crit(search_conword,
-					!match_case ? std::regex::icase
-						    : std::regex::collate);
+								!match_case ? std::regex::icase
+											: std::regex::collate);
 		std::regex natword_crit(search_natword,
-					!match_case ? std::regex::icase
-						    : std::regex::collate);
+								!match_case ? std::regex::icase
+											: std::regex::collate);
 		std::regex defword_crit(search_definition,
-					!match_case ? std::regex::icase
-						    : std::regex::collate);
+								!match_case ? std::regex::icase
+											: std::regex::collate);
 		std::regex pronun_crit(search_pronun,
-				       !match_case ? std::regex::icase
-						   : std::regex::collate);
+							   !match_case ? std::regex::icase
+										   : std::regex::collate);
 
 		empty_conword = search_conword.empty();
 		empty_natword = search_natword.empty();
@@ -101,57 +100,57 @@ int lexi_find_dialogue() {
 			pugi::xml_node node = lexlist[i];
 
 			if ((std::regex_search(
-				 node.child("conWord").text().as_string(),
-				 conword_crit) ||
-			     empty_conword) &&
-			    (std::regex_search(
-				 node.child("localWord").text().as_string(),
-				 natword_crit) ||
-			     empty_natword) &&
-			    (std::regex_search(
-				 node.child("pronunciation").text().as_string(),
-				 pronun_crit) ||
-			     empty_pronun) &&
-			    (std::regex_search(
-				 node.child("definition").text().as_string(),
-				 defword_crit) ||
-			     empty_definition)) {
+					 node.child("conWord").text().as_string(),
+					 conword_crit) ||
+				 empty_conword) &&
+				(std::regex_search(
+					 node.child("localWord").text().as_string(),
+					 natword_crit) ||
+				 empty_natword) &&
+				(std::regex_search(
+					 node.child("pronunciation").text().as_string(),
+					 pronun_crit) ||
+				 empty_pronun) &&
+				(std::regex_search(
+					 node.child("definition").text().as_string(),
+					 defword_crit) ||
+				 empty_definition)) {
 				++found_total;
 			}
 		}
 
 		if (found_total) {
 			for (auto i = current_find_index; i < lexlist.size();
-			     ++i) {
+				 ++i) {
 				pugi::xml_node node = lexlist[i];
 
 				int quit = 0;
 
 				if ((std::regex_search(node.child("conWord")
-							   .text()
-							   .as_string(),
-						       conword_crit) ||
-				     empty_conword) &&
-				    (std::regex_search(node.child("localWord")
-							   .text()
-							   .as_string(),
-						       natword_crit) ||
-				     empty_natword) &&
-				    (std::regex_search(
-					 node.child("pronunciation")
-					     .text()
-					     .as_string(),
-					 pronun_crit) ||
-				     empty_pronun) &&
-				    (std::regex_search(node.child("definition")
-							   .text()
-							   .as_string(),
-						       defword_crit) ||
-				     empty_definition)) {
+										   .text()
+										   .as_string(),
+									   conword_crit) ||
+					 empty_conword) &&
+					(std::regex_search(node.child("localWord")
+										   .text()
+										   .as_string(),
+									   natword_crit) ||
+					 empty_natword) &&
+					(std::regex_search(
+						 node.child("pronunciation")
+							 .text()
+							 .as_string(),
+						 pronun_crit) ||
+					 empty_pronun) &&
+					(std::regex_search(node.child("definition")
+										   .text()
+										   .as_string(),
+									   defword_crit) ||
+					 empty_definition)) {
 					current_word_id = lexlist[i]
-							      .child("wordId")
-							      .text()
-							      .as_int();
+										  .child("wordId")
+										  .text()
+										  .as_int();
 					curr_word = node;
 					current_find_index = i + 1;
 					++found_count;
