@@ -268,11 +268,7 @@ void draw_pos_page() {
 		reged = true;
 	}
 	
-	if(reged){
-			
-			pos_reged(&reged, dict.child("dictionary").child("declensionCollection"), pos_curr_pos_id);
-		
-	}
+
 
 	if (dim_open) {
 		if (ImGui::Begin("Declension dimensions", &dim_open)) {
@@ -324,5 +320,12 @@ void draw_pos_page() {
 	ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y));
 
 	ImGui::PopItemWidth();
+	
 	ImGui::EndGroup();
+	
+		if(reged){
+			
+			pos_reged(&reged, dict.child("dictionary").child("declensionCollection"), pos_curr_pos_id);
+		
+	}
 }
