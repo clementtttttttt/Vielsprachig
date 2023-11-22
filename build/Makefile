@@ -890,6 +890,32 @@ imgui_tex_inspect/fast:
 .PHONY : imgui_tex_inspect/fast
 
 #=============================================================================
+# Target rules for targets named imcoolbar
+
+# Build rule for target.
+imcoolbar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 imcoolbar
+.PHONY : imcoolbar
+
+# fast build rule for target.
+imcoolbar/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imcoolbar.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imcoolbar.dir/build
+.PHONY : imcoolbar/fast
+
+#=============================================================================
+# Target rules for targets named imgui_test_engine
+
+# Build rule for target.
+imgui_test_engine: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 imgui_test_engine
+.PHONY : imgui_test_engine
+
+# fast build rule for target.
+imgui_test_engine/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/CMakeFiles/imgui_test_engine.dir/build.make _deps/imgui_bundle-build/external/hello_imgui/hello_imgui/CMakeFiles/imgui_test_engine.dir/build
+.PHONY : imgui_test_engine/fast
+
+#=============================================================================
 # Target rules for targets named hello_imgui
 
 # Build rule for target.
@@ -1201,6 +1227,7 @@ help:
 	@echo "... bsdtar_test"
 	@echo "... hello_imgui"
 	@echo "... im_file_dialog"
+	@echo "... imcoolbar"
 	@echo "... imgui"
 	@echo "... imgui_bundle"
 	@echo "... imgui_color_text_edit"
@@ -1208,6 +1235,7 @@ help:
 	@echo "... imgui_knobs"
 	@echo "... imgui_md"
 	@echo "... imgui_node_editor"
+	@echo "... imgui_test_engine"
 	@echo "... imgui_tex_inspect"
 	@echo "... imgui_toggle"
 	@echo "... imguizmo"

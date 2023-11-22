@@ -37,13 +37,13 @@
     var Module = {
         preRun: [],
         postRun: [],
-        print: (function() {
+        dbgprint: (function() {
             return function(text) {
                 text = Array.prototype.slice.call(arguments).join(' ');
                 console.log(text);
             };
         })(),
-        printErr: function(text) {
+        dbgprintErr: function(text) {
             text = Array.prototype.slice.call(arguments).join(' ');
             console.error(text);
         },
@@ -83,7 +83,7 @@
 
     inp.addEventListener('input', (e) => {
         var code = inp.value.charAt(0).charCodeAt();
-        print(e.ctrlKey);
+        dbgprint(e.ctrlKey);
 
 	if(isNaN(code) || code === 2) return;
 	       

@@ -414,7 +414,13 @@ HELLOIMGUI_EMSCRIPTEN_PTHREAD:BOOL=OFF
 // is on
 HELLOIMGUI_EMSCRIPTEN_PTHREAD_ALLOW_MEMORY_GROWTH:BOOL=OFF
 
+//Fetch imgui_test_engine from https://github.com/pthom/imgui_test_engine/
+// (branch imgui_bundle)
+HELLOIMGUI_FETCH_IMGUI_TEST_ENGINE:BOOL=OFF
+
 HELLOIMGUI_IMGUI_SOURCE_DIR:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui
+
+HELLOIMGUI_IMGUI_TEST_ENGINE_SOURCE_DIR:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui_test_engine/imgui_test_engine
 
 //Use Glad OpenGl loader
 HELLOIMGUI_USE_GLAD:BOOL=OFF
@@ -435,6 +441,9 @@ HELLOIMGUI_WITH_GLFW:BOOL=OFF
 //Add SDL+OpenGl3 support (SDL will be automatically compiled via
 // ExternalProject_Add)
 HELLOIMGUI_WITH_SDL:BOOL=OFF
+
+//Provide ImGui Test engine
+HELLOIMGUI_WITH_TEST_ENGINE:BOOL=ON
 
 //Use imgui as a shared library
 HELLO_IMGUI_IMGUI_SHARED:BOOL=OFF
@@ -457,6 +466,12 @@ IMGUIBUNDLE_EXTERNAL_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/
 
 IMGUIBUNDLE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src
 
+//clone submodules if needed during configure
+IMGUI_BUNDLE_AUTO_CLONE_SUBMODULES:BOOL=ON
+
+//Build CI automation tests
+IMGUI_BUNDLE_BUILD_CI_AUTOMATION_TESTS:BOOL=OFF
+
 //Build imgui_bundle C++ demos
 IMGUI_BUNDLE_BUILD_DEMOS:BOOL=OFF
 
@@ -466,11 +481,26 @@ IMGUI_BUNDLE_BUILD_DOC:BOOL=OFF
 //build python bindings
 IMGUI_BUNDLE_BUILD_PYTHON:BOOL=OFF
 
+//Build ImGui Bundle with address sanitizer
+IMGUI_BUNDLE_BUILD_WITH_ASAN:BOOL=OFF
+
+//Build ImGui Bundle with memory sanitizer
+IMGUI_BUNDLE_BUILD_WITH_MEMORY_SANITIZER:BOOL=OFF
+
+//Build ImGui Bundle with thread sanitizer
+IMGUI_BUNDLE_BUILD_WITH_TSAN:BOOL=OFF
+
+//Build ImGui Bundle with undefined behavior sanitizer
+IMGUI_BUNDLE_BUILD_WITH_UB_SANITIZER:BOOL=OFF
+
 //Fail if immvision unavailable (OpenCV not found)
 IMGUI_BUNDLE_FAIL_IF_IMMVISION_UNAVAILABLE:BOOL=OFF
 
 //Build with immvision
 IMGUI_BUNDLE_WITH_IMMVISION:BOOL=ON
+
+//include support for imgui_test_engine
+IMGUI_BUNDLE_WITH_TEST_ENGINE:BOOL=ON
 
 //Activate all warnings (as error!)
 IMMVISION_ACTIVATE_ALL_WARNINGS:BOOL=OFF
@@ -489,6 +519,8 @@ IMMVISION_FETCH_OPENCV_FULL:BOOL=OFF
 
 //Use conan to get opencv
 IMMVISION_OPENCV_CONAN:BOOL=ON
+
+IMMVISION_OPENCV_EMSCRIPTEN_WITH_PTHREAD:BOOL=OFF
 
 //Path to a file.
 LIBB2_INCLUDE_DIR:PATH=LIBB2_INCLUDE_DIR-NOTFOUND
@@ -683,7 +715,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=27
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=6
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=7
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
