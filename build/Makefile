@@ -806,19 +806,6 @@ im_file_dialog/fast:
 .PHONY : im_file_dialog/fast
 
 #=============================================================================
-# Target rules for targets named imguizmo
-
-# Build rule for target.
-imguizmo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 imguizmo
-.PHONY : imguizmo
-
-# fast build rule for target.
-imguizmo/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imguizmo.dir/build
-.PHONY : imguizmo/fast
-
-#=============================================================================
 # Target rules for targets named imgui_tex_inspect
 
 # Build rule for target.
@@ -1310,7 +1297,6 @@ help:
 	@echo "... imgui_test_engine"
 	@echo "... imgui_tex_inspect"
 	@echo "... imgui_toggle"
-	@echo "... imguizmo"
 	@echo "... immapp"
 	@echo "... implot"
 	@echo "... imspinner"

@@ -8,7 +8,6 @@
 #include <archive_entry.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <cstdlib>
-#include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <sstream>
@@ -173,7 +172,10 @@ void maingui() {
 				#ifdef __EMSCRIPTEN__
 				emscripten_browser_file::upload(
 					".pgd", handle_upload_file);
+				#else
+					
 				#endif
+				
 			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
 				std::stringstream ss;

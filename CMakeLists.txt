@@ -34,9 +34,8 @@ endif()
 include_directories(pugixml/src/)
 
 
-
-
 set(IMGUI_BUNDLE_DISABLE_IMMVISION ON CACHE BOOL "" FORCE) 
+set(IMGUI_BUNDLE_DISABLE_IMGUIZMO ON CACHE BOOL "" FORCE) 
 
 # Prepare hello_imgui during configure time
 ##########################################################
@@ -50,6 +49,10 @@ if (NOT TARGET imgui_bundle)
     # Uncomment the next line if you which to also automatically fetch and compile OpenCV for immvision support
     # set(IMMVISION_FETCH_OPENCV ON)
 endif()
+
+
+  #  FetchContent_Declare(imfiledialog GIT_REPOSITORY https://github.com/aiekick/ImGuiFileDialog GIT_TAG master)
+   # FetchContent_MakeAvailable(imfiledialog)
 
 set(ENABLE_WERROR, FALSE)
 set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)

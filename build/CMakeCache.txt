@@ -276,8 +276,8 @@ CMAKE_STRIP:FILEPATH=/usr/lib/llvm/18/bin/llvm-strip
 //Path to a program.
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 
-//No help, variable specified on the command line.
-CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/home/clement/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+//The CMake toolchain file
+CMAKE_TOOLCHAIN_FILE:FILEPATH=/home/clement/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -451,10 +451,6 @@ FETCHCONTENT_SOURCE_DIR_IMGUI_BUNDLE:PATH=
 // for lunasvg
 FETCHCONTENT_SOURCE_DIR_LUNASVG:PATH=
 
-//When not empty, overrides where to find pre-populated content
-// for opencv_package_emscripten
-FETCHCONTENT_SOURCE_DIR_OPENCV_PACKAGE_EMSCRIPTEN:PATH=
-
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
@@ -466,9 +462,6 @@ FETCHCONTENT_UPDATES_DISCONNECTED_IMGUI_BUNDLE:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of lunasvg
 FETCHCONTENT_UPDATES_DISCONNECTED_LUNASVG:BOOL=OFF
-
-//Enables UPDATE_DISCONNECTED behavior just for population of opencv_package_emscripten
-FETCHCONTENT_UPDATES_DISCONNECTED_OPENCV_PACKAGE_EMSCRIPTEN:BOOL=OFF
 
 //Path to a file.
 FREETYPE_INCLUDE_DIR_freetype2:PATH=FREETYPE_INCLUDE_DIR_freetype2-NOTFOUND
@@ -669,7 +662,7 @@ IMGUI_BUNDLE_CMAKE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/im
 IMGUI_BUNDLE_DISABLE_IMFILEDIALOG:BOOL=OFF
 
 //Disable ImGuizmo
-IMGUI_BUNDLE_DISABLE_IMGUIZMO:BOOL=OFF
+IMGUI_BUNDLE_DISABLE_IMGUIZMO:BOOL=ON
 
 //Disable imgui-node-editor
 IMGUI_BUNDLE_DISABLE_IMGUI_NODE_EDITOR:BOOL=OFF
@@ -696,8 +689,6 @@ IMGUI_BUNDLE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bu
 
 //include support for imgui_test_engine
 IMGUI_BUNDLE_WITH_TEST_ENGINE:BOOL=ON
-
-IMMVISION_OPENCV_EMSCRIPTEN_WITH_PTHREAD:BOOL=OFF
 
 //Path to a file.
 LIBB2_INCLUDE_DIR:PATH=LIBB2_INCLUDE_DIR-NOTFOUND
@@ -755,9 +746,6 @@ OPENSSL_INCLUDE_DIR:PATH=OPENSSL_INCLUDE_DIR-NOTFOUND
 
 //Path to a library.
 OPENSSL_SSL_LIBRARY:FILEPATH=OPENSSL_SSL_LIBRARY-NOTFOUND
-
-//The directory containing a CMake configuration file for OpenCV.
-OpenCV_DIR:PATH=OpenCV_DIR-NOTFOUND
 
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
@@ -1303,10 +1291,8 @@ HAVE_GMTIME_R:INTERNAL=1
 HAVE_GMTIME_S:INTERNAL=
 //Have include sys/types.h;ctype.h;dlfcn.h;errno.h;fcntl.h;grp.h
 HAVE_GRP_H:INTERNAL=1
-//Test HAVE_ICONV_libc_
-HAVE_ICONV_libc_:INTERNAL=
 //Test HAVE_ICONV_libc_const
-HAVE_ICONV_libc_const:INTERNAL=
+HAVE_ICONV_libc_const:INTERNAL=1
 //Result of TRY_COMPILE
 HAVE_ID_T:INTERNAL=TRUE
 //Result of TRY_COMPILE
@@ -1612,7 +1598,7 @@ HAVE_UTIME_H:INTERNAL=1
 //Have function vfork
 HAVE_VFORK:INTERNAL=1
 //Test HAVE_VISIBILITY_ATTR
-HAVE_VISIBILITY_ATTR:INTERNAL=
+HAVE_VISIBILITY_ATTR:INTERNAL=1
 //Have function vprintf
 HAVE_VPRINTF:INTERNAL=1
 //Have include sys/types.h;ctype.h;dlfcn.h;errno.h;fcntl.h;grp.h;inttypes.h;langinfo.h;limits.h;locale.h;memory.h;paths.h;poll.h;pthread.h;pwd.h;regex.h;signal.h;spawn.h;stdarg.h;stdint.h;stdlib.h;string.h;strings.h;sys/ioctl.h;sys/mount.h;sys/param.h;sys/poll.h;sys/select.h;sys/stat.h;sys/statfs.h;sys/statvfs.h;sys/sysmacros.h;sys/time.h;sys/utsname.h;sys/vfs.h;sys/wait.h;sys/xattr.h;time.h;unistd.h;utime.h;wchar.h
@@ -1672,12 +1658,10 @@ HELLO_IMGUI_IMGUI_SHARED-ADVANCED:INTERNAL=1
 ID_T:INTERNAL=
 IMGUI_BUNDLE_INSTALLABLE_DEPENDENCIES:INTERNAL=
 IMGUI_BUNDLE_WITH_IMFILEDIALOG:INTERNAL=ON
-IMGUI_BUNDLE_WITH_IMGUIZMO:INTERNAL=ON
 IMGUI_BUNDLE_WITH_IMGUI_NODE_EDITOR:INTERNAL=ON
 IMGUI_BUNDLE_WITH_IMGUI_TEX_INSPECT:INTERNAL=ON
 IMGUI_BUNDLE_WITH_IMPLOT:INTERNAL=ON
 IMGUI_BUNDLE_WITH_NANOVG:INTERNAL=ON
-IMMVISION_SERIALIZE_JSON:INTERNAL=ON
 //CHECK_TYPE_SIZE: sizeof(int16_t)
 INT16_T:INTERNAL=
 //CHECK_TYPE_SIZE: sizeof(int32_t)
