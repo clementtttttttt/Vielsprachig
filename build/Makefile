@@ -754,19 +754,6 @@ run_bsdcpio_test/fast:
 .PHONY : run_bsdcpio_test/fast
 
 #=============================================================================
-# Target rules for targets named ImGuiFileDialog
-
-# Build rule for target.
-ImGuiFileDialog: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ImGuiFileDialog
-.PHONY : ImGuiFileDialog
-
-# fast build rule for target.
-ImGuiFileDialog/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/imguifiledialog-build/CMakeFiles/ImGuiFileDialog.dir/build.make _deps/imguifiledialog-build/CMakeFiles/ImGuiFileDialog.dir/build
-.PHONY : ImGuiFileDialog/fast
-
-#=============================================================================
 # Target rules for targets named imgui
 
 # Build rule for target.
@@ -804,19 +791,6 @@ imgui_node_editor: cmake_check_build_system
 imgui_node_editor/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/imgui_node_editor.dir/build
 .PHONY : imgui_node_editor/fast
-
-#=============================================================================
-# Target rules for targets named im_file_dialog
-
-# Build rule for target.
-im_file_dialog: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 im_file_dialog
-.PHONY : im_file_dialog
-
-# fast build rule for target.
-im_file_dialog/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/build.make _deps/imgui_bundle-build/external/CMakeFiles/im_file_dialog.dir/build
-.PHONY : im_file_dialog/fast
 
 #=============================================================================
 # Target rules for targets named imgui_tex_inspect
@@ -1289,7 +1263,6 @@ help:
 	@echo "... run_bsdcpio_test"
 	@echo "... run_bsdtar_test"
 	@echo "... run_libarchive_test"
-	@echo "... ImGuiFileDialog"
 	@echo "... archive"
 	@echo "... archive_static"
 	@echo "... bsdcat"
@@ -1300,7 +1273,6 @@ help:
 	@echo "... bsdtar_test"
 	@echo "... freetype"
 	@echo "... hello_imgui"
-	@echo "... im_file_dialog"
 	@echo "... imcoolbar"
 	@echo "... imgui"
 	@echo "... imgui_color_text_edit"
