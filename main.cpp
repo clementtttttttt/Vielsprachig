@@ -1,5 +1,4 @@
 #include "backends/imgui_impl_opengl3.h"
-#include "embf.h"
 #include "hello_imgui/hello_imgui.h"
 #include "hello_imgui/hello_imgui_assets.h"
 #include "imgui.h"
@@ -9,7 +8,6 @@
 #include <archive_entry.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <cstdlib>
-#include <emscripten.h>
 #include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
@@ -22,6 +20,7 @@
 
 #include "hello_imgui/runner_callbacks.h"
 #include "hello_imgui/runner_params.h"
+#include <SDL2/SDL.h>
 
 enum modes { nil,
 			 M_LEX,
@@ -223,9 +222,12 @@ void maingui() {
 				std::string_view sv(
 					reinterpret_cast<char *>(buffer.data()),
 					used);
+					
+				#ifdef __EMSCRIPTEN__
 				emscripten_browser_file::download(
 					curr_lang_fname, "application/octet-stream",
 					sv);
+				#endif
 			}
 			if (ImGui::MenuItem("Open from browser stor.", "")) {
 			}
@@ -325,8 +327,12 @@ void maingui() {
 	} else {
 		lexi_find_dialogue_set_scroll_false();
 	}
+	
+	#ifdef __EMSCRIPTEN__
+
 	ImGuiIO &io = ImGui::GetIO();
 	toggle_vkeyboard(io.WantCaptureKeyboard);
+	#endif
 }
 
 void load_noto_sans() { HelloImGui::LoadFontTTF("notosans.ttf", 20, true); }
@@ -383,7 +389,6 @@ void pre_new_frame() {
 		imconfont = 0;
 }
 
-#include <SDL2/SDL.h>
 
 int main(int, char *[]) {
 	auto params = HelloImGui::RunnerParams{
@@ -395,8 +400,10 @@ int main(int, char *[]) {
 
 	params.callbacks.LoadAdditionalFonts = load_noto_sans;
 
+#ifdef __EMSCRIPTEN__
 	SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT, "#minput");
 	SDL_SetHint(SDL_HINT_GRAB_KEYBOARD, "true");
+#endif
 
 	pugi::xml_node obj = dict.append_child("dictionary");
 	obj.append_child("lexicon");
