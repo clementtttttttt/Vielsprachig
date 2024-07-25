@@ -20,6 +20,7 @@
 #include "hello_imgui/runner_callbacks.h"
 #include "hello_imgui/runner_params.h"
 #include <SDL2/SDL.h>
+//#include <ImGuiFileDialog.h>
 
 enum modes { nil,
 			 M_LEX,
@@ -169,10 +170,13 @@ void maingui() {
 		if (ImGui::BeginMenu("File")) {
 
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
+
+				//ImGuiFileDialog test;
 				#ifdef __EMSCRIPTEN__
 				emscripten_browser_file::upload(
 					".pgd", handle_upload_file);
 				#else
+					
 					
 				#endif
 				

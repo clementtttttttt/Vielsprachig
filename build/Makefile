@@ -754,6 +754,19 @@ run_bsdcpio_test/fast:
 .PHONY : run_bsdcpio_test/fast
 
 #=============================================================================
+# Target rules for targets named ImGuiFileDialog
+
+# Build rule for target.
+ImGuiFileDialog: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ImGuiFileDialog
+.PHONY : ImGuiFileDialog
+
+# fast build rule for target.
+ImGuiFileDialog/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/imguifiledialog-build/CMakeFiles/ImGuiFileDialog.dir/build.make _deps/imguifiledialog-build/CMakeFiles/ImGuiFileDialog.dir/build
+.PHONY : ImGuiFileDialog/fast
+
+#=============================================================================
 # Target rules for targets named imgui
 
 # Build rule for target.
@@ -1276,6 +1289,7 @@ help:
 	@echo "... run_bsdcpio_test"
 	@echo "... run_bsdtar_test"
 	@echo "... run_libarchive_test"
+	@echo "... ImGuiFileDialog"
 	@echo "... archive"
 	@echo "... archive_static"
 	@echo "... bsdcat"

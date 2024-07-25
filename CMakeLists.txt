@@ -36,6 +36,7 @@ include_directories(pugixml/src/)
 
 set(IMGUI_BUNDLE_DISABLE_IMMVISION ON CACHE BOOL "" FORCE) 
 set(IMGUI_BUNDLE_DISABLE_IMGUIZMO ON CACHE BOOL "" FORCE) 
+set(IMGUI_BUNDLE_DISABLE_IMFILEDIALOG ON CACHE BOOL "" FORCE) 
 
 # Prepare hello_imgui during configure time
 ##########################################################
@@ -44,15 +45,14 @@ if (NOT TARGET imgui_bundle)
     include(FetchContent)
     Set(FETCHCONTENT_QUIET FALSE)
     FetchContent_Declare(imgui_bundle GIT_REPOSITORY https://github.com/pthom/imgui_bundle.git GIT_TAG main)
-    FetchContent_MakeAvailable(imgui_bundle)
+    FetchContent_MakeAvailable( imgui_bundle  )
+    
 
     # Uncomment the next line if you which to also automatically fetch and compile OpenCV for immvision support
     # set(IMMVISION_FETCH_OPENCV ON)
 endif()
 
 
-  #  FetchContent_Declare(imfiledialog GIT_REPOSITORY https://github.com/aiekick/ImGuiFileDialog GIT_TAG master)
-   # FetchContent_MakeAvailable(imfiledialog)
 
 set(ENABLE_WERROR, FALSE)
 set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)
@@ -62,7 +62,9 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)
 ##########################################################
 
 imgui_bundle_add_app(vielsprachig main.cpp lexicon.cpp lexi_find.cpp
-	lexi_conjugator.cpp emscripten_spec.cpp phono.cpp pos.cpp pos_reged.cpp)
+	lexi_conjugator.cpp emscripten_spec.cpp phono.cpp pos.cpp pos_reged.cpp )
+
+    add_dependencies(vielsprachig imgui_bundle)
 
 if (EMSCRIPTEN)
 	target_link_libraries(vielsprachig PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/libarchive/libarchive/libarchive.a)

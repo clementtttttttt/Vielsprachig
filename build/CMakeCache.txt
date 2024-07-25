@@ -444,6 +444,10 @@ FETCHCONTENT_QUIET:BOOL=ON
 FETCHCONTENT_SOURCE_DIR_FREETYPE:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for imguifiledialog
+FETCHCONTENT_SOURCE_DIR_IMGUIFILEDIALOG:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for imgui_bundle
 FETCHCONTENT_SOURCE_DIR_IMGUI_BUNDLE:PATH=
 
@@ -456,6 +460,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of freetype
 FETCHCONTENT_UPDATES_DISCONNECTED_FREETYPE:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of imguifiledialog
+FETCHCONTENT_UPDATES_DISCONNECTED_IMGUIFILEDIALOG:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of imgui_bundle
 FETCHCONTENT_UPDATES_DISCONNECTED_IMGUI_BUNDLE:BOOL=OFF
@@ -689,6 +696,15 @@ IMGUI_BUNDLE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bu
 
 //include support for imgui_test_engine
 IMGUI_BUNDLE_WITH_TEST_ENGINE:BOOL=ON
+
+//Value Computed by CMake
+ImGuiFileDialog_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imguifiledialog-build
+
+//Value Computed by CMake
+ImGuiFileDialog_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+ImGuiFileDialog_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imguifiledialog-src
 
 //Path to a file.
 LIBB2_INCLUDE_DIR:PATH=LIBB2_INCLUDE_DIR-NOTFOUND
@@ -1052,7 +1068,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=24
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
