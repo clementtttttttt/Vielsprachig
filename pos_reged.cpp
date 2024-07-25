@@ -1,8 +1,8 @@
 #include "pos.h"
 #include "imgui.h"
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
-
+#include <vector>
 std::vector<unsigned int> dim_idz;
 
 

@@ -1,9 +1,10 @@
 #include "pos.h"
 #include "imgui.h"
 #include "lexicon.h"
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <iterator>
+#include <vector>
 
 extern std::vector<int> poslist;
 extern std::string procol, posname, wposid;

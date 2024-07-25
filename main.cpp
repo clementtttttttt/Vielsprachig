@@ -1,10 +1,9 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "embf.h"
-#include "emscripten_browser_clipboard.h"
 #include "hello_imgui/hello_imgui.h"
-#include "hello_imgui_assets.h"
+#include "hello_imgui/hello_imgui_assets.h"
 #include "imgui.h"
-#include "imgui_default_settings.h"
+#include "hello_imgui/imgui_default_settings.h"
 #include "pugixml.hpp"
 #include <archive.h>
 #include <archive_entry.h>
@@ -12,15 +11,17 @@
 #include <cstdlib>
 #include <emscripten.h>
 #include <imgui.h>
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <sstream>
 
 #include "lexicon.h"
 #include "phono.hpp"
 #include "pos.h"
-#include "runner_callbacks.h"
-#include "runner_params.h"
+#include "emscripten_spec.h"
+
+#include "hello_imgui/runner_callbacks.h"
+#include "hello_imgui/runner_params.h"
 
 enum modes { nil,
 			 M_LEX,
@@ -73,6 +74,7 @@ bool less_than_ver(const std::string &a, const std::string &b) {
 
 	return false;
 }
+
 
 void handle_upload_file(
 	std::string const &filename,  // the filename of the file the user selected
@@ -162,44 +164,6 @@ void handle_upload_file(
 	fix_lexicon_word_prop();
 }
 
-extern "C" {
-EMSCRIPTEN_KEEPALIVE
-void spoof_event(int in, bool isctrl) {
-
-	uint16_t ev = in;
-
-	ImGuiIO &io = ImGui::GetIO();
-
-	if (isctrl) {
-		io.AddInputCharacter(ImGuiKey_LeftCtrl);
-	}
-
-	io.AddInputCharacterUTF16(ev);
-	io.ClearInputKeys();
-	io.ClearInputCharacters();
-
-	//    io.AddKeyEvent(ImGui::GetKey, )
-}
-}
-
-EM_JS(void, t_vk_js, (bool enable), {
-	var inp = document.getElementById('minput');
-	var c = document.getElementById('canvas');
-
-	if (enable) {
-		if (document.activeElement != inp) {
-			inp.focus();
-			inp.click();
-		}
-		window.openVirtualKeyboard = true;
-	} else {
-		document.activeElement.blur();
-		window.openVirtualKeyboard = false;
-	}
-});
-
-void toggle_vkeyboard(bool p_open) { t_vk_js(p_open); }
-
 void maingui() {
 
 	if (ImGui::BeginMainMenuBar()) {
@@ -207,8 +171,10 @@ void maingui() {
 		if (ImGui::BeginMenu("File")) {
 
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
+				#ifdef __EMSCRIPTEN__
 				emscripten_browser_file::upload(
 					".pgd", handle_upload_file);
+				#endif
 			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
 				std::stringstream ss;
@@ -376,17 +342,23 @@ void set_content_from_imgui(void *user_data [[maybe_unused]],
 							char const *text) {
 	/// Callback for imgui, to set clipboard content
 	content = text;
+	
+	#ifdef __EMSCRIPTEN__
 	emscripten_browser_clipboard::copy(
 		content); // send clipboard data to the browser
+	#endif
+	
 }
 
 void pre_new_frame() {
+	#ifdef __EMSCRIPTEN__
 	emscripten_browser_clipboard::paste([](std::string const &paste_data,
 										   void *callback_data
 										   [[maybe_unused]]) {
 		/// Callback to handle clipboard paste from browser
 		content = std::move(paste_data);
 	});
+	#endif
 	ImGuiIO &imgui_io = ImGui::GetIO();
 	imgui_io.GetClipboardTextFn = get_content_for_imgui;
 	imgui_io.SetClipboardTextFn = set_content_from_imgui;

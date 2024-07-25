@@ -2,7 +2,7 @@
 #include "phono.hpp"
 #include "imgui.h"
 #include "lexicon.h"
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 
 bool recgen = false;

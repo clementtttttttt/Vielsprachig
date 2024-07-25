@@ -23,20 +23,20 @@ add_subdirectory(libarchive)
 
 link_directories(libarchive)
 
+set(IMGUI_BUNDLE_DISABLE_IMMVISION ON CACHE BOOL "" FORCE) 
+
 # Prepare hello_imgui during configure time
 ##########################################################
-include(FetchContent)
+if (NOT TARGET imgui_bundle)
+    message(STATUS "Fetching imgui_bundle...")
+    include(FetchContent)
+    Set(FETCHCONTENT_QUIET FALSE)
+    FetchContent_Declare(imgui_bundle GIT_REPOSITORY https://github.com/pthom/imgui_bundle.git GIT_TAG main)
+    FetchContent_MakeAvailable(imgui_bundle)
 
-FetchContent_Declare(
-    imgui_bundle
-    GIT_REPOSITORY https://github.com/pthom/imgui_bundle
-    # Enter the desired git tag below
-    GIT_TAG main
-)
-FetchContent_MakeAvailable(imgui_bundle)
-# Make cmake function `hello_imgui_add_app` available
-list(APPEND CMAKE_MODULE_PATH ${IMGUIBUNDLE_CMAKE_PATH})
-include(imgui_bundle_add_app)
+    # Uncomment the next line if you which to also automatically fetch and compile OpenCV for immvision support
+    # set(IMMVISION_FETCH_OPENCV ON)
+endif()
 
 set(ENABLE_WERROR, FALSE)
 set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)
@@ -46,7 +46,7 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)
 ##########################################################
 
 imgui_bundle_add_app(vielsprachig main.cpp lexicon.cpp lexi_find.cpp
-	lexi_conjugator.cpp phono.cpp pos.cpp pos_reged.cpp)
+	lexi_conjugator.cpp emscripten_spec.cpp phono.cpp pos.cpp pos_reged.cpp)
 
 target_link_libraries(vielsprachig PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/libarchive/libarchive/libarchive.a)
 

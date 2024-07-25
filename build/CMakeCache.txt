@@ -14,6 +14,14 @@
 # EXTERNAL cache entries
 ########################
 
+//Path to a file.
+BROTLIDEC_INCLUDE_DIRS:PATH=BROTLIDEC_INCLUDE_DIRS-NOTFOUND
+
+//Path to a library.
+BROTLIDEC_LIBRARIES:FILEPATH=BROTLIDEC_LIBRARIES-NOTFOUND
+
+BUILD_SHARED_LIBS:BOOL=OFF
+
 //Build the testing tree.
 BUILD_TESTING:BOOL=ON
 
@@ -30,7 +38,10 @@ BZIP2_LIBRARY_RELEASE:FILEPATH=BZIP2_LIBRARY_RELEASE-NOTFOUND
 CCACHE:FILEPATH=CCACHE-NOTFOUND
 
 //Path to a program.
-CMAKE_ADDR2LINE:FILEPATH=/usr/lib/llvm/17/bin/llvm-addr2line
+CCACHE_FOUND:FILEPATH=CCACHE_FOUND-NOTFOUND
+
+//Path to a program.
+CMAKE_ADDR2LINE:FILEPATH=/usr/lib/llvm/18/bin/llvm-addr2line
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
@@ -40,10 +51,10 @@ CMAKE_BUILD_TYPE:STRING=
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //No help, variable specified on the command line.
-CMAKE_CROSSCOMPILING_EMULATOR:UNINITIALIZED=/home/clement/Desktop/emsdk/node/16.20.0_64bit/bin/node
+CMAKE_CROSSCOMPILING_EMULATOR:UNINITIALIZED=/home/clement/emsdk/node/18.20.3_64bit/bin/node
 
 //`clang-scan-deps` dependency scanner
-CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS:FILEPATH=/usr/lib/llvm/17/bin/clang-scan-deps
+CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS:FILEPATH=/usr/lib/llvm/18/bin/clang-scan-deps
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -61,7 +72,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //`clang-scan-deps` dependency scanner
-CMAKE_C_COMPILER_CLANG_SCAN_DEPS:FILEPATH=/usr/lib/llvm/17/bin/clang-scan-deps
+CMAKE_C_COMPILER_CLANG_SCAN_DEPS:FILEPATH=/usr/lib/llvm/18/bin/clang-scan-deps
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -79,7 +90,7 @@ CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //Path to a program.
-CMAKE_DLLTOOL:FILEPATH=/usr/lib/llvm/17/bin/llvm-dlltool
+CMAKE_DLLTOOL:FILEPATH=/usr/lib/llvm/18/bin/llvm-dlltool
 
 //Flags used by the linker during all build types.
 CMAKE_EXE_LINKER_FLAGS:STRING=
@@ -102,11 +113,59 @@ CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=
 //Value Computed by CMake.
 CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/CMakeFiles/pkgRedirects
 
+//User executables (bin)
+CMAKE_INSTALL_BINDIR:PATH=bin
+
+//Read-only architecture-independent data (DATAROOTDIR)
+CMAKE_INSTALL_DATADIR:PATH=
+
+//Read-only architecture-independent data root (share)
+CMAKE_INSTALL_DATAROOTDIR:PATH=share
+
+//Documentation root (DATAROOTDIR/doc/PROJECT_NAME)
+CMAKE_INSTALL_DOCDIR:PATH=
+
+//C header files (include)
+CMAKE_INSTALL_INCLUDEDIR:PATH=include
+
+//Info documentation (DATAROOTDIR/info)
+CMAKE_INSTALL_INFODIR:PATH=
+
+//Object code libraries (lib)
+CMAKE_INSTALL_LIBDIR:PATH=lib
+
+//Program executables (libexec)
+CMAKE_INSTALL_LIBEXECDIR:PATH=libexec
+
+//Locale-dependent data (DATAROOTDIR/locale)
+CMAKE_INSTALL_LOCALEDIR:PATH=
+
+//Modifiable single-machine data (var)
+CMAKE_INSTALL_LOCALSTATEDIR:PATH=var
+
+//Man documentation (DATAROOTDIR/man)
+CMAKE_INSTALL_MANDIR:PATH=
+
+//C header files for non-gcc (/usr/include)
+CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
+
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot
+CMAKE_INSTALL_PREFIX:PATH=/home/clement/emsdk/upstream/emscripten/cache/sysroot
+
+//Run-time variable data (LOCALSTATEDIR/run)
+CMAKE_INSTALL_RUNSTATEDIR:PATH=
+
+//System admin executables (sbin)
+CMAKE_INSTALL_SBINDIR:PATH=sbin
+
+//Modifiable architecture-independent data (com)
+CMAKE_INSTALL_SHAREDSTATEDIR:PATH=com
+
+//Read-only single-machine data (etc)
+CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=/usr/bin/ld
+CMAKE_LINKER:FILEPATH=/usr/bin/ld.lld
 
 //Path to a program.
 CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/gmake
@@ -132,10 +191,10 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_OBJCOPY:FILEPATH=/usr/lib/llvm/17/bin/llvm-objcopy
+CMAKE_OBJCOPY:FILEPATH=/usr/lib/llvm/18/bin/llvm-objcopy
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=/usr/lib/llvm/17/bin/llvm-objdump
+CMAKE_OBJDUMP:FILEPATH=/usr/lib/llvm/18/bin/llvm-objdump
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -147,22 +206,22 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=vielsprachig
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=0.8.8
+CMAKE_PROJECT_VERSION:STATIC=1.5.2
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_MAJOR:STATIC=0
+CMAKE_PROJECT_VERSION_MAJOR:STATIC=1
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_MINOR:STATIC=8
+CMAKE_PROJECT_VERSION_MINOR:STATIC=5
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=8
+CMAKE_PROJECT_VERSION_PATCH:STATIC=2
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_TWEAK:STATIC=
 
 //Path to a program.
-CMAKE_READELF:FILEPATH=/usr/lib/llvm/17/bin/llvm-readelf
+CMAKE_READELF:FILEPATH=/usr/lib/llvm/18/bin/llvm-readelf
 
 //Flags used by the linker during the creation of shared libraries
 // during all build types.
@@ -212,13 +271,13 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=/usr/lib/llvm/17/bin/llvm-strip
+CMAKE_STRIP:FILEPATH=/usr/lib/llvm/18/bin/llvm-strip
 
 //Path to a program.
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 
-//The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=/home/clement/Desktop/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+//No help, variable specified on the command line.
+CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/home/clement/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -233,6 +292,24 @@ COVERAGE_COMMAND:FILEPATH=/usr/bin/gcov
 //Extra command line flags to pass to the coverage tool
 COVERAGE_EXTRA_FLAGS:STRING=-l
 
+//Enable to build RPM source packages
+CPACK_SOURCE_RPM:BOOL=OFF
+
+//Enable to build TBZ2 source packages
+CPACK_SOURCE_TBZ2:BOOL=ON
+
+//Enable to build TGZ source packages
+CPACK_SOURCE_TGZ:BOOL=ON
+
+//Enable to build TXZ source packages
+CPACK_SOURCE_TXZ:BOOL=ON
+
+//Enable to build TZ source packages
+CPACK_SOURCE_TZ:BOOL=ON
+
+//Enable to build ZIP source packages
+CPACK_SOURCE_ZIP:BOOL=OFF
+
 //How many times to retry timed-out CTest submissions.
 CTEST_SUBMIT_RETRY_COUNT:STRING=3
 
@@ -241,9 +318,6 @@ CTEST_SUBMIT_RETRY_DELAY:STRING=5
 
 //Maximum time allowed before CTest will kill the test.
 DART_TESTING_TIMEOUT:STRING=1500
-
-//If true, we are targeting Emscripten output.
-EMSCRIPTEN:BOOL=1
 
 //Force C/C++ compiler
 EMSCRIPTEN_FORCE_COMPILERS:BOOL=ON
@@ -366,8 +440,16 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 FETCHCONTENT_QUIET:BOOL=ON
 
 //When not empty, overrides where to find pre-populated content
+// for freetype
+FETCHCONTENT_SOURCE_DIR_FREETYPE:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for imgui_bundle
 FETCHCONTENT_SOURCE_DIR_IMGUI_BUNDLE:PATH=
+
+//When not empty, overrides where to find pre-populated content
+// for lunasvg
+FETCHCONTENT_SOURCE_DIR_LUNASVG:PATH=
 
 //When not empty, overrides where to find pre-populated content
 // for opencv_package_emscripten
@@ -376,17 +458,72 @@ FETCHCONTENT_SOURCE_DIR_OPENCV_PACKAGE_EMSCRIPTEN:PATH=
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
+//Enables UPDATE_DISCONNECTED behavior just for population of freetype
+FETCHCONTENT_UPDATES_DISCONNECTED_FREETYPE:BOOL=OFF
+
 //Enables UPDATE_DISCONNECTED behavior just for population of imgui_bundle
 FETCHCONTENT_UPDATES_DISCONNECTED_IMGUI_BUNDLE:BOOL=OFF
 
+//Enables UPDATE_DISCONNECTED behavior just for population of lunasvg
+FETCHCONTENT_UPDATES_DISCONNECTED_LUNASVG:BOOL=OFF
+
 //Enables UPDATE_DISCONNECTED behavior just for population of opencv_package_emscripten
 FETCHCONTENT_UPDATES_DISCONNECTED_OPENCV_PACKAGE_EMSCRIPTEN:BOOL=OFF
+
+//Path to a file.
+FREETYPE_INCLUDE_DIR_freetype2:PATH=FREETYPE_INCLUDE_DIR_freetype2-NOTFOUND
+
+//Path to a file.
+FREETYPE_INCLUDE_DIR_ft2build:PATH=FREETYPE_INCLUDE_DIR_ft2build-NOTFOUND
+
+//Path to a library.
+FREETYPE_LIBRARY_DEBUG:FILEPATH=FREETYPE_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+FREETYPE_LIBRARY_RELEASE:FILEPATH=FREETYPE_LIBRARY_RELEASE-NOTFOUND
+
+//Disable support of compressed WOFF2 fonts.
+FT_DISABLE_BROTLI:BOOL=OFF
+
+//Disable support of bzip2 compressed fonts.
+FT_DISABLE_BZIP2:BOOL=OFF
+
+//Disable HarfBuzz (used for improving auto-hinting of OpenType
+// fonts).
+FT_DISABLE_HARFBUZZ:BOOL=OFF
+
+//Disable support of PNG compressed OpenType embedded bitmaps.
+FT_DISABLE_PNG:BOOL=OFF
+
+//Disable use of system zlib and use internal zlib library instead.
+FT_DISABLE_ZLIB:BOOL=OFF
+
+//Enable support for meaningful error descriptions.
+FT_ENABLE_ERROR_STRINGS:BOOL=OFF
+
+//Require support of compressed WOFF2 fonts.
+FT_REQUIRE_BROTLI:BOOL=OFF
+
+//Require support of bzip2 compressed fonts.
+FT_REQUIRE_BZIP2:BOOL=OFF
+
+//Require HarfBuzz for improving auto-hinting of OpenType fonts.
+FT_REQUIRE_HARFBUZZ:BOOL=OFF
+
+//Require support of PNG compressed OpenType embedded bitmaps.
+FT_REQUIRE_PNG:BOOL=OFF
+
+//Require system zlib instead of internal zlib library.
+FT_REQUIRE_ZLIB:BOOL=OFF
 
 //Path to a program.
 GITCOMMAND:FILEPATH=/usr/bin/git
 
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=/usr/bin/git
+
+//Add cmake install() instructions with hello_imgui_add_app
+HELLOIMGUI_ADD_APP_WITH_INSTALL:BOOL=ON
 
 //Hello imgui base path
 HELLOIMGUI_BASEPATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui
@@ -402,10 +539,20 @@ HELLOIMGUI_BUILD_IMGUI:BOOL=OFF
 //Build tests
 HELLOIMGUI_BUILD_TESTS:BOOL=OFF
 
+//Hello imgui cmake path
 HELLOIMGUI_CMAKE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui/hello_imgui_cmake
 
 //Create Android studio projects in build dir
 HELLOIMGUI_CREATE_ANDROID_STUDIO_PROJECT:BOOL=OFF
+
+//Download and build Freetype if needed
+HELLOIMGUI_DOWNLOAD_FREETYPE_IF_NEEDED:BOOL=ON
+
+//Download and build GLFW if needed
+HELLOIMGUI_DOWNLOAD_GLFW_IF_NEEDED:BOOL=ON
+
+//Download and build GLFW if needed
+HELLOIMGUI_DOWNLOAD_SDL_IF_NEEDED:BOOL=ON
 
 //Build emscripten with multithreading support
 HELLOIMGUI_EMSCRIPTEN_PTHREAD:BOOL=OFF
@@ -418,29 +565,56 @@ HELLOIMGUI_EMSCRIPTEN_PTHREAD_ALLOW_MEMORY_GROWTH:BOOL=OFF
 // (branch imgui_bundle)
 HELLOIMGUI_FETCH_IMGUI_TEST_ENGINE:BOOL=OFF
 
+//Force static linking of freetype (only used for python bindings)
+HELLOIMGUI_FREETYPE_STATIC:BOOL=OFF
+
+HELLOIMGUI_HAS_DIRECTX11:BOOL=OFF
+
+HELLOIMGUI_HAS_DIRECTX12:BOOL=OFF
+
+HELLOIMGUI_HAS_METAL:BOOL=OFF
+
+HELLOIMGUI_HAS_OPENGL:BOOL=ON
+
+HELLOIMGUI_HAS_OPENGL3:BOOL=ON
+
+//Use Vulkan as a rendering backend
+HELLOIMGUI_HAS_VULKAN:BOOL=OFF
+
+//Allow headless mode (will use Null rendering/platform backend)
+HELLOIMGUI_HEADLESS:BOOL=OFF
+
 HELLOIMGUI_IMGUI_SOURCE_DIR:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui/imgui
 
 HELLOIMGUI_IMGUI_TEST_ENGINE_SOURCE_DIR:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/imgui_test_engine/imgui_test_engine
 
-//Use Glad OpenGl loader
-HELLOIMGUI_USE_GLAD:BOOL=OFF
+//Install hello_imgui
+HELLOIMGUI_INSTALL:BOOL=OFF
 
-//Build HelloImGui for GLFW+OpenGL3
-HELLOIMGUI_USE_GLFW_OPENGL3:BOOL=OFF
+//Implement STB_IMAGE_IMPLEMENTATION inside hello_imgui
+HELLOIMGUI_STB_IMAGE_IMPLEMENTATION:BOOL=ON
 
-//Build HelloImGui for Qt
-HELLOIMGUI_USE_QT:BOOL=OFF
+//Implement STB_IMAGE_WRITE_IMPLEMENTATION inside hello_imgui
+HELLOIMGUI_STB_IMAGE_WRITE_IMPLEMENTATION:BOOL=ON
 
-//Build HelloImGui for SDL+OpenGL3
-HELLOIMGUI_USE_SDL_OPENGL3:BOOL=ON
+//Name of the hello_imgui target
+HELLOIMGUI_TARGET:STRING=hello_imgui
 
-//Add GLFW+OpenGl3 support (glfw will be automatically compiled
-// via ExternalProject_Add)
-HELLOIMGUI_WITH_GLFW:BOOL=OFF
+//Use freetype for text rendering
+HELLOIMGUI_USE_FREETYPE:BOOL=ON
 
-//Add SDL+OpenGl3 support (SDL will be automatically compiled via
-// ExternalProject_Add)
-HELLOIMGUI_WITH_SDL:BOOL=OFF
+//Use Glfw3 as a platform backend
+HELLOIMGUI_USE_GLFW3:BOOL=OFF
+
+//Use imgui from cmake package (provided by vcpkg for example)
+// * Must be on docking branch*
+HELLOIMGUI_USE_IMGUI_CMAKE_PACKAGE:BOOL=OFF
+
+//Use imgui-ws for remote rendering
+HELLOIMGUI_WITH_IMGUIWS:BOOL=OFF
+
+//Use netImgui for remote rendering
+HELLOIMGUI_WITH_NETIMGUI:BOOL=OFF
 
 //Provide ImGui Test engine
 HELLOIMGUI_WITH_TEST_ENGINE:BOOL=ON
@@ -448,23 +622,16 @@ HELLOIMGUI_WITH_TEST_ENGINE:BOOL=ON
 //Use imgui as a shared library
 HELLO_IMGUI_IMGUI_SHARED:BOOL=OFF
 
-//Value Computed by CMake
-HelloImGui_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build/external/hello_imgui/hello_imgui
+//Path to a file.
+HarfBuzz_INCLUDE_DIR:PATH=HarfBuzz_INCLUDE_DIR-NOTFOUND
 
-//Value Computed by CMake
-HelloImGui_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-HelloImGui_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui
+//Path to a library.
+HarfBuzz_LIBRARY:FILEPATH=HarfBuzz_LIBRARY-NOTFOUND
 
 //Path to a file.
-ICONV_INCLUDE_DIR:PATH=/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/include
-
-IMGUIBUNDLE_CMAKE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/imgui_bundle_cmake
+ICONV_INCLUDE_DIR:PATH=/home/clement/emsdk/upstream/emscripten/cache/sysroot/include
 
 IMGUIBUNDLE_EXTERNAL_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external
-
-IMGUIBUNDLE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src
 
 //clone submodules if needed during configure
 IMGUI_BUNDLE_AUTO_CLONE_SUBMODULES:BOOL=ON
@@ -477,6 +644,9 @@ IMGUI_BUNDLE_BUILD_DEMOS:BOOL=OFF
 
 //Build ImGui Bundle doc
 IMGUI_BUNDLE_BUILD_DOC:BOOL=OFF
+
+//Build _example_integration
+IMGUI_BUNDLE_BUILD_EXAMPLE_INTEGRATION:BOOL=OFF
 
 //build python bindings
 IMGUI_BUNDLE_BUILD_PYTHON:BOOL=OFF
@@ -493,32 +663,39 @@ IMGUI_BUNDLE_BUILD_WITH_TSAN:BOOL=OFF
 //Build ImGui Bundle with undefined behavior sanitizer
 IMGUI_BUNDLE_BUILD_WITH_UB_SANITIZER:BOOL=OFF
 
+IMGUI_BUNDLE_CMAKE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/imgui_bundle_cmake
+
+//Disable ImFileDialog
+IMGUI_BUNDLE_DISABLE_IMFILEDIALOG:BOOL=OFF
+
+//Disable ImGuizmo
+IMGUI_BUNDLE_DISABLE_IMGUIZMO:BOOL=OFF
+
+//Disable imgui-node-editor
+IMGUI_BUNDLE_DISABLE_IMGUI_NODE_EDITOR:BOOL=OFF
+
+//Disable imgui_tex_inspect
+IMGUI_BUNDLE_DISABLE_IMGUI_TEX_INSPECT:BOOL=OFF
+
+//Disable immvision
+IMGUI_BUNDLE_DISABLE_IMMVISION:BOOL=ON
+
+//Disable implot
+IMGUI_BUNDLE_DISABLE_IMPLOT:BOOL=OFF
+
+//Disable nanovg
+IMGUI_BUNDLE_DISABLE_NANOVG:BOOL=OFF
+
 //Fail if immvision unavailable (OpenCV not found)
 IMGUI_BUNDLE_FAIL_IF_IMMVISION_UNAVAILABLE:BOOL=OFF
 
-//Build with immvision
-IMGUI_BUNDLE_WITH_IMMVISION:BOOL=ON
+//Install imgui_bundle
+IMGUI_BUNDLE_INSTALL_CPP:BOOL=OFF
+
+IMGUI_BUNDLE_PATH:STRING=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src
 
 //include support for imgui_test_engine
 IMGUI_BUNDLE_WITH_TEST_ENGINE:BOOL=ON
-
-//Activate all warnings (as error!)
-IMMVISION_ACTIVATE_ALL_WARNINGS:BOOL=OFF
-
-//OFF
-IMMVISION_BUILD_ALL_IN_ONE:BOOL=OFF
-
-//Build immvision demos
-IMMVISION_BUILD_DEMOS:BOOL=OFF
-
-//Build immdebug_viewer
-IMMVISION_BUILD_VIEWER:BOOL=OFF
-
-//OFF
-IMMVISION_FETCH_OPENCV_FULL:BOOL=OFF
-
-//Use conan to get opencv
-IMMVISION_OPENCV_CONAN:BOOL=ON
 
 IMMVISION_OPENCV_EMSCRIPTEN_WITH_PTHREAD:BOOL=OFF
 
@@ -549,6 +726,9 @@ LIBXML2_LIBRARY:FILEPATH=LIBXML2_LIBRARY-NOTFOUND
 //Path to a program.
 LIBXML2_XMLLINT_EXECUTABLE:FILEPATH=/usr/bin/xmllint
 
+//Build example(s)
+LUNASVG_BUILD_EXAMPLES:BOOL=OFF
+
 //Path to a file.
 LZ4_INCLUDE_DIR:PATH=LZ4_INCLUDE_DIR-NOTFOUND
 
@@ -563,6 +743,9 @@ MEMORYCHECK_COMMAND:FILEPATH=/usr/bin/valgrind
 
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
+
+//Build nanovg examples
+NANOVG_BUILD_EXAMPLES:BOOL=OFF
 
 //Path to a library.
 OPENSSL_CRYPTO_LIBRARY:FILEPATH=OPENSSL_CRYPTO_LIBRARY-NOTFOUND
@@ -582,26 +765,38 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
+//Path to a library.
+PNG_LIBRARY_DEBUG:FILEPATH=PNG_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+PNG_LIBRARY_RELEASE:FILEPATH=PNG_LIBRARY_RELEASE-NOTFOUND
+
+//Path to a file.
+PNG_PNG_INCLUDE_DIR:PATH=PNG_PNG_INCLUDE_DIR-NOTFOUND
+
 //Choose what library should provide POSIX regular expression support
 POSIX_REGEX_LIB:STRING=AUTO
 
 //Path to a file.
-REGEX_INCLUDE_DIR:PATH=/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/include
+REGEX_INCLUDE_DIR:PATH=/home/clement/emsdk/upstream/emscripten/cache/sysroot/include
 
 //Name of the computer/site where compile is being run
 SITE:STRING=clemespowertop
+
+//The directory containing a CMake configuration file for Stb.
+Stb_DIR:PATH=Stb_DIR-NOTFOUND
 
 //Set Windows version to use (Windows only)
 WINDOWS_VERSION:STRING=WIN10
 
 //Path to a file.
-ZLIB_INCLUDE_DIR:PATH=/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/include
+ZLIB_INCLUDE_DIR:PATH=/home/clement/emsdk/upstream/emscripten/cache/sysroot/include
 
 //Path to a library.
 ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
 
 //Path to a library.
-ZLIB_LIBRARY_RELEASE:FILEPATH=/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a
+ZLIB_LIBRARY_RELEASE:FILEPATH=/home/clement/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a
 
 //Path to a file.
 ZSTD_INCLUDE_DIR:PATH=ZSTD_INCLUDE_DIR-NOTFOUND
@@ -610,10 +805,34 @@ ZSTD_INCLUDE_DIR:PATH=ZSTD_INCLUDE_DIR-NOTFOUND
 ZSTD_LIBRARY:FILEPATH=ZSTD_LIBRARY-NOTFOUND
 
 //Dependencies for the target
-archive_LIB_DEPENDS:STATIC=general;/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a;
+archive_LIB_DEPENDS:STATIC=general;/home/clement/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a;
 
 //Dependencies for the target
-archive_static_LIB_DEPENDS:STATIC=general;/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a;
+archive_static_LIB_DEPENDS:STATIC=general;/home/clement/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a;
+
+//Value Computed by CMake
+freetype_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/freetype-build
+
+//Value Computed by CMake
+freetype_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+freetype_LIB_DEPENDS:STATIC=general;/home/clement/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a;
+
+//Value Computed by CMake
+freetype_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/freetype-src
+
+//Value Computed by CMake
+hello-imgui_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build/external/hello_imgui/hello_imgui
+
+//Value Computed by CMake
+hello-imgui_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+hello-imgui_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/hello_imgui/hello_imgui
+
+//The directory containing a CMake configuration file for imgui.
+imgui_DIR:PATH=imgui_DIR-NOTFOUND
 
 //Value Computed by CMake
 imgui_bundle_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build
@@ -625,15 +844,6 @@ imgui_bundle_IS_TOP_LEVEL:STATIC=OFF
 imgui_bundle_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src
 
 //Value Computed by CMake
-immvision_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build/external/immvision/immvision
-
-//Value Computed by CMake
-immvision_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-immvision_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/immvision/immvision
-
-//Value Computed by CMake
 libarchive_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/libarchive
 
 //Value Computed by CMake
@@ -641,6 +851,30 @@ libarchive_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 libarchive_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/libarchive
+
+//Value Computed by CMake
+lunasvg_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/lunasvg-build
+
+//Value Computed by CMake
+lunasvg_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+lunasvg_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/lunasvg-src
+
+//Value Computed by CMake
+nanovg_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-build/external/nanovg/nanovg
+
+//Value Computed by CMake
+nanovg_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+nanovg_SOURCE_DIR:STATIC=/home/clement/Desktop/vielsprachig/build/_deps/imgui_bundle-src/external/nanovg/nanovg
+
+//The directory containing a CMake configuration file for nlohmann_json.
+nlohmann_json_DIR:PATH=nlohmann_json_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for unofficial-lunasvg.
+unofficial-lunasvg_DIR:PATH=unofficial-lunasvg_DIR-NOTFOUND
 
 //Value Computed by CMake
 vielsprachig_BINARY_DIR:STATIC=/home/clement/Desktop/vielsprachig/build
@@ -700,6 +934,10 @@ ARCHIVE_CRYPTO_SHA512_LIBC3:INTERNAL=FALSE
 ARCHIVE_CRYPTO_SHA512_LIBMD:INTERNAL=FALSE
 //Result of TRY_COMPILE
 ARCHIVE_CRYPTO_SHA512_LIBSYSTEM:INTERNAL=FALSE
+//ADVANCED property for variable: BROTLIDEC_INCLUDE_DIRS
+BROTLIDEC_INCLUDE_DIRS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BROTLIDEC_LIBRARIES
+BROTLIDEC_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BZIP2_INCLUDE_DIR
 BZIP2_INCLUDE_DIR-ADVANCED:INTERNAL=0
 //ADVANCED property for variable: BZIP2_LIBRARY_DEBUG
@@ -713,9 +951,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/home/clement/Desktop/vielsprachig/build
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=27
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=30
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=7
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -779,6 +1017,38 @@ CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/home/clement/Desktop/vielsprachig
+//ADVANCED property for variable: CMAKE_INSTALL_BINDIR
+CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DATADIR
+CMAKE_INSTALL_DATADIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DATAROOTDIR
+CMAKE_INSTALL_DATAROOTDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DOCDIR
+CMAKE_INSTALL_DOCDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_INCLUDEDIR
+CMAKE_INSTALL_INCLUDEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_INFODIR
+CMAKE_INSTALL_INFODIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LIBDIR
+CMAKE_INSTALL_LIBDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LIBEXECDIR
+CMAKE_INSTALL_LIBEXECDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LOCALEDIR
+CMAKE_INSTALL_LOCALEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LOCALSTATEDIR
+CMAKE_INSTALL_LOCALSTATEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_MANDIR
+CMAKE_INSTALL_MANDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_OLDINCLUDEDIR
+CMAKE_INSTALL_OLDINCLUDEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_RUNSTATEDIR
+CMAKE_INSTALL_RUNSTATEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SBINDIR
+CMAKE_INSTALL_SBINDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SHAREDSTATEDIR
+CMAKE_INSTALL_SHAREDSTATEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SYSCONFDIR
+CMAKE_INSTALL_SYSCONFDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
 CMAKE_LINKER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MAKE_PROGRAM
@@ -794,7 +1064,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=24
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -841,6 +1111,18 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 COVERAGE_COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: COVERAGE_EXTRA_FLAGS
 COVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_RPM
+CPACK_SOURCE_RPM-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TBZ2
+CPACK_SOURCE_TBZ2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TGZ
+CPACK_SOURCE_TGZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TXZ
+CPACK_SOURCE_TXZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TZ
+CPACK_SOURCE_TZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_ZIP
+CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT
 CTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY
@@ -849,16 +1131,26 @@ CTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1
 DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 //CHECK_TYPE_SIZE: sizeof(dev_t)
 DEV_T:INTERNAL=
+//If true, we are targeting Emscripten output.
+EMSCRIPTEN:INTERNAL=1
 //ADVANCED property for variable: EXPAT_INCLUDE_DIR
 EXPAT_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: EXPAT_LIBRARY_DEBUG
 EXPAT_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: EXPAT_LIBRARY_RELEASE
 EXPAT_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-//Details about finding OpenCV
-FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/home/clement/Desktop/vielsprachig/build/_deps/opencv_package_emscripten-src][v4.6.0()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v2.2.0()]
 //Details about finding ZLIB
-FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a][/home/clement/Desktop/emsdk/upstream/emscripten/cache/sysroot/include][c ][v1.2.13()]
+FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/home/clement/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a][/home/clement/emsdk/upstream/emscripten/cache/sysroot/include][c ][v1.2.13()]
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
+FREETYPE_INCLUDE_DIR_freetype2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_ft2build
+FREETYPE_INCLUDE_DIR_ft2build-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_LIBRARY_DEBUG
+FREETYPE_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_LIBRARY_RELEASE
+FREETYPE_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //CHECK_TYPE_SIZE: sizeof(gid_t)
 GID_T:INTERNAL=
 //ADVANCED property for variable: GITCOMMAND
@@ -1367,10 +1659,25 @@ HAVE___INT64:INTERNAL=FALSE
 HELLOIMGUI_BUILD_DOCS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: HELLOIMGUI_CREATE_ANDROID_STUDIO_PROJECT
 HELLOIMGUI_CREATE_ANDROID_STUDIO_PROJECT-ADVANCED:INTERNAL=1
+HELLOIMGUI_FETCH_FORBIDDEN:INTERNAL=OFF
+HELLOIMGUI_FREETYPE_SELECTED_INFO:INTERNAL=Use target freetype
+HELLOIMGUI_INSTALLABLE_DEPENDENCIES:INTERNAL=stb_hello_imgui;lunasvg;hello_imgui;nlohmann_json;imgui_test_engine
+HELLOIMGUI_NLOHMANN_JSON_SELECTED_INFO:INTERNAL=Using external/nlohmann_json
+HELLOIMGUI_SDL_SELECTED_INFO:INTERNAL=Use system Library
+HELLOIMGUI_USE_GLAD:INTERNAL=OFF
+HELLOIMGUI_USE_SDL2:INTERNAL=ON
 //ADVANCED property for variable: HELLO_IMGUI_IMGUI_SHARED
 HELLO_IMGUI_IMGUI_SHARED-ADVANCED:INTERNAL=1
 //CHECK_TYPE_SIZE: sizeof(id_t)
 ID_T:INTERNAL=
+IMGUI_BUNDLE_INSTALLABLE_DEPENDENCIES:INTERNAL=
+IMGUI_BUNDLE_WITH_IMFILEDIALOG:INTERNAL=ON
+IMGUI_BUNDLE_WITH_IMGUIZMO:INTERNAL=ON
+IMGUI_BUNDLE_WITH_IMGUI_NODE_EDITOR:INTERNAL=ON
+IMGUI_BUNDLE_WITH_IMGUI_TEX_INSPECT:INTERNAL=ON
+IMGUI_BUNDLE_WITH_IMPLOT:INTERNAL=ON
+IMGUI_BUNDLE_WITH_NANOVG:INTERNAL=ON
+IMMVISION_SERIALIZE_JSON:INTERNAL=ON
 //CHECK_TYPE_SIZE: sizeof(int16_t)
 INT16_T:INTERNAL=
 //CHECK_TYPE_SIZE: sizeof(int32_t)
@@ -1419,6 +1726,56 @@ OPENSSL_CRYPTO_LIBRARY-ADVANCED:INTERNAL=1
 OPENSSL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENSSL_SSL_LIBRARY
 OPENSSL_SSL_LIBRARY-ADVANCED:INTERNAL=1
+PC_BROTLIDEC_CFLAGS:INTERNAL=
+PC_BROTLIDEC_CFLAGS_I:INTERNAL=
+PC_BROTLIDEC_CFLAGS_OTHER:INTERNAL=
+PC_BROTLIDEC_FOUND:INTERNAL=
+PC_BROTLIDEC_INCLUDEDIR:INTERNAL=
+PC_BROTLIDEC_LIBDIR:INTERNAL=
+PC_BROTLIDEC_LIBS:INTERNAL=
+PC_BROTLIDEC_LIBS_L:INTERNAL=
+PC_BROTLIDEC_LIBS_OTHER:INTERNAL=
+PC_BROTLIDEC_LIBS_PATHS:INTERNAL=
+PC_BROTLIDEC_MODULE_NAME:INTERNAL=
+PC_BROTLIDEC_PREFIX:INTERNAL=
+PC_BROTLIDEC_STATIC_CFLAGS:INTERNAL=
+PC_BROTLIDEC_STATIC_CFLAGS_I:INTERNAL=
+PC_BROTLIDEC_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_BROTLIDEC_STATIC_LIBDIR:INTERNAL=
+PC_BROTLIDEC_STATIC_LIBS:INTERNAL=
+PC_BROTLIDEC_STATIC_LIBS_L:INTERNAL=
+PC_BROTLIDEC_STATIC_LIBS_OTHER:INTERNAL=
+PC_BROTLIDEC_STATIC_LIBS_PATHS:INTERNAL=
+PC_BROTLIDEC_VERSION:INTERNAL=
+PC_BROTLIDEC_libbrotlidec_INCLUDEDIR:INTERNAL=
+PC_BROTLIDEC_libbrotlidec_LIBDIR:INTERNAL=
+PC_BROTLIDEC_libbrotlidec_PREFIX:INTERNAL=
+PC_BROTLIDEC_libbrotlidec_VERSION:INTERNAL=
+PC_BZIP2_CFLAGS:INTERNAL=
+PC_BZIP2_CFLAGS_I:INTERNAL=
+PC_BZIP2_CFLAGS_OTHER:INTERNAL=
+PC_BZIP2_FOUND:INTERNAL=
+PC_BZIP2_INCLUDEDIR:INTERNAL=
+PC_BZIP2_LIBDIR:INTERNAL=
+PC_BZIP2_LIBS:INTERNAL=
+PC_BZIP2_LIBS_L:INTERNAL=
+PC_BZIP2_LIBS_OTHER:INTERNAL=
+PC_BZIP2_LIBS_PATHS:INTERNAL=
+PC_BZIP2_MODULE_NAME:INTERNAL=
+PC_BZIP2_PREFIX:INTERNAL=
+PC_BZIP2_STATIC_CFLAGS:INTERNAL=
+PC_BZIP2_STATIC_CFLAGS_I:INTERNAL=
+PC_BZIP2_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_BZIP2_STATIC_LIBDIR:INTERNAL=
+PC_BZIP2_STATIC_LIBS:INTERNAL=
+PC_BZIP2_STATIC_LIBS_L:INTERNAL=
+PC_BZIP2_STATIC_LIBS_OTHER:INTERNAL=
+PC_BZIP2_STATIC_LIBS_PATHS:INTERNAL=
+PC_BZIP2_VERSION:INTERNAL=
+PC_BZIP2_bzip2_INCLUDEDIR:INTERNAL=
+PC_BZIP2_bzip2_LIBDIR:INTERNAL=
+PC_BZIP2_bzip2_PREFIX:INTERNAL=
+PC_BZIP2_bzip2_VERSION:INTERNAL=
 PC_EXPAT_CFLAGS:INTERNAL=
 PC_EXPAT_CFLAGS_I:INTERNAL=
 PC_EXPAT_CFLAGS_OTHER:INTERNAL=
@@ -1444,6 +1801,31 @@ PC_EXPAT_expat_INCLUDEDIR:INTERNAL=
 PC_EXPAT_expat_LIBDIR:INTERNAL=
 PC_EXPAT_expat_PREFIX:INTERNAL=
 PC_EXPAT_expat_VERSION:INTERNAL=
+PC_HARFBUZZ_CFLAGS:INTERNAL=
+PC_HARFBUZZ_CFLAGS_I:INTERNAL=
+PC_HARFBUZZ_CFLAGS_OTHER:INTERNAL=
+PC_HARFBUZZ_FOUND:INTERNAL=
+PC_HARFBUZZ_INCLUDEDIR:INTERNAL=
+PC_HARFBUZZ_LIBDIR:INTERNAL=
+PC_HARFBUZZ_LIBS:INTERNAL=
+PC_HARFBUZZ_LIBS_L:INTERNAL=
+PC_HARFBUZZ_LIBS_OTHER:INTERNAL=
+PC_HARFBUZZ_LIBS_PATHS:INTERNAL=
+PC_HARFBUZZ_MODULE_NAME:INTERNAL=
+PC_HARFBUZZ_PREFIX:INTERNAL=
+PC_HARFBUZZ_STATIC_CFLAGS:INTERNAL=
+PC_HARFBUZZ_STATIC_CFLAGS_I:INTERNAL=
+PC_HARFBUZZ_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_HARFBUZZ_STATIC_LIBDIR:INTERNAL=
+PC_HARFBUZZ_STATIC_LIBS:INTERNAL=
+PC_HARFBUZZ_STATIC_LIBS_L:INTERNAL=
+PC_HARFBUZZ_STATIC_LIBS_OTHER:INTERNAL=
+PC_HARFBUZZ_STATIC_LIBS_PATHS:INTERNAL=
+PC_HARFBUZZ_VERSION:INTERNAL=
+PC_HARFBUZZ_harfbuzz_INCLUDEDIR:INTERNAL=
+PC_HARFBUZZ_harfbuzz_LIBDIR:INTERNAL=
+PC_HARFBUZZ_harfbuzz_PREFIX:INTERNAL=
+PC_HARFBUZZ_harfbuzz_VERSION:INTERNAL=
 PC_LIBXML_CFLAGS:INTERNAL=
 PC_LIBXML_CFLAGS_I:INTERNAL=
 PC_LIBXML_CFLAGS_OTHER:INTERNAL=
@@ -1500,6 +1882,12 @@ PID_T:INTERNAL=
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PNG_LIBRARY_DEBUG
+PNG_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PNG_LIBRARY_RELEASE
+PNG_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PNG_PNG_INCLUDE_DIR
+PNG_PNG_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Test SAFE_TO_DEFINE_EXTENSIONS
 SAFE_TO_DEFINE_EXTENSIONS:INTERNAL=1
 //ADVANCED property for variable: SITE
@@ -1524,6 +1912,7 @@ SIZEOF_UNSIGNED_SHORT:INTERNAL=
 SIZEOF_WCHAR_T:INTERNAL=
 //CHECK_TYPE_SIZE: sizeof(size_t)
 SIZE_T:INTERNAL=
+SKIP_INSTALL_ALL:INTERNAL=ON
 //CHECK_TYPE_SIZE: sizeof(ssize_t)
 SSIZE_T:INTERNAL=
 //CHECK_TYPE_SIZE: sizeof(uid_t)
@@ -1554,6 +1943,8 @@ ZSTD_INCLUDE_DIR-ADVANCED:INTERNAL=0
 ZSTD_LIBRARY-ADVANCED:INTERNAL=0
 //_FILE_OFFSET_BITS macro needed for large files
 _FILE_OFFSET_BITS:INTERNAL=
+//CMAKE_INSTALL_PREFIX during last run
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/home/clement/emsdk/upstream/emscripten/cache/sysroot
 _OPENSSL_CFLAGS:INTERNAL=
 _OPENSSL_CFLAGS_I:INTERNAL=
 _OPENSSL_CFLAGS_OTHER:INTERNAL=
@@ -1583,12 +1974,13 @@ _OPENSSL_openssl_VERSION:INTERNAL=
 __INT64:INTERNAL=
 //Result of TRY_COMPILE
 __WITHOUT_FILE_OFFSET_BITS_64:INTERNAL=TRUE
+__pkg_config_checked_PC_BROTLIDEC:INTERNAL=1
+__pkg_config_checked_PC_BZIP2:INTERNAL=1
 __pkg_config_checked_PC_EXPAT:INTERNAL=1
+__pkg_config_checked_PC_HARFBUZZ:INTERNAL=1
 __pkg_config_checked_PC_LIBXML:INTERNAL=1
 __pkg_config_checked_PC_ZSTD:INTERNAL=1
 __pkg_config_checked__OPENSSL:INTERNAL=1
 //Result of TRY_COMPILE
 __stub:INTERNAL=FALSE
-//lg_incremental_counter
-lg_incremental_counter:INTERNAL=0
 

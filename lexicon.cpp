@@ -1,7 +1,7 @@
 #include "lexicon.h"
 #include "pos.h"
 #include <imgui.h>
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <map>
 #include <regex>
