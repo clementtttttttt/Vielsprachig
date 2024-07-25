@@ -83,13 +83,14 @@
 
     inp.addEventListener('input', (e) => {
         var code = inp.value.charAt(0).charCodeAt();
-        //dbgprint(e.ctrlKey);
+       	 
+	if(isNaN(code) || code === 2) {return;}
+	      
+	console.log(e.inputType);
 
-	if(isNaN(code) || code === 2) return;
-	       
 	Module.ccall('spoof_event', 'undefined', ['number'], [code], ['boolean'], [e.ctrlKey]);
         inp.focus();
-        inp.value = "\u{0002}\u{0002}";
+        inp.value = "\u{0002}\u{0002}\u{0002}";
         inp.selectionStart = 0;
         inp.selectionEnd = 0;
      });

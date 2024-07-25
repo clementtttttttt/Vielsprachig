@@ -11,8 +11,8 @@ set(LIBARCHIVE_INCLUDE_DIR "/usr/lib")
 file(GLOB_RECURSE pugixml_sources ${CMAKE_SOURCE_DIR}/pugixml/src/*.cpp)
 add_library(pugixml STATIC ${pugixml_sources})
 
-set(CMAKE_C_FLAGS "-Wno-error -w -sTOTAL_MEMORY=134217728 ${CMAKE_C_FLAGS} -O3 -sUSE_ZLIB=1  -Wno-unused-command-line-argument ")
-set(CMAKE_CXX_FLAGS "-Wno-error -w ${CMAKE_CXX_FLAGS} -O3 -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event -sEXPORTED_FUNCTIONS=_main,_malloc,_free")
+set(CMAKE_C_FLAGS "-Wno-error -w -sTOTAL_MEMORY=134217728 ${CMAKE_C_FLAGS} -O0 -sUSE_ZLIB=1  -Wno-unused-command-line-argument ")
+set(CMAKE_CXX_FLAGS "-Wno-error -w ${CMAKE_CXX_FLAGS} -O0 -Wno-unused-command-line-argument -Wl,--max-memory=134217728 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event -sEXPORTED_FUNCTIONS=_main,_malloc,_free")
 set(CMAKE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -O3 -sTOTAL_MEMORY=134217728 -sMAXIMUM_MEMORY=134217728 -sEXPORTED_FUNCTIONS=_main,_malloc,_free -sALLOW_MEMORY_GROWTH=1 -sEXPORTED_RUNTIME_METHODS=ccall,cwarp,spoof_event --shell-file=shell.emscripten.html -sTOTAL_MEMORY=134217728 -sMAXIMUM_MEMORY=134217728 ")
 
 include_directories(pugixml/src/)
