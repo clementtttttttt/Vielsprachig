@@ -1000,6 +1000,30 @@ immapp/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/build.make _deps/imgui_bundle-build/external/immapp/immapp/CMakeFiles/immapp.dir/build
 .PHONY : immapp/fast
 
+ImGuiFileDialog/ImGuiFileDialog.o: ImGuiFileDialog/ImGuiFileDialog.cpp.o
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.o
+
+# target to build an object file
+ImGuiFileDialog/ImGuiFileDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/ImGuiFileDialog/ImGuiFileDialog.cpp.o
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.cpp.o
+
+ImGuiFileDialog/ImGuiFileDialog.i: ImGuiFileDialog/ImGuiFileDialog.cpp.i
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.i
+
+# target to preprocess a source file
+ImGuiFileDialog/ImGuiFileDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/ImGuiFileDialog/ImGuiFileDialog.cpp.i
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.cpp.i
+
+ImGuiFileDialog/ImGuiFileDialog.s: ImGuiFileDialog/ImGuiFileDialog.cpp.s
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.s
+
+# target to generate assembly for a file
+ImGuiFileDialog/ImGuiFileDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vielsprachig.dir/build.make CMakeFiles/vielsprachig.dir/ImGuiFileDialog/ImGuiFileDialog.cpp.s
+.PHONY : ImGuiFileDialog/ImGuiFileDialog.cpp.s
+
 emscripten_spec.o: emscripten_spec.cpp.o
 .PHONY : emscripten_spec.o
 
@@ -1293,6 +1317,9 @@ help:
 	@echo "... pugixml"
 	@echo "... stb_hello_imgui"
 	@echo "... vielsprachig"
+	@echo "... ImGuiFileDialog/ImGuiFileDialog.o"
+	@echo "... ImGuiFileDialog/ImGuiFileDialog.i"
+	@echo "... ImGuiFileDialog/ImGuiFileDialog.s"
 	@echo "... emscripten_spec.o"
 	@echo "... emscripten_spec.i"
 	@echo "... emscripten_spec.s"

@@ -7,10 +7,12 @@ set(CMAKE_BUILD_TYPE Release)
 
 
 file(GLOB_RECURSE pugixml_sources ${CMAKE_SOURCE_DIR}/pugixml/src/*.cpp)
+
 add_library(pugixml STATIC ${pugixml_sources})
+	
 # -Wl,--max-memory=134217728  
-set(CMAKE_C_FLAGS "-Wno-error -w ${CMAKE_C_FLAGS} -O3  -Wno-unused-command-line-argument ")
-set(CMAKE_CXX_FLAGS "-Wno-error -w ${CMAKE_CXX_FLAGS} -O3 -Wno-unused-command-line-argument ")
+set(CMAKE_C_FLAGS "-Wno-error ${CMAKE_C_FLAGS} -O3  -Wno-unused-command-line-argument ")
+set(CMAKE_CXX_FLAGS "-Wno-error ${CMAKE_CXX_FLAGS} -O3 -Wno-unused-command-line-argument ")
 set(CMAKE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -O3 ")
 
 if(EMSCRIPTEN)
@@ -22,7 +24,7 @@ if(EMSCRIPTEN)
 	set(LIBARCHIVE_INCLUDE_DIR "/usr/lib")
 	include_directories(libarchive/libarchive/)
 	add_subdirectory(libarchive)
-	
+
 	link_directories(libarchive)
 
 else()
@@ -62,14 +64,21 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR FALSE)
 ##########################################################
 
 imgui_bundle_add_app(vielsprachig main.cpp lexicon.cpp lexi_find.cpp
-	lexi_conjugator.cpp emscripten_spec.cpp phono.cpp pos.cpp pos_reged.cpp )
+	lexi_conjugator.cpp emscripten_spec.cpp phono.cpp pos.cpp pos_reged.cpp ImGuiFileDialog/ImGuiFileDialog.cpp)
 
     add_dependencies(vielsprachig imgui_bundle)
+
+target_include_directories(vielsprachig PUBLIC ImGuiFileDialog)
 
 if (EMSCRIPTEN)
 	target_link_libraries(vielsprachig PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/libarchive/libarchive/libarchive.a)
 else()
+	   FetchContent_Declare(nativefiledialog GIT_REPOSITORY https://github.com/btzy/nativefiledialog-extended GIT_TAG master)
+    FetchContent_MakeAvailable( nativefiledialog  )
+    target_include_directories(vielsprachig PUBLIC ${nativefiledialog_SOURCE_DIR})
+    target_link_libraries(vielsprachig PUBLIC nfd)
 	target_link_libraries(vielsprachig PUBLIC archive)
+
 endif()
 
 target_link_libraries(vielsprachig PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/libpugixml.a)

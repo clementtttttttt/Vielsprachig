@@ -4,3 +4,9 @@
 [submodule "libarchive"]
 	path = libarchive
 	url = https://github.com/libarchive/libarchive
+[submodule "ImGuiFileDialog"]
+	path = ImGuiFileDialog
+	url = https://github.com/aiekick/ImGuiFileDialog
+[submodule "nativefiledialog-extended"]
+	path = nativefiledialog-extended
+	url = https://github.com/btzy/nativefiledialog-extended

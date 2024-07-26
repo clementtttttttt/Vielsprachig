@@ -20,7 +20,12 @@
 #include "hello_imgui/runner_callbacks.h"
 #include "hello_imgui/runner_params.h"
 #include <SDL2/SDL.h>
-//#include <ImGuiFileDialog.h>
+
+#ifndef __EMSCRIPTEN__
+
+					#include <src/include/nfd.h>
+#endif
+
 
 enum modes { nil,
 			 M_LEX,
@@ -170,15 +175,60 @@ void maingui() {
 		if (ImGui::BeginMenu("File")) {
 
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
-
-				//ImGuiFileDialog test;
+	
 				#ifdef __EMSCRIPTEN__
 				emscripten_browser_file::upload(
 					".pgd", handle_upload_file);
 				#else
+										NFD_Init();
 					
+										nfdu8char_t *outPath;
+					nfdu8filteritem_t filters =  { "PolyGlot language file", "pgd"  };
+					nfdopendialogu8args_t args = {0};
+					args.filterList = &filters;
+					args.filterCount = 1;
+					nfdresult_t result = NFD_OpenDialogU8_With(&outPath, &args);
+					if (result == NFD_OKAY)
+					{
+						puts(outPath);
+						FILE *f = fopen(outPath, "rb");
+						if(!f){
+							popup = true;
+						}
+						else{
+							
+							//find file size
+							fseek(f, 0, SEEK_END);
+							int sz;
+							
+							char *buf = new char[sz=ftell(f)];
+							fseek(f,0,SEEK_SET);
+							if(fread(buf, sz, 1, f) == -1){
+									popup = true;
+							}
+							else{
+								
+								handle_upload_file(std::string(basename(outPath)), "", std::string_view(buf, sz));
+								NFD_FreePathU8(outPath);
+							}
+						}
+						
+					}
+					else if (result == NFD_CANCEL)
+					{
+						puts("User pressed cancel.");
+					}
+					else 
+					{
+						printf("Error: %s\n", NFD_GetError());
+					}
+
+					NFD_Quit();
+					
+				//	handle_upload_file();
 					
 				#endif
+
 				
 			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
@@ -233,6 +283,10 @@ void maingui() {
 				emscripten_browser_file::download(
 					curr_lang_fname, "application/octet-stream",
 					sv);
+				#else
+
+				
+				
 				#endif
 			}
 			if (ImGui::MenuItem("Open from browser stor.", "")) {
