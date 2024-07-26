@@ -211,6 +211,8 @@ void maingui() {
 								handle_upload_file(std::string(basename(outPath)), "", std::string_view(buf, sz));
 								NFD_FreePathU8(outPath);
 							}
+							
+							delete [] buf;
 						}
 						
 					}

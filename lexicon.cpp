@@ -99,8 +99,18 @@ void update_lexicon_word_prop(pugi::xml_node node) {
 
 void fix_lexicon_word_prop() { update_lexicon_word_prop(lexlist[0]); }
 
-pugi::xml_node create_entry() {
+struct sorterStruct{
+	
+	bool operator()( const pugi::xml_node& lx, const pugi::xml_node& rx ) const {
+        return lx.child("conWord").text().as_string()[0] < rx.child("conWord").text().as_string()[0];
+    }
+	
+};
 
+pugi::xml_node create_entry() {
+	
+
+	
 	int new_id = find_new_id();
 	pugi::xml_node word =
 		dict.child("dictionary").child("lexicon").append_child("word");
@@ -116,6 +126,9 @@ pugi::xml_node create_entry() {
 	word.append_child("wordClassCollection").text().set("");
 	word.append_child("wordClassTextValueCollection").text().set("");
 	word.append_child("wordEtymologyNotes").text().set("");
+	
+
+	
 
 	return word;
 }
